@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom prose styles for blog content */
+.prose {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.75;
+  color: #334155; /* slate-700 */
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: #1e293b; /* slate-800 */
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.prose strong {
+  font-weight: 600;
+  color: #1e293b; /* slate-800 */
+}
+
+.prose p {
+  margin-bottom: 1.25em;
+}
