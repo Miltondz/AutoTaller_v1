@@ -54,7 +54,7 @@ export function ServicesPage() {
               <Card key={service.id} className="overflow-hidden hover:shadow-xl transition-shadow">
                 <div className="h-64 overflow-hidden">
                   <img 
-                    src={service.image_url || '/images/elegant_music_notes_sheet_pattern_background.jpg'} /* Keep this image source */
+                    src={service.image_url || 'https://placehold.co/600x400/d1d5db/374151?text=Servicio+Musical'}
                     alt={service.name}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />

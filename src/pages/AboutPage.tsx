@@ -28,7 +28,7 @@ function AboutPage() {
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div className="relative">
             <img
-              src="https://images.pexels.com/photos/3771089/pexels-photo-3771089.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              src="https://placehold.co/800x600/d1d5db/374151?text=Maestra+de+Música"
               alt="Music Teacher Portrait"
               className="rounded-lg shadow-lg w-full h-96 object-cover"
             />

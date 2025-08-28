@@ -135,13 +135,22 @@ export function BookingPage() {
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl font-bold text-slate-800 mb-6">
-            Agenda tu Lección de Música
-          </h1>
-          <p className="text-xl text-slate-600">
-            Elige tu fecha, hora y servicio preferido para reservar tu lección de música personalizada.
-          </p>
+        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+          <div className="text-center md:text-left">
+            <h1 className="text-4xl font-bold text-slate-800 mb-6">
+              Agenda tu Lección de Música
+            </h1>
+            <p className="text-xl text-slate-600">
+              Elige tu fecha, hora y servicio preferido para reservar tu lección de música personalizada.
+            </p>
+          </div>
+          <div className="hidden md:block">
+            <img 
+              src="https://placehold.co/500x300/d1d5db/374151?text=Reserva+tu+Clase"
+              alt="Booking illustration"
+              className="rounded-lg shadow-lg"
+            />
+          </div>
         </div>
       </section>
 

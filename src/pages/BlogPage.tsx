@@ -102,7 +102,7 @@ export function BlogPage() {
                 <Card key={post.id} className="hover:shadow-xl transition-shadow">
                   <div className="h-48 overflow-hidden"> {/* Keep this div */}
                     <img 
-                      src={post.image_url || '/images/placeholders/elegant_music_education_blog_placeholder.jpg'} 
+                      src={post.image_url || 'https://placehold.co/400x200/d1d5db/374151?text=Blog+Post'} 
                       alt={post.title}
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                     />

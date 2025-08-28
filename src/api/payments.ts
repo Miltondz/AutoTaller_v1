@@ -113,7 +113,7 @@ export const paymentsApi = {
     const payments = data || []
     const totalRevenue = payments.filter(p => p.status === 'completed').reduce((sum, p) => sum + p.amount, 0)
     const pendingAmount = payments.filter(p => p.status === 'pending').reduce((sum, p) => sum + p.amount, 0)
-    const paidCount = payments.filter(p => p.status === 'paid').length
+    const paidCount = payments.filter(p => p.status === 'completed').length
     const pendingCount = payments.filter(p => p.status === 'pending').length
 
     return {

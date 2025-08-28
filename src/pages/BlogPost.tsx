@@ -126,13 +126,11 @@ function BlogPost() {
       {/* Blog Post Content */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
-          {post.image_url && (
-            <img
-              src={post.image_url}
-              alt={post.title}
-              className="w-full h-96 object-cover rounded-lg mb-8"
-            />
-          )}
+          <img
+            src={post.image_url || 'https://placehold.co/1200x600/d1d5db/374151?text=Blog+Post'}
+            alt={post.title}
+            className="w-full h-96 object-cover rounded-lg mb-8"
+          />
           <div className="prose max-w-none">
             {formatContent(post.content)}
           </div>

@@ -73,14 +73,23 @@ export function ContactPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-16">
       {/* Header */}
-      <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold text-slate-800 mb-4">
-          Contáctanos
-        </h1>
-        <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-          ¿Tienes preguntas sobre nuestros servicios? ¿Te gustaría agendar una clase? 
-          Estamos aquí para ayudarte en tu viaje musical.
-        </p>
+      <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="text-center lg:text-left">
+          <h1 className="text-4xl font-bold text-slate-800 mb-4">
+            Contáctanos
+          </h1>
+          <p className="text-lg text-slate-600 max-w-3xl mx-auto lg:mx-0">
+            ¿Tienes preguntas sobre nuestros servicios? ¿Te gustaría agendar una clase? 
+            Estamos aquí para ayudarte en tu viaje musical.
+          </p>
+        </div>
+        <div className="hidden lg:block">
+          <img 
+            src="https://placehold.co/500x300/d1d5db/374151?text=Contacto"
+            alt="Contact illustration"
+            className="rounded-lg shadow-lg"
+          />
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-12">

@@ -154,7 +154,7 @@ function GalleryPage() {
                     {item.media_type === 'youtube' && (
                       <div className="relative w-full h-full bg-black flex items-center justify-center">
                         <img
-                          src={item.thumbnail_url || `https://img.youtube.com/vi/${extractYouTubeId(item.media_url)}/maxresdefault.jpg`}
+                          src={item.thumbnail_url || `https://placehold.co/400x400/d1d5db/374151?text=YouTube`}
                           alt={item.title}
                           className="w-full h-full object-cover opacity-75"
                         />

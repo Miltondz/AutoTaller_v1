@@ -24,12 +24,12 @@ export function HomePage() {
       {/* Hero Section */}
       <section 
         className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-amber-50 overflow-hidden"
-        // style={{
-        //   backgroundImage: 'url(/images/professional-music-teacher-piano-lesson-studio.jpg)',
-        //   backgroundSize: 'cover',
-        //   backgroundPosition: 'center',
-        //   backgroundBlendMode: 'overlay'
-        // }}
+        style={{
+          backgroundImage: 'url(/images/professional-music-teacher-piano-lesson-studio.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundBlendMode: 'overlay'
+        }}
       >
         <div className="absolute inset-0 bg-slate-900/60"></div>
         <div className="relative max-w-4xl mx-auto text-center text-white">
