@@ -1,4 +1,4 @@
-"""import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DollarSign, Calendar, User, CheckCircle, XCircle, AlertCircle, Filter, Clock, PlusCircle, RefreshCw, Trash2 } from 'lucide-react';
 import { Card, CardContent } from '../../components/Card';
 import { Button } from '../../components/Button';
