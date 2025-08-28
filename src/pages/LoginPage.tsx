@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader } from '../components/Card'
 import { Button } from '../components/Button'
 import { Spinner } from '../components/Spinner'
 import { formatDate } from '../lib/utils'
-import { useAuth } from '../contexts/AuthContext'
+import { useAuth } from '../hooks/useAuth'
 
 export { LoginPage }
 

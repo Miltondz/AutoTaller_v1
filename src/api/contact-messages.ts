@@ -6,6 +6,19 @@ const baseApi = createSupabaseApi<ContactMessage>('contact_messages')
 
 export const contactMessagesApi = {
   ...baseApi,
+  create: async (messageData: CreateContactMessageData): Promise<ContactMessage> => {
+    const { data, error } = await supabase
+      .from('contact_messages')
+      .insert({
+        ...messageData,
+        is_read: messageData.is_read ?? false,
+      })
+      .select()
+      .single()
+
+    if (error) throw error
+    return data
+  },
   // Get unread contact messages
   async getUnread(): Promise<ContactMessage[]> {
     const { data, error } = await supabase

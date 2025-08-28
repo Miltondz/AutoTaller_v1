@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Music, Menu, X, User, LogOut, Calendar, BookOpen, Home, Info, Mail, Image as ImageIcon } from 'lucide-react' // Keep these imports
 import { Button } from './Button'
-import { useAuth } from '../contexts/AuthContext'
+import { useAuth } from '../hooks/useAuth'
 import { useIsMobile } from '../hooks/use-mobile'
 
 export { Header }

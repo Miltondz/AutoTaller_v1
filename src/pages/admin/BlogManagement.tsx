@@ -93,7 +93,10 @@ export function BlogManagement() {
       const submitData = {
         ...formData,
         slug: formData.slug || generateSlug(formData.title),
-        published_date: new Date(formData.published_date).toISOString()
+        published_date: new Date(formData.published_date).toISOString(),
+        image_url: formData.image_url || null,
+        excerpt: formData.excerpt || null,
+        author: formData.author || null
       }
       
       if (editingPost) {
