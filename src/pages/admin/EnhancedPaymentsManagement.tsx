@@ -245,6 +245,8 @@ export function EnhancedPaymentsManagement() {
     title: string;
     message: string;
     onConfirm: () => void;
+    confirmText?: string;
+    cancelText?: string;
   } | null>(null);
 
 
@@ -402,7 +404,7 @@ export function EnhancedPaymentsManagement() {
         <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
         <h3 className="text-lg font-semibold text-slate-800 mb-2">Error al cargar los pagos</h3>
         <p className="text-slate-600 mb-4">{error}</p>
-        <Button onClick={loadData}>Intentar de nuevo</Button>
+        <Button onClick={() => loadData()}>Intentar de nuevo</Button>
       </div>
     );
   }
@@ -424,6 +426,8 @@ export function EnhancedPaymentsManagement() {
           onConfirm={confirmation.onConfirm}
           onCancel={() => setConfirmation(null)}
           isLoading={!!updatingStatus}
+          confirmText={confirmation.confirmText}
+          cancelText={confirmation.cancelText}
         />
       }
 
