@@ -146,7 +146,7 @@ export function BookingPage() {
           </div>
           <div className="hidden md:block">
             <img 
-              src="https://placehold.co/500x300/d1d5db/374151?text=Reserva+tu+Clase"
+              src="/images/reserva_clase.jpg"
               alt="Booking illustration"
               className="rounded-lg shadow-lg"
             />

@@ -25,7 +25,7 @@ export function HomePage() {
       <section 
         className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-amber-50 overflow-hidden"
         style={{
-          backgroundImage: 'url(/images/professional-music-teacher-piano-lesson-studio.jpg)',
+          backgroundImage: 'url(/images/main_header.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundBlendMode: 'overlay'
@@ -82,7 +82,7 @@ export function HomePage() {
             </div>
             <div className="relative">
               <img 
-                src="/images/elegant-grand-piano-keys-close-up-dramatic-lighting.jpg" 
+                src="/images/main_hero.jpeg" 
                 alt="Profesora de música en estudio"
                 className="rounded-lg shadow-lg w-full h-96 object-cover"
               />

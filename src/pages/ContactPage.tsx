@@ -85,7 +85,7 @@ export function ContactPage() {
         </div>
         <div className="hidden lg:block">
           <img 
-            src="https://placehold.co/500x300/d1d5db/374151?text=Contacto"
+            src="/images/contacto.jpg"
             alt="Contact illustration"
             className="rounded-lg shadow-lg"
           />
