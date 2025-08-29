@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Calendar, ArrowRight, BookOpen, Award, Music, Users, Star } from 'lucide-react'
+import { Calendar, ArrowRight, BookOpen, GraduationCap, ClipboardEdit, HeartHandshake, Star } from 'lucide-react'
 import { Button } from '../components/Button'
 import { Card, CardContent } from '../components/Card'
 import { useServices } from '../hooks/useServices'
@@ -37,7 +37,7 @@ export function HomePage() {
             Descubre tu Pasión Musical
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-slate-200">
-            Clases personalizadas de piano, guitarra y violín para inspirar y nutrir tu viaje musical único
+            Tu viaje musical, a medida. Conoce nuestras clases de piano, guitarra y violín diseñadas para inspirarte, guiarte y nutrir tu talento único.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/reservar">
@@ -61,17 +61,13 @@ export function HomePage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6">
-                Tu Viaje Musical Comienza Aquí
+                Una Trayectoria Dedicada a la Música
               </h2>
               <p className="text-lg text-slate-600 mb-6">
-                Con más de 15 años de experiencia en instrucción musical profesional, siento pasión por 
-                ayudar a estudiantes de todas las edades a descubrir la alegría y satisfacción que viene de hacer música. 
-                Ya seas un principiante completo o busques refinar habilidades avanzadas, 
-                proporciono instrucción personalizada que te encuentra exactamente donde estás.
+                Con más de 25 años de experiencia profesional en la instrucción musical, mi compromiso es guiar a estudiantes de todas las edades a través de su propio viaje de autodescubrimiento. Desde mi primera experiencia como coralista hasta mi rol actual como docente, he dedicado mi vida a la música y siento una profunda pasión por compartirla.
               </p>
               <p className="text-lg text-slate-600 mb-8">
-                Mi enfoque combina técnica tradicional con métodos de enseñanza modernos, creando 
-                un ambiente de aprendizaje atractivo y de apoyo donde los estudiantes prosperan.
+                Mi filosofía se centra en la excelencia y el acompañamiento personalizado. Combino una sólida formación académica con metodologías modernas y creativas, creando un ambiente de aprendizaje positivo donde cada nota cuenta y cada estudiante puede alcanzar su máximo potencial.
               </p>
               <Link to="/acerca-de">
                 <Button variant="outline">
@@ -88,7 +84,7 @@ export function HomePage() {
               />
               <div className="absolute -bottom-4 -right-4 bg-amber-600 text-white p-4 rounded-lg shadow-lg">
                 <div className="text-center">
-                  <div className="text-2xl font-bold">15+</div>
+                  <div className="text-2xl font-bold">25+</div>
                   <div className="text-sm">Años de Experiencia</div>
                 </div>
               </div>
@@ -101,37 +97,37 @@ export function HomePage() {
       <section className="py-16 bg-amber-50 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6">
-            ¿Por Qué Elegirnos?
+            Tu Éxito es Nuestra Pasión
           </h2>
           <p className="text-xl text-slate-600 mb-12">
-            Comprometidos con la excelencia y tu crecimiento musical
+            Estamos comprometidos con tu crecimiento musical y personal.
           </p>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="flex flex-col items-center text-center">
-              <Award className="w-16 h-16 text-amber-600 mb-4" />
+              <GraduationCap className="w-16 h-16 text-amber-600 mb-4" />
               <h3 className="text-xl font-semibold text-slate-800 mb-2">
-                Instrucción Experta
+                Instrucción de Vanguardia
               </h3>
               <p className="text-slate-600">
-                Profesores altamente calificados con años de experiencia dedicados a tu éxito.
+                La Licda. Laura Díaz M. es una profesional altamente calificada con una trayectoria que abarca la coralidad, la docencia y la dirección musical. Su experiencia garantiza una guía experta y personalizada, centrada en las necesidades y aspiraciones únicas de cada estudiante.
               </p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Music className="w-16 h-16 text-amber-600 mb-4" />
+              <ClipboardEdit className="w-16 h-16 text-amber-600 mb-4" />
               <h3 className="text-xl font-semibold text-slate-800 mb-2">
                 Planes Personalizados
               </h3>
               <p className="text-slate-600">
-                Lecciones adaptadas a tu estilo de aprendizaje, ritmo e intereses musicales.
+                Aquí no existe un enfoque único. Diseñamos un plan de estudio que se adapta a tu estilo de aprendizaje, a tu ritmo y, lo más importante, a tus intereses. Porque creemos que el camino para dominar un instrumento debe ser tan gratificante y personal como la música misma.
               </p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Users className="w-16 h-16 text-amber-600 mb-4" />
+              <HeartHandshake className="w-16 h-16 text-amber-600 mb-4" />
               <h3 className="text-xl font-semibold text-slate-800 mb-2">
                 Comunidad de Apoyo
               </h3>
               <p className="text-slate-600">
-                Únete a una vibrante comunidad de estudiantes y amantes de la música.
+                Únete a una vibrante red de estudiantes y amantes de la música que comparten tu pasión. Tendrás acceso a talleres, presentaciones y eventos que fomentan la colaboración y el crecimiento mutuo, haciendo que tu experiencia de aprendizaje sea más enriquecedora y duradera.
               </p>
             </div>
           </div>
@@ -185,7 +181,7 @@ export function HomePage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-slate-800 mb-4">
-              Clases y Servicios Musicales
+              Nuestros Servicios
             </h2>
             <p className="text-lg text-slate-600">
               Instrucción profesional adaptada a tus aspiraciones musicales
@@ -244,7 +240,7 @@ export function HomePage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
-              Lo que Dicen los Estudiantes
+              Testimonios
             </h2>
             <p className="text-lg text-slate-600">
               Escucha de estudiantes que han descubierto su potencial musical
@@ -289,16 +285,15 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto text-center text-white">
           <BookOpen className="w-16 h-16 mx-auto mb-6 text-amber-200" />
           <h2 className="text-3xl font-bold mb-4">
-            ¿Listo para Empezar tu Viaje Musical?
+            Únete a Nuestra Comunidad
           </h2>
           <p className="text-xl mb-8 text-amber-100">
-            Da el primer paso hacia la realización musical. Reserva tu clase personalizada hoy 
-            y descubre la alegría de hacer música.
+            Descubre el poder de la música y comienza tu viaje hoy mismo. Reserva tu primera clase y da el primer paso hacia tu futuro musical.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/reservar">
               <Button variant="secondary" size="lg">
-                Programa tu Primera Clase
+                Reserva tu Clase
                 <Calendar className="w-5 h-5 ml-2" />
               </Button>
             </Link>
