@@ -67,7 +67,7 @@ export function ServicesPage() {
                 </CardHeader>
                 
                 <CardContent className="space-y-6">
-                  <p className="text-slate-600 leading-relaxed">
+                  <p className="text-slate-600 leading-relaxed h-16">
                     {service.description}
                   </p>
                   
