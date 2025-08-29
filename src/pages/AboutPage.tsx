@@ -30,7 +30,7 @@ function AboutPage() {
             <img
               src="/images/acerca_de_mi.jpeg"
               alt="Music Teacher Portrait"
-              className="rounded-lg shadow-lg w-full h-96 object-cover"
+              className="rounded-lg shadow-lg w-full object-contain mx-auto"
             />
             <div className="absolute -bottom-4 -right-4 bg-amber-600 text-white p-4 rounded-lg shadow-lg">
               <div className="text-center">
