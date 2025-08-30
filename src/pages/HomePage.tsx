@@ -5,9 +5,9 @@ import { Button } from '../components/Button';
 import { Card, CardContent } from '../components/Card';
 import { useServices } from '../hooks/useServices';
 import { useTestimonials } from '../hooks/useTestimonials';
-import { useFeaturedMedia } from '../hooks/useMediaGallery';
 import { formatPrice } from '../lib/utils';
 import { BlogCarousel } from '../components/BlogCarousel';
+import { FeaturedGallery } from '../components/FeaturedGallery';
 import { Spinner } from '../components/Spinner';
 import { motion } from 'framer-motion';
 
@@ -26,11 +26,9 @@ const Section = ({ children, className }: { children: React.ReactNode, className
 export function HomePage() {
   const { services, loading: servicesLoading } = useServices();
   const { testimonials, loading: testimonialsLoading } = useTestimonials();
-  const { featuredItems, loading: mediaLoading } = useFeaturedMedia();
 
   const featuredServices = services.slice(0, 3);
   const featuredTestimonials = testimonials.slice(0, 3);
-  const featuredPhotos = featuredItems.filter(item => item.media_type === 'photo').slice(0, 4);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -229,9 +227,10 @@ export function HomePage() {
       </Section>
 
       {/* Blog Carousel */}
-      <Section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
-        <BlogCarousel />
-      </Section>
+      <BlogCarousel />
+
+      {/* Featured Gallery */}
+      <FeaturedGallery />
 
       {/* Call to Action */}
       <section className="py-24 bg-amber-600 px-4 sm:px-6 lg:px-8">
