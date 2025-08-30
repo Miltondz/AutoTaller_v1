@@ -5,9 +5,9 @@ import { Button } from '../components/Button';
 import { Card, CardContent } from '../components/Card';
 import { useServices } from '../hooks/useServices';
 import { useTestimonials } from '../hooks/useTestimonials';
+import { useFeaturedMedia } from '../hooks/useMediaGallery';
 import { formatPrice } from '../lib/utils';
 import { BlogCarousel } from '../components/BlogCarousel';
-import { FeaturedGallery } from '../components/FeaturedGallery';
 import { Spinner } from '../components/Spinner';
 import { motion } from 'framer-motion';
 
@@ -26,9 +26,11 @@ const Section = ({ children, className }: { children: React.ReactNode, className
 export function HomePage() {
   const { services, loading: servicesLoading } = useServices();
   const { testimonials, loading: testimonialsLoading } = useTestimonials();
+  const { featuredItems, loading: mediaLoading } = useFeaturedMedia();
 
   const featuredServices = services.slice(0, 3);
   const featuredTestimonials = testimonials.slice(0, 3);
+  const featuredPhotos = featuredItems.filter(item => item.is_featured && item.media_type === 'photo').slice(0, 2);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -163,9 +165,9 @@ export function HomePage() {
       </Section>
 
       {/* Featured Services */}
-      <Section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <Section className="py-10 sm:py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12 sm:mb-16">
+          <div className="text-center mb-10 sm:mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-800 mb-4">Servicios Musicales</h2>
             <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto">Clases de música para todas las edades y niveles. Explora nuestros servicios y encuentra el ideal para ti.</p>
           </div>
@@ -229,17 +231,52 @@ export function HomePage() {
       {/* Blog Carousel */}
       <BlogCarousel />
 
-      {/* Featured Gallery */}
-      <FeaturedGallery />
+      {/* Call to Action - Combined with Featured Gallery */}
+      <section className="py-16 sm:py-24 bg-amber-600 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center text-white">
+          {mediaLoading ? (
+            <div className="flex justify-center lg:col-span-2"><Spinner size="lg" /></div>
+          ) : featuredPhotos.length > 0 ? (
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+              className="grid grid-cols-2 gap-4"
+            >
+              {featuredPhotos.map((item) => (
+                <div key={item.id} className="relative overflow-hidden rounded-lg shadow-lg aspect-video">
+                  <img
+                    src={item.thumbnail_url || item.media_url}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                    <span className="text-white text-lg font-bold">Ver</span>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          ) : (
+            <div className="lg:col-span-2 text-center">
+              <BookOpen className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-6 text-amber-200" />
+            </div>
+          )}
 
-      {/* Call to Action */}
-      <section className="py-24 bg-amber-600 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center text-white">
-          <motion.div initial={{ scale: 0.8, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.8, ease: 'easeOut' }}>
-            <BookOpen className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-6 text-amber-200" />
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Únete a Nuestra Comunidad Musical</h2>
-            <p className="text-lg sm:text-xl mb-10 text-amber-100 max-w-2xl mx-auto">Da el primer paso hacia tu futuro musical. Reserva tu clase hoy y descubre el poder de la música.</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="text-center lg:text-left"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              Únete a Nuestra Comunidad Musical
+            </h2>
+            <p className="text-lg sm:text-xl mb-10 text-amber-100 max-w-2xl lg:max-w-none mx-auto lg:mx-0">
+              Da el primer paso hacia tu futuro musical. Reserva tu clase hoy y descubre el poder de la música.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Link to="/reservar"><Button variant="secondary" size="lg">Reserva tu Clase<Calendar className="w-5 h-5 ml-2" /></Button></Link>
               <Link to="/contacto"><Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-amber-600">Contáctanos</Button></Link>
             </div>

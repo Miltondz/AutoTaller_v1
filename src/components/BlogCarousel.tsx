@@ -16,11 +16,11 @@ export function BlogCarousel() {
     return plainText.substring(0, maxLength).replace(/\s+\S*$/, '') + '...';
   };
 
-  const featuredPosts = blogPosts.slice(0, 2);
+  const featuredPosts = blogPosts.slice(0, 3);
 
   if (loading) {
     return (
-      <section className="py-12 bg-slate-50 px-4 sm:px-6 lg:px-8">
+      <section className="py-10 bg-slate-50 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-slate-800 mb-8">Últimas Publicaciones del Blog</h2>
           <Spinner size="lg" />
@@ -34,14 +34,14 @@ export function BlogCarousel() {
   }
 
   return (
-    <section className="py-12 sm:py-16 bg-slate-50 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-10">
+    <section className="py-10 sm:py-12 bg-slate-50 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-800 mb-3">Desde Nuestro Blog</h2>
           <p className="text-lg text-slate-600">Consejos, inspiración y noticias del mundo de la música.</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {featuredPosts.map((post) => (
             <Card key={post.id} className="hover:shadow-xl transition-shadow duration-300 flex flex-col">
               <div className="h-56 overflow-hidden">
@@ -66,7 +66,7 @@ export function BlogCarousel() {
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-10">
           <Link to="/blog">
             <Button size="lg">Ver Todas las Publicaciones</Button>
           </Link>
