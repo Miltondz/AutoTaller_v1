@@ -1,224 +1,109 @@
-# Music Teacher Website - Complete Implementation Guide
+# Sitio Web Profesional para Maestra de Música
 
-import { Search, Calendar, ArrowRight, BookOpen } from 'lucide-react' // Keep these imports
+Este repositorio contiene el código fuente de un sitio web completo y profesional para una maestra de música. La aplicación está diseñada para ser una plataforma atractiva y funcional que permita a la maestra presentar sus servicios, compartir su conocimiento a través de un blog, gestionar clases y reservas, y mostrar su trabajo en una galería multimedia.
 
-A comprehensive, production-ready music teacher website with booking system, content management, and admin dashboard. Built with React, TypeScript, Tailwind CSS, and Supabase.
+## ✨ Características Principales
 
-**Live Website:** [https://m8g9397jeo9j.space.minimax.io](https://m8g9397jeo9j.space.minimax.io)
+### Para Visitantes
+- **Diseño Profesional y Atractivo**: Una interfaz cálida y elegante con una temática musical.
+- **Totalmente Adaptable (Responsive)**: Se ve y funciona de maravilla en cualquier dispositivo, desde móviles hasta ordenadores de escritorio.
+- **Navegación Intuitiva**: Un menú claro y sencillo para acceder a todas las secciones.
+- **Reserva de Clases**: Un sistema interactivo para que los estudiantes puedan ver la disponibilidad y reservar clases.
+- **Blog Educativo**: Una sección para compartir artículos, tutoriales y noticias.
+- **Galería Multimedia**: Un espacio para mostrar fotos y videos de clases, recitales y eventos.
 
-## Features
+### Para el Administrador
+- **Panel de Administración Completo**: Un área privada para gestionar todo el contenido del sitio.
+- **Gestión de Contenido Dinámico**: Permite crear, editar y eliminar servicios, testimonios, entradas de blog y elementos de la galería.
+- **Gestión de Reservas**: Permite ver y administrar las clases reservadas por los estudiantes.
+- **Sistema de Autenticación Seguro**: Acceso protegido al panel de administración.
 
-### Frontend Features
-- **Professional Design**: A warm, inviting music-themed design with an elegant color palette.
-- **Responsive Layout**: A mobile-first design approach ensures the website looks and functions beautifully on all devices.
-- **Intuitive Navigation**: A clear header with logo, navigation menu, and authentication state.
-- **Homepage**: Features a compelling hero section, teacher biography, featured services, and student testimonials.
-- **Services Page**: Displays complete service listings with detailed pricing and descriptions.
-- **About Page**: Provides a detailed teacher biography, credentials, and teaching philosophy.
-- **Blog System**: A full-featured blog with search functionality, individual post pages, and rich content formatting.
-- **Booking System**: An interactive calendar allows for time slot selection and includes robust form validation.
-- **Media Gallery**: A dedicated page to showcase photos, videos, and social media content.
-- **Contact Page**: A professional contact form with various inquiry types and contact information.
+## 🚀 Secciones de la Aplicación
 
-### Backend Integration
-- **Supabase Integration**: Complete database setup leveraging Supabase for PostgreSQL, authentication, and real-time features.
-- **Authentication**: Secure administrative login with protected routes ensures only authorized users can access sensitive areas.
-- **API Layer**: Comprehensive API functions handle all Create, Read, Update, and Delete (CRUD) operations.
-- **Data Management**: A robust data flow from the frontend to the Supabase database.
+- **Inicio**: La página de bienvenida con una introducción, un resumen de los servicios y testimonios de estudiantes.
+- **Sobre Mí**: Una página dedicada a la biografía, experiencia y filosofía de enseñanza de la maestra.
+- **Servicios**: Un listado detallado de todas las clases y servicios ofrecidos, con sus precios y descripciones.
+- **Galería**: Una colección de fotos y videos.
+- **Blog**: Artículos y publicaciones para compartir conocimiento y conectar con los estudiantes.
+- **Contacto**: Un formulario para que los visitantes puedan enviar sus consultas.
+- **Reservar Clase**: La página donde los estudiantes pueden agendar sus clases.
+- **/admin**: El panel de administración para gestionar el contenido del sitio.
 
-### Admin Dashboard Features
-- **Dashboard Overview**: Provides quick statistics and management shortcuts.
-- **Services Management**: Full CRUD operations for managing music lesson offerings, including pricing and duration.
-- **Appointments Management**: View, accept, and reject student booking requests.
-- **Blog Management**: Create, edit, and delete blog posts with a rich text editor and preview mode.
-- **Testimonials Management**: Review and moderate student reviews and feedback.
-- **Payment Tracking**: A framework for tracking and managing lesson payments.
-- **Media Gallery Management**: Add, edit, and delete various media types (photos, videos, YouTube, Instagram).
-- **Contact Messages Management**: View and manage messages submitted through the contact form.
+## ✏️ Cómo Modificar Contenido Básico
 
-## Technical Architecture
+Este sitio está diseñado para que la mayor parte del contenido se pueda gestionar fácilmente desde el panel de administración. Sin embargo, algunos textos e imágenes fijos se modifican directamente en el código.
 
-### Frontend Stack
-- **React 18.3** with TypeScript for type safety
-- **Vite 6.0** for fast development and optimized builds
-- **Tailwind CSS** for utility-first responsive styling and a robust design system.
-- **React Router** for efficient client-side routing.
-- **React Hook Form + Zod** for streamlined form validation.
-- **Lucide React** for a consistent and modern icon system.
+### Contenido del Panel de Administración (Dinámico)
 
-### Backend Stack
-- **Supabase**: Utilized as a Backend-as-a-Service (BaaS) for its PostgreSQL database, authentication, and real-time capabilities.
-- **PostgreSQL**: The relational database with robust Row Level Security (RLS) policies.
-- **RESTful API**: Automatically generated by Supabase for seamless data interaction.
+La forma más sencilla de actualizar el sitio es a través del panel de administración en la ruta `/admin`. Desde allí puedes gestionar:
+- **Servicios**: Cambia los nombres, descripciones y precios de tus clases.
+- **Testimonios**: Publica nuevas reseñas de tus estudiantes.
+- **Blog**: Escribe y publica nuevos artículos.
+- **Galería**: Sube nuevas fotos y videos.
 
-### Security Features
-- **Row Level Security (RLS)**: Implemented on all database tables to ensure data access is strictly controlled.
-- **Protected Admin Routes**: Authentication checks secure all administrative areas.
-- **Input Validation**: Client-side validation with Zod schemas prevents invalid data entry.
-- **Secure Environment Variables**: API keys and sensitive information are stored securely.
+### Contenido en el Código (Estático)
 
-## Database Setup
+Algunos textos, como los títulos principales de las páginas o las descripciones generales, se encuentran directamente en los archivos del proyecto.
 
-**IMPORTANT: Database Setup Required**
+- **Textos de las páginas principales**:
+  - **Página de Inicio**: `src/pages/HomePage.tsx`
+  - **Página Sobre Mí**: `src/pages/AboutPage.tsx`
+  - Para cambiar un texto, busca el texto actual en el archivo y reemplázalo por el nuevo.
 
-To ensure full website functionality, you must run the provided SQL setup script in your Supabase dashboard. This script creates all necessary tables, sets up Row Level Security (RLS) policies, and populates initial sample data.
+- **Imágenes principales**:
+  - Las imágenes de diseño como el logo o los banners se encuentran en la carpeta `public/images`. Puedes reemplazar los archivos de imagen existentes con los tuyos, manteniendo el mismo nombre de archivo para que se actualicen automáticamente en el sitio.
 
-### Steps to Set Up Your Supabase Database:
+## 🛠️ Apartado Técnico
 
-1.  **Access Your Supabase Dashboard**:
-    *   Go to [https://supabase.com/dashboard](https://supabase.com/dashboard).
-    *   Navigate to your project (e.g., `nfostlreaihscwdocbpd`).
+### Frontend
+- **Framework**: React 18 con TypeScript.
+- **Entorno de Desarrollo**: Vite para una experiencia de desarrollo rápida y optimizada.
+- **Estilos**: Tailwind CSS para un diseño moderno y adaptable.
+- **Componentes**: Shadcn UI y Radix UI para componentes accesibles y de alta calidad.
+- **Iconos**: Lucide React.
+- **Enrutamiento**: React Router.
+- **Formularios**: React Hook Form con Zod para validaciones robustas.
 
-2.  **Open the SQL Editor**:
-    *   In the left sidebar, click on "SQL Editor".
-    *   Click "New query" to open a fresh editor.
+### Backend
+- **Plataforma**: Supabase (Backend-as-a-Service).
+- **Base de Datos**: PostgreSQL.
+- **Autenticación**: Sistema de usuarios de Supabase para proteger el panel de administración.
+- **Almacenamiento**: Supabase Storage para guardar imágenes y otros archivos multimedia.
+- **Seguridad**: Políticas de seguridad a nivel de fila (RLS) en la base de datos para proteger los datos.
 
-3.  **Run the Database Setup Script**:
-    *   Copy the entire contents of the `database-setup.sql` file from your project.
-    *   Paste it into the Supabase SQL editor.
-    *   Click the "Run" button to execute all commands.
+## ⚙️ Instalación y Despliegue
 
-4.  **Verify Setup**:
-    *   Check the "Table Editor" to confirm that all tables (`services`, `testimonials`, `blog_posts`, `appointments`, `payments`, `media_gallery`, `contact_messages`) have been created.
-    *   Confirm that sample data is populated in the respective tables.
-    *   Ensure that RLS policies are active for all tables.
+### Desarrollo Local
+1.  Clona el repositorio.
+2.  Crea un archivo `.env` a partir del `.env.example` y añade tus claves de Supabase.
+3.  Instala las dependencias:
+    ```bash
+    npm install
+    ```
+4.  Ejecuta el servidor de desarrollo:
+    ```bash
+    npm run dev
+    ```
 
-### Sample Data Included:
--   **4 Music Services**: Piano, Guitar, Violin lessons, and Music Theory.
--   **6 Testimonials**: Authentic student reviews.
--   **4 Blog Posts**: Educational articles about music learning.
--   **Sample Media Gallery Items**: Photos, videos, and social media links.
--   **Sample Contact Messages**: Placeholder messages for testing the contact form.
-
-## Admin Dashboard
-
-The administrative dashboard provides full control over the website's content and operations.
-
-### Admin Routes:
--   `/admin`: Dashboard overview.
--   `/admin/services`: Manage music lesson offerings.
--   `/admin/appointments`: Handle booking requests.
--   `/admin/blog`: Create and edit blog posts.
--   `/admin/testimonials`: Manage student reviews.
--   `/admin/payments`: Track financial records.
--   `/admin/media`: Manage media gallery content.
--   `/admin/messages`: View and respond to contact form submissions.
-
-### Admin Credentials (for testing):
-You will need to create an admin user in your Supabase project's Authentication section.
--   **Email**: `mdvoid@gmail.com`
--   **Password**: `123456` (or any secure password you set)
-
-## Design System
-
-### Color Palette
-- **Primary**: Amber/Gold tones (#D97706, #F59E0B)
-- **Secondary**: Slate grays (#1E293B, #475569)
-- **Accent**: Warm supporting colors
-- **Background**: Clean whites and light grays
-
-### Typography
-- **Headings**: Bold, professional font weights for clear hierarchy.
-- **Body Text**: Readable, accessible font sizes for optimal legibility.
-- **Hierarchy**: Clear visual organization to guide the user's eye.
-
-### Visual Elements
-- **Professional Photography**: High-quality, music-themed images enhance the visual appeal.
-- **Subtle Animations**: Hover effects and transitions provide a smooth user experience.
-- **Consistent Spacing**: Harmonious layout proportions ensure a clean and organized look.
-- **Icon System**: Lucide React icons are used consistently throughout the application.
-
-## Performance Optimizations
-
-- **Image Optimization**: Properly sized and formatted images
-- **Code Splitting**: Efficient bundle loading
-- **Lazy Loading**: On-demand component loading
-- **Responsive Design**: Ensures optimal performance across all device sizes.
-- **Fast Loading**: Achieved through Vite build optimizations.
-
-## SEO Features
-
-- **Semantic HTML**: Proper heading hierarchy and structure
-- **Meta Tags**: Title and description optimization
-- **URL Structure**: Clean, descriptive routes
-- **Blog System**: Provides a platform for content marketing.
-- **Professional Imagery**: High-quality visual content
-
-## Accessibility Features
-
-- **Keyboard Navigation**: Full keyboard accessibility
-- **Screen Reader Support**: Proper ARIA labels and semantic HTML
-- **Color Contrast**: WCAG compliant color combinations
-- **Focus Management**: Clear focus indicators for improved navigation.
-- **Form Accessibility**: Proper labels and error messages for enhanced usability.
-
-## Browser Support
-
-- **Modern Browsers**: Chrome, Firefox, Safari, Edge
-- **Mobile Browsers**: iOS Safari, Chrome Mobile
-- **Progressive Enhancement**: Graceful degradation for older browsers
-
-## Security Measures
-
-- **Environment Variables**: Secure credential storage
-- **Row Level Security**: Database-level access control
-- **Input Validation**: Client and server-side validation
-- **Authentication**: Secure user management
-- **HTTPS**: Encrypted data transmission
-
-## Development Workflow
-
-### Local Development
+### Construcción para Producción
 ```bash
-pnpm install
-pnpm dev
+npm run build
 ```
+El resultado se generará en la carpeta `dist`, listo para ser desplegado en cualquier servicio de hosting para sitios estáticos como Netlify, Vercel o GitHub Pages.
 
-### Production Build
-```bash
-pnpm run build
+### Despliegue en Netlify
+Para que el enrutamiento de React funcione correctamente en Netlify, este proyecto incluye un archivo `public/_redirects` que redirige todas las solicitudes al `index.html`. Simplemente conecta tu repositorio a Netlify y se desplegará automáticamente.
+
+## 🐘 Configuración de Supabase
+
+Para que la aplicación funcione, necesitas configurar tu propia base de datos en Supabase.
+
+1.  **Crea un proyecto en Supabase**.
+2.  **Ve al Editor SQL** en el panel de tu proyecto.
+3.  **Ejecuta el script de la base de datos**: Copia el contenido del archivo `database-setup-spanish.sql` y pégalo en el editor SQL de Supabase. Ejecuta el script para crear todas las tablas y configuraciones necesarias.
+4.  **Configura las variables de entorno**: En tu archivo `.env`, añade la URL y la `anon key` de tu proyecto de Supabase. Las encontrarás en la sección de `Settings > API` de tu proyecto en Supabase.
 ```
-
-### Environment Setup
-- Copy `.env.example` to `.env` in the root directory of your project.
-- Add your Supabase project URL and Anon Key to the `.env` file.
-- Configure any other necessary environment variables.
-
-## Deployment Information
-
-- **Platform**: MiniMax Space
-- **URL**: https://fp22zk9y1azd.space.minimax.io
-- **Build System**: Vite production build
-- **Static Assets**: Optimized and compressed
-
-## Next Steps
-
-To ensure full functionality and customize the website for your needs:
-
-1.  **Complete Database Setup**: Ensure you have run the `database-setup.sql` script in your Supabase SQL Editor.
-2.  **Test Admin Access**: Create an admin user in Supabase Authentication and verify you can log in at `/login` and access the `/admin` dashboard.
-3.  **Content Population**: Replace sample data with your actual content (services, blog posts, testimonials, media gallery items) through the admin dashboard.
-4.  **Domain Setup**: If desired, configure a custom domain for your deployed website.
-5.  **Email Integration**: Set up email notifications for booking confirmations or contact form submissions (requires additional backend configuration, e.g., Supabase Edge Functions for sending emails).
-
-## Support and Maintenance
-
-- **Supabase Dashboard**: Monitor database and API usage
-- **Error Tracking**: Built-in error handling and user feedback
-- **Content Updates**: Easy content management through admin dashboard
-- **Backup Strategy**: Leverage Supabase's automatic backups for data safety.
-
-## Conclusion
-
-This music teacher website represents a complete, production-ready solution with:
-
-✅ **Professional Design**: A warm, inviting aesthetic perfect for a music teacher.
-✅ **Complete Functionality**: All requested features are implemented, providing a robust platform.
-✅ **Modern Technology**: Built with current best practices and a cutting-edge tech stack.
-✅ **Scalable Architecture**: Designed to be ready for future growth and expansion.
-✅ **Security First**: Proper authentication and data protection measures are in place.
-✅ **Mobile Responsive**: Ensures a perfect user experience on all devices.
-✅ **SEO Optimized**: Structured and configured for better search engine visibility.
-✅ **Admin Management**: Offers full content control capabilities through an intuitive dashboard.
-
-The website is ready for immediate use and can serve as a professional online presence for any music teacher or music education business.
+VITE_SUPABASE_URL="TU_URL_DE_SUPABASE"
+VITE_SUPABASE_ANON_KEY="TU_ANON_KEY_DE_SUPABASE"
+```
+5.  **Crea un usuario administrador**: Ve a la sección de `Authentication` en Supabase y crea un nuevo usuario. Este será el usuario que usarás para acceder al panel de administración en `/login`.

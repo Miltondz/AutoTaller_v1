@@ -7,7 +7,7 @@ import {
   Calendar,
   DollarSign,
   Mail,
-  Image as ImageIcon,
+  ImageIcon,
   Music,
   MessageSquare,
   AlertCircle
@@ -21,6 +21,7 @@ import { useBlogPosts } from '../../hooks/useBlogPosts'
 import { useContactMessages, useUnreadMessages } from '../../hooks/useContactMessages'
 import { appointmentsApi } from '../../api/appointments'
 import { paymentsApi } from '../../api/payments'
+import { mediaGalleryApi } from '../../api/media-gallery'
 
 export { AdminDashboard }
 
@@ -42,6 +43,7 @@ function AdminDashboard() {
     paidCount: 0,
     pendingCount: 0
   })
+  const [mediaCount, setMediaCount] = useState(0)
   const [loadingStats, setLoadingStats] = useState(true)
   const [statsError, setStatsError] = useState<string | null>(null)
 
@@ -75,6 +77,15 @@ function AdminDashboard() {
         } catch (paymentsError) {
           console.warn('Could not load payments stats:', paymentsError)
           setPaymentsStats({ totalRevenue: 0, pendingAmount: 0, paidCount: 0, pendingCount: 0 })
+        }
+        
+        // Try to fetch media gallery count, but don't fail if it errors
+        try {
+          const mediaItems = await mediaGalleryApi.getAll()
+          setMediaCount(mediaItems.length)
+        } catch (mediaError) {
+          console.warn('Could not load media gallery stats:', mediaError)
+          setMediaCount(0)
         }
 
       } catch (err) {
@@ -116,7 +127,7 @@ function AdminDashboard() {
     { name: 'Blog', path: '/admin/blog', icon: BookOpen, count: blogPosts.length },
     { name: 'Testimonios', path: '/admin/testimonials', icon: Users, count: testimonials.length },
     { name: 'Pagos', path: '/admin/payments', icon: DollarSign, count: paymentsStats.paidCount },
-    { name: 'Galería', path: '/admin/media', icon: ImageIcon, count: 0 }, // Count not directly available from hook
+    { name: 'Galería', path: '/admin/media', icon: ImageIcon, count: mediaCount },
     { name: 'Mensajes', path: '/admin/messages', icon: MessageSquare, count: unreadMessages.length, badge: unreadMessages.length > 0 ? unreadMessages.length : undefined },
   ]
 

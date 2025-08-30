@@ -18,12 +18,9 @@ export const useMediaGallery = () => {
     try {
       setLoading(true);
       setError(null);
-      console.log('Fetching media items...');
       const items = await getMediaItems();
-      console.log('Fetched media items:', items);
       setMediaItems(items);
     } catch (err) {
-      console.error('Error fetching media items:', err);
       setError(err instanceof Error ? err.message : 'Error al cargar los elementos multimedia');
     } finally {
       setLoading(false);
