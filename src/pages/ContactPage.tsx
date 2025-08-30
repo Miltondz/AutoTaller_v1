@@ -104,8 +104,8 @@ export function ContactPage() {
                 <Mail className="w-5 h-5 text-amber-600 mt-0.5" />
                 <div>
                   <p className="font-medium text-slate-800">Email</p>
-                  <a href="mailto:hola@armoniamusical.com" className="text-slate-600 hover:text-amber-600 transition-colors">
-                    hola@armoniamusical.com
+                  <a href="mailto:MaestraLauraKarol@gmail.com" className="text-slate-600 hover:text-amber-600 transition-colors">
+                    MaestraLauraKarol@gmail.com
                   </a>
                 </div>
               </div>
@@ -115,7 +115,7 @@ export function ContactPage() {
                 <div>
                   <p className="font-medium text-slate-800">Teléfono</p>
                   <a href="tel:+5551234567" className="text-slate-600 hover:text-amber-600 transition-colors">
-                    (555) 123-4567
+                    (555) 000-0000
                   </a>
                 </div>
               </div>
@@ -125,8 +125,8 @@ export function ContactPage() {
                 <div>
                   <p className="font-medium text-slate-800">Dirección</p>
                   <p className="text-slate-600">
-                    Calle Música 123<br />
-                    Ciudad Armonía, CP 12345
+                    Punto Fijo, Estado Falcon<br />
+                    Venezuela
                   </p>
                 </div>
               </div>
@@ -152,7 +152,7 @@ export function ContactPage() {
               <a href="#" className="p-3 bg-gray-100 rounded-full hover:bg-amber-100 transition-colors group">
                 <Facebook className="w-5 h-5 text-gray-600 group-hover:text-amber-600" />
               </a>
-              <a href="#" className="p-3 bg-gray-100 rounded-full hover:bg-amber-100 transition-colors group">
+              <a href="https://www.instagram.com/laurakarol21/" className="p-3 bg-gray-100 rounded-full hover:bg-amber-100 transition-colors group">
                 <Instagram className="w-5 h-5 text-gray-600 group-hover:text-amber-600" />
               </a>
               <a href="#" className="p-3 bg-gray-100 rounded-full hover:bg-amber-100 transition-colors group">
