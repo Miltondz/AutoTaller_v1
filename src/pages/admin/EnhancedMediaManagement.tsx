@@ -303,6 +303,18 @@ export function EnhancedMediaManagement() {
 
   return (
     <div className="space-y-6">
+      {/* DEBUG SECTION */}
+      <div className="bg-yellow-100 border border-yellow-300 p-4 rounded-lg">
+        <h3 className="font-bold text-yellow-800">DEBUG INFO</h3>
+        <p>Loading: {loading.toString()}</p>
+        <p>Error: {error ? error : 'null'}</p>
+        <p>Media Items Count: {mediaItems.length}</p>
+        <pre className="text-xs whitespace-pre-wrap bg-white p-2 rounded mt-2">
+          {JSON.stringify(mediaItems, null, 2)}
+        </pre>
+      </div>
+      {/* END DEBUG SECTION */}
+
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>

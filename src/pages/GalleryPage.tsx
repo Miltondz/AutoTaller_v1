@@ -207,7 +207,7 @@ function GalleryPage() {
               variant="ghost"
               size="sm"
               onClick={closeLightbox}
-              className="absolute top-2 right-2 z-10 text-white hover:text-amber-400"
+              className="absolute top-2 right-2 z-10 text-slate-800 bg-white/70 rounded-full hover:bg-white hover:text-amber-500"
             >
               <X className="w-6 h-6" />
             </Button>
