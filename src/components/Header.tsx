@@ -33,7 +33,7 @@ function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <Music className="w-6 h-6 text-amber-400" />
-            <span className="text-xl font-bold">Armonía Musical</span>
+            <span className="text-xl font-bold">MaestraLauraKarol</span>
           </Link>
 
           {/* Desktop Navigation */}
