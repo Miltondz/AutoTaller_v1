@@ -1,49 +1,62 @@
-import React, { useState } from 'react'
-import { useContactMessages } from '../hooks/useContactMessages'
-import { Button } from '../components/Button' // Keep this import
-import { Card } from '../components/Card'
-import { Mail, Phone, MapPin, Clock, Facebook, Instagram, Youtube, Send, CheckCircle } from 'lucide-react'
+import React, { useState } from 'react';
+import { useContactMessages } from '../hooks/useContactMessages';
+import { Button } from '../components/Button';
+import { Card, CardContent } from '../components/Card';
+import { Mail, Phone, MapPin, Clock, Facebook, Instagram, Youtube, Send, CheckCircle, AlertTriangle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Spinner } from '../components/Spinner';
 
-type InquiryType = 'general' | 'lessons' | 'events' | 'technical'
+type InquiryType = 'general' | 'lessons' | 'events' | 'technical';
 
 interface ContactFormData {
-  name: string
-  email: string
-  phone: string
-  inquiry_type: InquiryType
-  message: string
+  name: string;
+  email: string;
+  phone: string;
+  inquiry_type: InquiryType;
+  message: string;
 }
 
+const Section = ({ children, className }: { children: React.ReactNode, className?: string }) => (
+  <motion.section
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 0.8, ease: 'easeOut' }}
+    className={className}
+  >
+    {children}
+  </motion.section>
+);
+
 export function ContactPage() {
-  const { createMessage } = useContactMessages()
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const { createMessage } = useContactMessages();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
     phone: '',
     inquiry_type: 'general',
     message: ''
-  })
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [submitError, setSubmitError] = useState<string | null>(null)
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const inquiryTypes = [
     { value: 'general' as InquiryType, label: 'Consulta General' },
-    { value: 'lessons' as InquiryType, label: 'Información sobre Clases' },
+    { value: 'lessons' as InquiryType, label: 'Clases en Falcón, Punto Fijo, etc.' },
     { value: 'events' as InquiryType, label: 'Eventos y Recitales' },
-    { value: 'technical' as InquiryType, label: 'Soporte Técnico' }
-  ]
+    { value: 'technical' as InquiryType, label: 'Soporte Técnico del Sitio Web' }
+  ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitError(null)
-    setLoading(true)
+    e.preventDefault();
+    setSubmitError(null);
+    setLoading(true);
 
     try {
       await createMessage({
@@ -52,257 +65,159 @@ export function ContactPage() {
         phone: formData.phone || null,
         message: formData.message,
         inquiry_type: formData.inquiry_type,
-      })
-      setIsSubmitted(true)
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        inquiry_type: 'general',
-        message: ''
-      })
+      });
+      setIsSubmitted(true);
+      setFormData({ name: '', email: '', phone: '', inquiry_type: 'general', message: '' });
     } catch (err) {
-      setSubmitError(err instanceof Error ? err.message : 'Error al enviar el mensaje')
+      setSubmitError(err instanceof Error ? err.message : 'Error al enviar el mensaje. Por favor, inténtalo de nuevo.');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
-  const isFormValid = formData.name.trim() && formData.email.trim() && formData.message.trim()
+  const isFormValid = formData.name.trim() && formData.email.trim() && formData.message.trim();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16">
+    <div className="bg-slate-50">
       {/* Header */}
-      <div className="grid lg:grid-cols-2 gap-12 items-center">
-        <div className="text-center lg:text-left">
-          <h1 className="text-4xl font-bold text-slate-800 mb-4">
-            Contáctanos
-          </h1>
-          <p className="text-lg text-slate-600 max-w-3xl mx-auto lg:mx-0">
-            ¿Tienes preguntas sobre nuestros servicios? ¿Te gustaría agendar una clase? 
-            Estamos aquí para ayudarte en tu viaje musical.
-          </p>
-        </div>
-        <div className="hidden lg:block">
-          <img 
-            src="/images/contacto.jpg"
-            alt="Contact illustration"
-            className="rounded-lg shadow-lg"
-          />
-        </div>
-      </div>
+      <header className="py-20 sm:py-28 bg-gradient-to-br from-slate-800 to-slate-900 text-white text-center px-4">
+        <motion.h1 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 tracking-tight"
+        >
+          Ponte en Contacto
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+          className="text-lg sm:text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto"
+        >
+          ¿Preguntas sobre clases de música en Maracaibo, Caracas o Mérida? ¿Listo para empezar? Contáctame.
+        </motion.p>
+      </header>
 
-      <div className="grid lg:grid-cols-3 gap-12">
-        {/* Contact Information */}
-        <div className="lg:col-span-1 space-y-8">
-          {/* Contact Details */} {/* Keep this comment */}
-          <Card className="p-6">
-            <h2 className="text-xl font-semibold text-slate-800 mb-6">Información de Contacto</h2>
-            
-            <div className="space-y-4">
-              <div className="flex items-start space-x-3">
-                <Mail className="w-5 h-5 text-amber-600 mt-0.5" />
-                <div>
-                  <p className="font-medium text-slate-800">Email</p>
-                  <a href="mailto:MaestraLauraKarol@gmail.com" className="text-slate-600 hover:text-amber-600 transition-colors">
-                    MaestraLauraKarol@gmail.com
-                  </a>
+      <Section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-12">
+          {/* Contact Information */}
+          <div className="lg:col-span-1 space-y-8">
+            <Card>
+              <CardContent className="p-6 sm:p-8">
+                <h2 className="text-2xl font-bold text-slate-800 mb-6">Información de Contacto</h2>
+                <div className="space-y-6">
+                  <InfoItem icon={<Mail />} label="Email" value="MaestraLauraKarol@gmail.com" href="mailto:MaestraLauraKarol@gmail.com" />
+                  <InfoItem icon={<Phone />} label="Teléfono" value="+58 123 456 7890" href="tel:+581234567890" />
+                  <InfoItem icon={<MapPin />} label="Ubicación Principal" value="Punto Fijo, Falcón, Venezuela" />
+                  <InfoItem icon={<Clock />} label="Horario de Atención" value="Lun - Sáb: 9am - 6pm" />
                 </div>
-              </div>
-              
-              <div className="flex items-start space-x-3">
-                <Phone className="w-5 h-5 text-amber-600 mt-0.5" />
-                <div>
-                  <p className="font-medium text-slate-800">Teléfono</p>
-                  <a href="tel:+5551234567" className="text-slate-600 hover:text-amber-600 transition-colors">
-                    (555) 000-0000
-                  </a>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-amber-600 mt-0.5" />
-                <div>
-                  <p className="font-medium text-slate-800">Dirección</p>
-                  <p className="text-slate-600">
-                    Punto Fijo, Estado Falcon<br />
-                    Venezuela
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3">
-                <Clock className="w-5 h-5 text-amber-600 mt-0.5" />
-                <div>
-                  <p className="font-medium text-slate-800">Horarios de Atención</p>
-                  <div className="text-slate-600 text-sm space-y-1">
-                    <p>Lunes - Viernes: 9:00 AM - 8:00 PM</p>
-                    <p>Sábados: 9:00 AM - 6:00 PM</p>
-                    <p>Domingos: 10:00 AM - 4:00 PM</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Card>
+              </CardContent>
+            </Card>
 
-          {/* Social Media */}
-          <Card className="p-6"> {/* Keep this Card component */}
-            <h3 className="text-lg font-semibold text-slate-800 mb-4">Síguenos</h3>
-            <div className="flex space-x-4">
-              <a href="#" className="p-3 bg-gray-100 rounded-full hover:bg-amber-100 transition-colors group">
-                <Facebook className="w-5 h-5 text-gray-600 group-hover:text-amber-600" />
-              </a>
-              <a href="https://www.instagram.com/laurakarol21/" className="p-3 bg-gray-100 rounded-full hover:bg-amber-100 transition-colors group">
-                <Instagram className="w-5 h-5 text-gray-600 group-hover:text-amber-600" />
-              </a>
-              <a href="#" className="p-3 bg-gray-100 rounded-full hover:bg-amber-100 transition-colors group">
-                <Youtube className="w-5 h-5 text-gray-600 group-hover:text-amber-600" />
-              </a>
-            </div>
-          </Card>
-
-          {/* Map Placeholder */}
-          <Card className="p-6"> {/* Keep this Card component */}
-            <h3 className="text-lg font-semibold text-slate-800 mb-4">Ubicación</h3>
-            <div className="w-full h-48 bg-gray-100 rounded-lg flex items-center justify-center">
-              <div className="text-center">
-                <MapPin className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                <p className="text-gray-500 text-sm">Mapa interactivo próximamente</p>
-              </div>
-            </div>
-          </Card>
-        </div>
-
-        {/* Contact Form */}
-        <div className="lg:col-span-2">
-          <Card className="p-8"> {/* Keep this Card component */}
-            <h2 className="text-2xl font-semibold text-slate-800 mb-6">Envíanos un Mensaje</h2>
-            
-            {isSubmitted && (
-              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center space-x-3">
-                <CheckCircle className="w-5 h-5 text-green-600" />
-                <div>
-                  <p className="font-medium text-green-800">¡Mensaje enviado con éxito!</p>
-                  <p className="text-sm text-green-600">Te contactaremos pronto.</p>
+            <Card>
+              <CardContent className="p-6 sm:p-8">
+                <h3 className="text-2xl font-bold text-slate-800 mb-6">Sígueme en Redes</h3>
+                <div className="flex space-x-4">
+                  <SocialIcon href="#" icon={<Facebook />} />
+                  <SocialIcon href="https://www.instagram.com/laurakarol21/" icon={<Instagram />} />
+                  <SocialIcon href="#" icon={<Youtube />} />
                 </div>
-              </div>
-            )}
+              </CardContent>
+            </Card>
+          </div>
 
-            {(error || submitError) && (
-              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-red-600">{error || submitError}</p>
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Name and Email Row */}
-              <div className="grid md:grid-cols-2 gap-6"> {/* Keep this div */}
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
-                    Nombre Completo *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
-                    placeholder="Tu nombre completo"
-                  />
-                </div>
+          {/* Contact Form */}
+          <div className="lg:col-span-2">
+            <Card>
+              <CardContent className="p-6 sm:p-8 md:p-10">
+                <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-6">Envíame un Mensaje</h2>
                 
-                <div> {/* Keep this div */}
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
-                    Correo Electrónico *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
-                    placeholder="tu@email.com"
-                  />
-                </div>
-              </div>
-
-              {/* Phone and Inquiry Type Row */}
-              <div className="grid md:grid-cols-2 gap-6"> {/* Keep this div */}
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">
-                    Teléfono (Opcional)
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
-                    placeholder="(555) 123-4567"
-                  />
-                </div>
-                
-                <div> {/* Keep this div */}
-                  <label htmlFor="inquiry_type" className="block text-sm font-medium text-slate-700 mb-2">
-                    Tipo de Consulta
-                  </label>
-                  <select
-                    id="inquiry_type"
-                    name="inquiry_type"
-                    value={formData.inquiry_type}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
+                {isSubmitted && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-6 p-4 bg-green-100 border border-green-300 rounded-lg flex items-center space-x-3 text-green-800"
                   >
-                    {inquiryTypes.map(type => (
-                      <option key={type.value} value={type.value}>
-                        {type.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+                    <CheckCircle className="w-6 h-6" />
+                    <div>
+                      <p className="font-semibold">¡Mensaje enviado con éxito!</p>
+                      <p className="text-sm">Gracias por tu interés, te contactaré pronto.</p>
+                    </div>
+                  </motion.div>
+                )}
 
-              {/* Message */}
-              <div> {/* Keep this div */}
-                <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
-                  Mensaje *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  required
-                  rows={6}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors resize-none"
-                  placeholder="Cuéntanos cómo podemos ayudarte..."
-                />
-              </div>
+                {submitError && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-6 p-4 bg-red-100 border border-red-300 rounded-lg flex items-center space-x-3 text-red-800"
+                  >
+                    <AlertTriangle className="w-6 h-6" />
+                    <p>{submitError}</p>
+                  </motion.div>
+                )}
 
-              {/* Submit Button */}
-              <div className="flex justify-end"> {/* Keep this div */}
-                <Button
-                  type="submit"
-                  disabled={!isFormValid || loading}
-                  className="flex items-center space-x-2"
-                >
-                  {loading ? (
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white" />
-                  ) : (
-                    <Send className="w-4 h-4" />
-                  )}
-                  <span>{loading ? 'Enviando...' : 'Enviar Mensaje'}</span>
-                </Button>
-              </div>
-            </form>
-          </Card>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <FormField id="name" label="Nombre Completo *" value={formData.name} onChange={handleInputChange} placeholder="Tu nombre" required />
+                    <FormField id="email" label="Correo Electrónico *" type="email" value={formData.email} onChange={handleInputChange} placeholder="tu@email.com" required />
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <FormField id="phone" label="Teléfono (Opcional)" type="tel" value={formData.phone} onChange={handleInputChange} placeholder="+58 123 456 7890" />
+                    <div>
+                      <label htmlFor="inquiry_type" className="block text-sm font-medium text-slate-700 mb-2">Tipo de Consulta</label>
+                      <select id="inquiry_type" name="inquiry_type" value={formData.inquiry_type} onChange={handleInputChange} className="form-input">
+                        {inquiryTypes.map(type => <option key={type.value} value={type.value}>{type.label}</option>)}
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">Mensaje *</label>
+                    <textarea id="message" name="message" value={formData.message} onChange={handleInputChange} required rows={5} className="form-input resize-none" placeholder="Cuéntame cómo puedo ayudarte..."></textarea>
+                  </div>
+                  <div className="flex justify-end pt-2">
+                    <Button type="submit" disabled={!isFormValid || loading} size="lg">
+                      {loading ? <Spinner size="sm" /> : <Send className="w-5 h-5 mr-2" />}
+                      {loading ? 'Enviando...' : 'Enviar Mensaje'}
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
         </div>
-      </div>
+      </Section>
     </div>
-  )
+  );
 }
+
+// Helper components for cleaner structure
+const InfoItem = ({ icon, label, value, href }: { icon: React.ReactNode, label: string, value: string, href?: string }) => (
+  <div className="flex items-start space-x-4">
+    <div className="flex-shrink-0 w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center text-amber-600">{icon}</div>
+    <div>
+      <p className="font-semibold text-slate-800">{label}</p>
+      {href ? (
+        <a href={href} className="text-slate-600 hover:text-amber-600 transition-colors">
+          {value}
+        </a>
+      ) : (
+        <p className="text-slate-600">{value}</p>
+      )}
+    </div>
+  </div>
+);
+
+const SocialIcon = ({ href, icon }: { href: string, icon: React.ReactNode }) => (
+  <a href={href} target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-100 rounded-full hover:bg-amber-100 transition-colors group">
+    {React.cloneElement(icon as React.ReactElement, { className: "w-6 h-6 text-slate-600 group-hover:text-amber-600" })}
+  </a>
+);
+
+const FormField = ({ id, label, type = 'text', value, onChange, placeholder, required = false }: any) => (
+  <div>
+    <label htmlFor={id} className="block text-sm font-medium text-slate-700 mb-2">{label}</label>
+    <input type={type} id={id} name={id} value={value} onChange={onChange} required={required} className="form-input" placeholder={placeholder} />
+  </div>
+);

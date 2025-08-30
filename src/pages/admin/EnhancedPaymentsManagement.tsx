@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DollarSign, Calendar, User, CheckCircle, XCircle, AlertCircle, Filter, Clock, PlusCircle, RefreshCw, Trash2 } from 'lucide-react';
+import { DollarSign, Calendar, User, CheckCircle, XCircle, AlertCircle, Filter, Clock, PlusCircle, RefreshCw, Trash2, Download } from 'lucide-react';
 import { Card, CardContent } from '../../components/Card';
 import { Button } from '../../components/Button';
 import { Spinner } from '../../components/Spinner';
@@ -7,6 +7,8 @@ import { formatDate, formatPrice, formatTime } from '../../lib/utils';
 import { paymentsApi } from '../../api/payments';
 import { appointmentsApi } from '../../api/appointments';
 import type { Payment, Appointment, CreatePaymentData } from '../../types';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 type FilterStatus = 'all' | 'pending' | 'completed' | 'failed' | 'cancelled';
 
@@ -163,7 +165,6 @@ function AddPaymentModal({
   );
 }
 
-
 type NotificationType = 'success' | 'error';
 
 // Notification Component
@@ -230,7 +231,6 @@ function ConfirmationModal({ isOpen, title, message, onConfirm, onCancel, confir
   );
 }
 
-
 export function EnhancedPaymentsManagement() {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -249,7 +249,6 @@ export function EnhancedPaymentsManagement() {
     cancelText?: string;
   } | null>(null);
 
-
   useEffect(() => {
     loadData();
   }, []);
@@ -262,7 +261,6 @@ export function EnhancedPaymentsManagement() {
         appointmentsApi.getAll()
       ]);
       
-      // Sort payments by date
       const sortedPayments = paymentsData.sort((a, b) => new Date(b.payment_date).getTime() - new Date(a.payment_date).getTime());
 
       setPayments(sortedPayments);
@@ -281,7 +279,6 @@ export function EnhancedPaymentsManagement() {
   const handleStatusUpdate = async (paymentId: string, status: 'completed' | 'pending' | 'cancelled' | 'failed') => {
     const originalPayments = [...payments];
     
-    // Optimistic UI update
     setPayments(prevPayments => 
       prevPayments.map(p => p.id === paymentId ? { ...p, status } : p)
     );
@@ -291,13 +288,11 @@ export function EnhancedPaymentsManagement() {
     try {
       await paymentsApi.updateStatus(paymentId, status);
       setNotification({ message: 'Estado del pago actualizado.', type: 'success' });
-      // Optionally refresh data from server to ensure consistency
       const updatedPayments = await paymentsApi.getAll();
       const sortedPayments = updatedPayments.sort((a, b) => new Date(b.payment_date).getTime() - new Date(a.payment_date).getTime());
       setPayments(sortedPayments);
 
     } catch (error) {
-      // Revert on error
       setPayments(originalPayments);
       setNotification({ 
         message: 'Error al actualizar el pago: ' + (error instanceof Error ? error.message : 'Error desconocido'), 
@@ -305,7 +300,7 @@ export function EnhancedPaymentsManagement() {
       });
     } finally {
       setUpdatingStatus(null);
-      setConfirmation(null); // Close confirmation modal
+      setConfirmation(null);
     }
   };
   
@@ -322,21 +317,19 @@ export function EnhancedPaymentsManagement() {
   const handleDelete = async (paymentId: string) => {
     const originalPayments = [...payments];
     
-    // Optimistic UI update
     setPayments(prevPayments => prevPayments.filter(p => p.id !== paymentId));
 
     try {
       await paymentsApi.delete(paymentId);
       setNotification({ message: 'Pago eliminado correctamente.', type: 'success' });
     } catch (error) {
-      // Revert on error
       setPayments(originalPayments);
       setNotification({ 
         message: 'Error al eliminar el pago: ' + (error instanceof Error ? error.message : 'Error desconocido'), 
         type: 'error' 
       });
     } finally {
-      setConfirmation(null); // Close confirmation modal
+      setConfirmation(null);
     }
   };
 
@@ -349,7 +342,6 @@ export function EnhancedPaymentsManagement() {
       confirmText: 'Eliminar',
     });
   };
-
 
   const getAppointmentDetails = (appointmentId: string | null) => {
     if (!appointmentId) return { clientName: 'N/A', appointmentDate: 'N/A', appointmentTime: 'N/A' };
@@ -387,6 +379,62 @@ export function EnhancedPaymentsManagement() {
         return 'text-red-700 bg-red-100';
       default:
         return 'text-yellow-700 bg-yellow-100';
+    }
+  };
+
+  const exportToTxt = () => {
+    const data = filteredPayments.map(p => {
+      const appointmentDetails = getAppointmentDetails(p.appointment_id);
+      return (
+        `Cliente: ${appointmentDetails.clientName}\n` +
+        `Monto: ${formatPrice(p.amount)}\n` +
+        `Fecha de Pago: ${formatDate(p.payment_date)}\n` +
+        `Método: ${p.payment_method || 'N/A'}\n` +
+        `Estado: ${p.status}\n` +
+        `Cita: ${appointmentDetails.appointmentDate} a las ${appointmentDetails.appointmentTime}\n` +
+        '----------------------------------\n'
+      );
+    }).join('');
+
+    const blob = new Blob([data], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'pagos.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const exportToPdf = () => {
+    const doc = new jsPDF();
+    doc.text('Lista de Pagos', 14, 16);
+
+    const tableColumn = ["Cliente", "Monto", "Fecha de Pago", "Método", "Estado", "Cita"];
+    const tableRows: (string | null)[][] = [];
+
+    filteredPayments.forEach(p => {
+      const appointmentDetails = getAppointmentDetails(p.appointment_id);
+      const paymentData = [
+        appointmentDetails.clientName,
+        formatPrice(p.amount),
+        formatDate(p.payment_date),
+        p.payment_method || 'N/A',
+        p.status,
+        `${appointmentDetails.appointmentDate} a las ${appointmentDetails.appointmentTime}`,
+      ];
+      tableRows.push(paymentData);
+    });
+
+    (doc as any).autoTable({ head: [tableColumn], body: tableRows, startY: 20 });
+    doc.save('pagos.pdf');
+  };
+
+  const handleExport = () => {
+    const format = prompt("Seleccione el formato de exportación: 'pdf' o 'txt'", 'pdf');
+    if (format === 'pdf') {
+      exportToPdf();
+    } else if (format === 'txt') {
+      exportToTxt();
     }
   };
 
@@ -446,6 +494,10 @@ export function EnhancedPaymentsManagement() {
         </div>
         
         <div className="flex items-center gap-4">
+          <Button onClick={handleExport} variant="outline">
+            <Download className="w-4 h-4 mr-2" />
+            Exportar
+          </Button>
            <Button 
             onClick={() => loadData(true)} 
             variant="outline"
@@ -634,4 +686,3 @@ export function EnhancedPaymentsManagement() {
     </div>
   );
 }
-""

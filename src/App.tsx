@@ -1,28 +1,30 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { AuthProvider } from './contexts/AuthContext'
-import { Header } from './components/Header'
-import { Footer } from './components/Footer'
-import { ProtectedRoute } from './components/ProtectedRoute'
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import { Header } from './components/Header';
+import { Footer } from './components/Footer';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import ScrollToTop from './components/ScrollToTop';
 
 // Public Pages
-import { HomePage } from './pages/HomePage'
-import { ServicesPage } from './pages/ServicesPage'
-import { AboutPage } from './pages/AboutPage'
-import { BookingPage } from './pages/BookingPage'
-import { BlogPage } from './pages/BlogPage'
-import { BlogPost } from './pages/BlogPost'
-import { GalleryPage } from './pages/GalleryPage'
-import { ContactPage } from './pages/ContactPage'
-import { LoginPage } from './pages/LoginPage'
+import { HomePage } from './pages/HomePage';
+import { ServicesPage } from './pages/ServicesPage';
+import { AboutPage } from './pages/AboutPage';
+import { BookingPage } from './pages/BookingPage';
+import { BlogPage } from './pages/BlogPage';
+import { BlogPost } from './pages/BlogPost';
+import { GalleryPage } from './pages/GalleryPage';
+import { ContactPage } from './pages/ContactPage';
+import { LoginPage } from './pages/LoginPage';
 
 // Admin Pages
-import { AdminLayout } from './pages/admin/AdminLayout'
+import { AdminLayout } from './pages/admin/AdminLayout';
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <Header />
           <main className="flex-1">
@@ -37,14 +39,14 @@ function App() {
               <Route path="/galeria" element={<GalleryPage />} />
               <Route path="/contacto" element={<ContactPage />} />
               <Route path="/login" element={<LoginPage />} />
-              
+
               {/* Protected Admin Routes */}
               <Route path="/admin/*" element={
                 <ProtectedRoute>
                   <AdminLayout />
                 </ProtectedRoute>
               } />
-              
+
               {/* Catch all route - redirect to home */}
               <Route path="*" element={<HomePage />} />
             </Routes>
@@ -53,7 +55,7 @@ function App() {
         </div>
       </BrowserRouter>
     </AuthProvider>
-  )
+  );
 }
 
-export default App
+export default App;

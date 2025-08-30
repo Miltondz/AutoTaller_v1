@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .form-input {
+    @apply w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-shadow shadow-sm bg-white;
+  }
+}
+
 /* Custom prose styles for blog content */
 .prose {
   font-family: ui-sans-serif, system-ui, sans-serif;

@@ -1,122 +1,117 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Mail, Lock, LogIn, AlertCircle } from 'lucide-react' // Keep these imports
-import { Card, CardContent, CardHeader } from '../components/Card'
-import { Button } from '../components/Button'
-import { Spinner } from '../components/Spinner'
-import { formatDate } from '../lib/utils'
-import { useAuth } from '../hooks/useAuth'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Mail, Lock, LogIn, AlertCircle } from 'lucide-react';
+import { Card, CardContent, CardHeader } from '../components/Card';
+import { Button } from '../components/Button';
+import { Spinner } from '../components/Spinner';
+import { useAuth } from '../hooks/useAuth';
+import { motion } from 'framer-motion';
 
-export { LoginPage }
-
-function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const { signIn } = useAuth()
-  const navigate = useNavigate()
+export function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError(null)
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
     try {
-      await signIn(email, password)
-      navigate('/admin') // Redirect to admin dashboard on successful login
+      await signIn(email, password);
+      navigate('/admin');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error de inicio de sesión. Por favor, inténtalo de nuevo.')
+      setError(err instanceof Error ? err.message : 'Error de inicio de sesión. Verifica tus credenciales.');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 sm:px-6 lg:px-8">
-      <Card className="max-w-md w-full">
-        <CardHeader>
-          <h2 className="text-2xl font-bold text-center text-slate-800">
-            Iniciar Sesión
-          </h2>
-          <p className="mt-2 text-center text-sm text-slate-600">
-            Accede a tu panel de administración
-          </p>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="email" className="sr-only">
-                Correo Electrónico
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-slate-400" aria-hidden="true" />
+    <div 
+      className="min-h-screen flex items-center justify-center bg-slate-100 px-4 sm:px-6 lg:px-8"
+      style={{ backgroundImage: 'url(/images/main_header.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+    >
+      <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-sm"></div>
+      <motion.div
+        initial={{ opacity: 0, y: -20, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="w-full max-w-md"
+      >
+        <Card className="shadow-2xl">
+          <CardHeader className="text-center p-8">
+            <h2 className="text-3xl font-bold text-slate-800">Acceso de Administrador</h2>
+            <p className="mt-2 text-sm text-slate-600">Ingresa a tu panel de control</p>
+          </CardHeader>
+          <CardContent className="p-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="email" className="sr-only">Correo Electrónico</label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Mail className="h-5 w-5 text-slate-400" />
+                  </div>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    className="form-input pl-12 py-3"
+                    placeholder="Correo Electrónico"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  className="appearance-none block w-full pl-10 pr-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-amber-500 focus:border-amber-500 sm:text-sm"
-                  placeholder="Correo Electrónico"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
               </div>
-            </div>
 
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Contraseña
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-slate-400" aria-hidden="true" />
+              <div>
+                <label htmlFor="password" className="sr-only">Contraseña</label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-slate-400" />
+                  </div>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="current-password"
+                    required
+                    className="form-input pl-12 py-3"
+                    placeholder="Contraseña"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  className="appearance-none block w-full pl-10 pr-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-amber-500 focus:border-amber-500 sm:text-sm"
-                  placeholder="Contraseña"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
               </div>
-            </div>
 
-            {error && (
-              <div className="p-3 bg-red-50 border border-red-200 rounded-md flex items-center">
-                <AlertCircle className="w-5 h-5 text-red-600 mr-2" />
-                <p className="text-red-700 text-sm">{error}</p>
+              {error && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-3 bg-red-100 border border-red-300 rounded-lg flex items-center text-red-800 text-sm"
+                >
+                  <AlertCircle className="w-5 h-5 mr-3 flex-shrink-0" />
+                  <span>{error}</span>
+                </motion.div>
+              )}
+
+              <div className="pt-2">
+                <Button type="submit" className="w-full" size="lg" disabled={loading}>
+                  {loading ? (
+                    <><Spinner size="sm" className="mr-2" />Iniciando Sesión...</>
+                  ) : (
+                    <><LogIn className="w-5 h-5 mr-2" />Iniciar Sesión</>
+                  )}
+                </Button>
               </div>
-            )}
-
-            <div>
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={loading}
-              >
-                {loading ? (
-                  <>
-                    <Spinner size="sm" className="mr-2" />
-                    Iniciando Sesión...
-                  </>
-                ) : (
-                  <>
-                    <LogIn className="w-5 h-5 mr-2" />
-                    Iniciar Sesión
-                  </>
-                )}
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+            </form>
+          </CardContent>
+        </Card>
+      </motion.div>
     </div>
-  )
+  );
 }

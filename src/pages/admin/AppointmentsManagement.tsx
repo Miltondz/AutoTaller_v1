@@ -1,116 +1,179 @@
-import React, { useState, useEffect } from 'react' // Keep these imports
-import { Calendar, Clock, User, Mail, Phone, CheckCircle, XCircle, AlertCircle, Filter } from 'lucide-react'
-import { Card, CardContent, CardHeader } from '../../components/Card'
-import { Button } from '../../components/Button'
-import { Spinner } from '../../components/Spinner'
-import { appointmentsApi } from '../../api/appointments'
-import { servicesApi } from '../../api/services'
-import { formatDate, formatTime, formatPrice } from '../../lib/utils'
-import type { Appointment, Service } from '../../types'
+import React, { useState, useEffect } from 'react';
+import { Calendar, Clock, User, Mail, CheckCircle, XCircle, AlertCircle, Filter, Download } from 'lucide-react';
+import { Card, CardContent, CardHeader } from '../../components/Card';
+import { Button } from '../../components/Button';
+import { Spinner } from '../../components/Spinner';
+import { appointmentsApi } from '../../api/appointments';
+import { servicesApi } from '../../api/services';
+import { formatDate, formatTime, formatPrice } from '../../lib/utils';
+import type { Appointment, Service } from '../../types';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
-type FilterStatus = 'all' | 'pending' | 'confirmed' | 'cancelled'
+type FilterStatus = 'all' | 'pending' | 'confirmed' | 'cancelled';
 
 export function AppointmentsManagement() {
-  const [appointments, setAppointments] = useState<Appointment[]>([])
-  const [services, setServices] = useState<Service[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [filter, setFilter] = useState<FilterStatus>('all')
-  const [updatingStatus, setUpdatingStatus] = useState<string | null>(null)
-  const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null)
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [filter, setFilter] = useState<FilterStatus>('all');
+  const [updatingStatus, setUpdatingStatus] = useState<string | null>(null);
+  const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
 
   useEffect(() => {
-    loadData()
-  }, [])
+    loadData();
+  }, []);
 
   const loadData = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       const [appointmentsData, servicesData] = await Promise.all([
         appointmentsApi.getAll(),
-        servicesApi.getAll()
-      ])
-      setAppointments(appointmentsData)
-      setServices(servicesData)
-      setError(null)
+        servicesApi.getAll(),
+      ]);
+      setAppointments(appointmentsData);
+      setServices(servicesData);
+      setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Ocurrió un error')
+      setError(err instanceof Error ? err.message : 'Ocurrió un error');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleStatusUpdate = async (appointmentId: string, status: 'confirmed' | 'cancelled') => {
     const actionVerb = status === 'confirmed' ? 'aceptar' : 'cancelar';
-    if (!confirm(`¿Estás seguro de que quieres ${actionVerb} esta cita?`)) return
-    
-    setUpdatingStatus(appointmentId)
+    if (!confirm(`¿Estás seguro de que quieres ${actionVerb} esta cita?`)) return;
+
+    setUpdatingStatus(appointmentId);
     try {
-      await appointmentsApi.updateStatus(appointmentId, status)
-      await loadData() // Refresh data
+      await appointmentsApi.updateStatus(appointmentId, status);
+      await loadData(); // Refresh data
     } catch (error) {
-      alert('Error al actualizar la cita: ' + (error instanceof Error ? error.message : 'Error desconocido'))
+      alert('Error al actualizar la cita: ' + (error instanceof Error ? error.message : 'Error desconocido'));
     } finally {
-      setUpdatingStatus(null)
+      setUpdatingStatus(null);
     }
-  }
+  };
 
   const handleDelete = async (appointmentId: string) => {
-    if (!confirm('¿Estás seguro de que quieres eliminar esta cita?')) return
-    
+    if (!confirm('¿Estás seguro de que quieres eliminar esta cita?')) return;
+
     try {
-      await appointmentsApi.delete(appointmentId)
-      await loadData() // Refresh data
+      await appointmentsApi.delete(appointmentId);
+      await loadData(); // Refresh data
     } catch (error) {
-      alert('Error al eliminar la cita: ' + (error instanceof Error ? error.message : 'Error desconocido'))
+      alert('Error al eliminar la cita: ' + (error instanceof Error ? error.message : 'Error desconocido'));
     }
-  }
+  };
 
   const getServiceName = (serviceId: string | null) => {
-    if (!serviceId) return 'Servicio Desconocido'
-    const service = services.find(s => s.id === serviceId)
-    return service ? service.name : 'Servicio Desconocido'
-  }
+    if (!serviceId) return 'Servicio Desconocido';
+    const service = services.find(s => s.id === serviceId);
+    return service ? service.name : 'Servicio Desconocido';
+  };
 
   const getServicePrice = (serviceId: string | null) => {
-    if (!serviceId) return 0
-    const service = services.find(s => s.id === serviceId)
-    return service ? service.price : 0
-  }
+    if (!serviceId) return 0;
+    const service = services.find(s => s.id === serviceId);
+    return service ? service.price : 0;
+  };
 
   const filteredAppointments = appointments.filter(appointment => {
-    if (filter === 'all') return true
-    return appointment.status === filter
-  })
+    if (filter === 'all') return true;
+    return appointment.status === filter;
+  });
 
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'confirmed':
-        return <CheckCircle className="w-5 h-5 text-green-600" />
+        return <CheckCircle className="w-5 h-5 text-green-600" />;
       case 'cancelled':
-        return <XCircle className="w-5 h-5 text-red-600" />
+        return <XCircle className="w-5 h-5 text-red-600" />;
       default:
-        return <AlertCircle className="w-5 h-5 text-yellow-600" />
+        return <AlertCircle className="w-5 h-5 text-yellow-600" />;
     }
-  }
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'confirmed':
-        return 'text-green-700 bg-green-100'
+        return 'text-green-700 bg-green-100';
       case 'cancelled':
-        return 'text-red-700 bg-red-100'
+        return 'text-red-700 bg-red-100';
       default:
-        return 'text-yellow-700 bg-yellow-100'
+        return 'text-yellow-700 bg-yellow-100';
     }
-  }
+  };
+
+  const exportToTxt = () => {
+    const data = filteredAppointments.map(app => (
+      `Nombre: ${app.client_name}
+` +
+      `Email: ${app.client_email}
+` +
+      `Servicio: ${getServiceName(app.service_id)}
+` +
+      `Fecha: ${formatDate(app.appointment_date)}
+` +
+      `Hora: ${formatTime(app.appointment_time)}
+` +
+      `Estado: ${app.status}
+` +
+      `Notas: ${app.notes || 'N/A'}
+` +
+      '----------------------------------\n'
+    )).join('');
+
+    const blob = new Blob([data], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'citas.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const exportToPdf = () => {
+    const doc = new jsPDF();
+    doc.text('Lista de Citas', 14, 16);
+
+    const tableColumn = ["Nombre", "Email", "Servicio", "Fecha", "Hora", "Estado", "Notas"];
+    const tableRows: (string | null)[][] = [];
+
+    filteredAppointments.forEach(app => {
+      const appointmentData = [
+        app.client_name,
+        app.client_email,
+        getServiceName(app.service_id),
+        formatDate(app.appointment_date),
+        formatTime(app.appointment_time),
+        app.status,
+        app.notes || 'N/A',
+      ];
+      tableRows.push(appointmentData);
+    });
+
+    (doc as any).autoTable({ head: [tableColumn], body: tableRows, startY: 20 });
+    doc.save('citas.pdf');
+  };
+
+  const handleExport = () => {
+    const format = prompt("Seleccione el formato de exportación: 'pdf' o 'txt'", 'pdf');
+    if (format === 'pdf') {
+      exportToPdf();
+    } else if (format === 'txt') {
+      exportToTxt();
+    }
+  };
 
   if (loading) {
     return (
       <div className="flex justify-center py-8">
         <Spinner size="lg" />
       </div>
-    )
+    );
   }
 
   if (error) {
@@ -121,7 +184,7 @@ export function AppointmentsManagement() {
         <p className="text-slate-600 mb-4">{error}</p>
         <Button onClick={loadData}>Intentar de nuevo</Button>
       </div>
-    )
+    );
   }
 
   return (
@@ -132,20 +195,26 @@ export function AppointmentsManagement() {
           <h2 className="text-2xl font-bold text-slate-800">Gestión de Citas</h2>
           <p className="text-slate-600 mt-1">Revisa y gestiona las reservas de lecciones</p>
         </div>
-        
-        {/* Status Filter */}
-        <div className="flex items-center gap-2">
-          <Filter className="w-5 h-5 text-slate-600" />
-          <select
-            value={filter}
-            onChange={(e) => setFilter(e.target.value as FilterStatus)}
-            className="px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
-          >
-            <option value="all">Todas las Citas</option>
-            <option value="pending">Pendientes</option>
-            <option value="confirmed">Aceptadas</option>
-            <option value="cancelled">Rechazadas</option>
-          </select>
+
+        <div className="flex items-center gap-4">
+          <Button onClick={handleExport} variant="outline">
+            <Download className="w-4 h-4 mr-2" />
+            Exportar
+          </Button>
+          {/* Status Filter */}
+          <div className="flex items-center gap-2">
+            <Filter className="w-5 h-5 text-slate-600" />
+            <select
+              value={filter}
+              onChange={(e) => setFilter(e.target.value as FilterStatus)}
+              className="px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+            >
+              <option value="all">Todas las Citas</option>
+              <option value="pending">Pendientes</option>
+              <option value="confirmed">Aceptadas</option>
+              <option value="cancelled">Rechazadas</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -195,7 +264,7 @@ export function AppointmentsManagement() {
                 {filter === 'all' ? 'No se encontraron citas' : `No hay citas ${filter}`}
               </h3>
               <p className="text-slate-600">
-                {filter === 'all' 
+                {filter === 'all'
                   ? 'Las citas aparecerán aquí cuando los estudiantes reserven lecciones.'
                   : `No se encontraron citas con estado "${filter}".`
                 }
@@ -217,7 +286,7 @@ export function AppointmentsManagement() {
                         <span className="ml-1 capitalize">{appointment.status}</span>
                       </span>
                     </div>
-                    
+
                     <div className="grid md:grid-cols-2 gap-4 text-sm text-slate-600">
                       <div className="space-y-2">
                         <div className="flex items-center">
@@ -233,7 +302,7 @@ export function AppointmentsManagement() {
                           <span>{formatTime(appointment.appointment_time)}</span>
                         </div>
                       </div>
-                      
+
                       <div className="space-y-2">
                         <div className="flex items-center">
                           <User className="w-4 h-4 mr-2 text-slate-400" />
@@ -246,7 +315,7 @@ export function AppointmentsManagement() {
                         </div>
                       </div>
                     </div>
-                    
+
                     {appointment.notes && (
                       <div className="mt-3 p-3 bg-slate-50 rounded-md">
                         <p className="text-sm text-slate-600">
@@ -255,7 +324,7 @@ export function AppointmentsManagement() {
                       </div>
                     )}
                   </div>
-                  
+
                   {/* Action Buttons */}
                   <div className="flex flex-col gap-2 ml-4">
                     {appointment.status === 'pending' && (
@@ -287,7 +356,7 @@ export function AppointmentsManagement() {
                         </Button>
                       </>
                     )}
-                    
+
                     <Button
                       size="sm"
                       variant="outline"
@@ -295,7 +364,7 @@ export function AppointmentsManagement() {
                     >
                       Ver Detalles
                     </Button>
-                    
+
                     <Button
                       size="sm"
                       variant="outline"
@@ -308,7 +377,7 @@ export function AppointmentsManagement() {
                 </div>
               </CardContent>
             </Card>
-          ))
+          )) 
         )}
       </div>
 
@@ -360,5 +429,5 @@ export function AppointmentsManagement() {
         </div>
       )}
     </div>
-  )
+  );
 }

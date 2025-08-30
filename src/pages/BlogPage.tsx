@@ -1,163 +1,186 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Search, Calendar, ArrowRight, BookOpen } from 'lucide-react'
-import { Card, CardContent, CardHeader } from '../components/Card'
-import { Button } from '../components/Button'
-import { useBlogPosts } from '../hooks/useBlogPosts'
-import { Spinner } from '../components/Spinner'
-import { formatDate } from '../lib/utils'
-import type { BlogPost } from '../types'
+import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { Search, Calendar, ArrowRight, BookOpen } from 'lucide-react';
+import { Card, CardContent, CardHeader } from '../components/Card';
+import { Button } from '../components/Button';
+import { useBlogPosts } from '../hooks/useBlogPosts';
+import { Spinner } from '../components/Spinner';
+import { formatDate } from '../lib/utils';
+import type { BlogPost } from '../types';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const Section = ({ children, className }: { children: React.ReactNode, className?: string }) => (
+  <motion.section
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 0.8, ease: 'easeOut' }}
+    className={className}
+  >
+    {children}
+  </motion.section>
+);
 
 export function BlogPage() {
-  const { blogPosts, loading, error } = useBlogPosts()
-  const [searchTerm, setSearchTerm] = useState('')
-  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([])
+  const { blogPosts, loading, error } = useBlogPosts();
+  const [searchTerm, setSearchTerm] = useState('');
 
-  React.useEffect(() => {
-    if (!blogPosts) return
-    
-    const filtered = searchTerm
-      ? blogPosts.filter(post => 
-          post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          post.content.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      : blogPosts
-    
-    setFilteredPosts(filtered)
-  }, [blogPosts, searchTerm])
+  const filteredPosts = useMemo(() => {
+    if (!blogPosts) return [];
+    return blogPosts.filter(post =>
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.content.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [blogPosts, searchTerm]);
 
-  const getExcerpt = (content: string, maxLength: number = 200) => {
-    if (content.length <= maxLength) return content
-    return content.substring(0, maxLength).replace(/\s+\S*$/, '') + '...'
-  }
+  const getExcerpt = (content: string, maxLength: number = 150) => {
+    const plainText = content.replace(/\*\*|\*/g, ''); // Remove markdown for excerpt
+    if (plainText.length <= maxLength) return plainText;
+    return plainText.substring(0, maxLength).replace(/\s+\S*$/, '') + '...';
+  };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <Spinner size="lg" />
       </div>
-    )
+    );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 p-8">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-slate-800 mb-4">No se pudieron cargar las publicaciones del blog</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mb-4">Error al Cargar el Blog</h2>
           <p className="text-slate-600 mb-6">{error}</p>
-          <Button onClick={() => window.location.reload()}>
-            Intentar de nuevo
-          </Button>
+          <Button onClick={() => window.location.reload()}>Intentar de Nuevo</Button>
         </div>
       </div>
-    )
+    );
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       {/* Header Section */}
-      <section className="py-16 bg-gradient-to-br from-slate-50 to-amber-50 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <BookOpen className="w-16 h-16 text-amber-600 mx-auto mb-6" />
-          <h1 className="text-4xl font-bold text-slate-800 mb-6"> {/* Keep this heading */}
+      <header className="py-20 sm:py-28 bg-gradient-to-br from-amber-500 to-amber-600 text-white text-center px-4">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
+          <BookOpen className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-6 text-amber-200" />
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 tracking-tight">
             Blog de Educación Musical
           </h1>
-          <p className="text-xl text-slate-600 mb-8">
-            Perspectivas, consejos e inspiración para tu viaje musical. 
-            Descubre artículos sobre técnica, hábitos de práctica, teoría musical y más.
+          <p className="text-lg sm:text-xl md:text-2xl text-amber-100 max-w-3xl mx-auto">
+            Consejos, inspiración y recursos para tu viaje musical en Venezuela. Clases de música en Falcón, online y más.
           </p>
-          
-          {/* Search Bar */}
-          <div className="max-w-md mx-auto relative"> {/* Keep this div */}
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Buscar artículos..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-            />
-          </div>
-        </div>
-      </section>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
+          className="max-w-lg mx-auto relative mt-10"
+        >
+          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
+          <input
+            type="text"
+            placeholder="Buscar artículos..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-12 pr-4 py-3 sm:py-4 border-none rounded-full shadow-lg text-slate-800 focus:outline-none focus:ring-4 focus:ring-amber-300 transition-all"
+          />
+        </motion.div>
+      </header>
 
       {/* Blog Posts */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          {filteredPosts.length === 0 ? (
-            <div className="text-center py-12">
-              <h3 className="text-xl font-semibold text-slate-800 mb-2">
-                {searchTerm ? 'No se encontraron artículos' : 'No hay publicaciones de blog disponibles'} {/* Translate this */}
-              </h3>
-              <p className="text-slate-600">
-                {searchTerm 
-                  ? `No hay artículos que coincidan con "${searchTerm}". Intenta con un término de búsqueda diferente.`
-                  : 'Vuelve pronto para nuevos artículos sobre educación musical y consejos de práctica.'
-                }
-              </p>
-            </div>
-          ) : (
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
-              {filteredPosts.map((post) => (
-                <Card key={post.id} className="hover:shadow-xl transition-shadow">
-                  <div className="h-48 overflow-hidden"> {/* Keep this div */}
-                    <img 
-                      src={post.image_url || 'https://placehold.co/400x200/d1d5db/374151?text=Blog+Post'} 
-                      alt={post.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  
-                  <CardHeader>
-                    <div className="flex items-center text-sm text-slate-500 mb-2"> {/* Keep this div */}
-                      <Calendar className="w-4 h-4 mr-1" />
-                      {formatDate(post.published_date)}
-                    </div>
-                    <h2 className="text-xl font-bold text-slate-800 line-clamp-2"> {/* Keep this heading */}
-                      {post.title}
-                    </h2>
-                  </CardHeader>
-                  
-                  <CardContent className="space-y-4">
-                    <p className="text-slate-600 line-clamp-4">
-                      {getExcerpt(post.content.replace(/\*\*([^*]+)\*\*/g, '$1'))}
-                    </p>
-                    
-                    <Link to={`/blog/${post.slug}`}>
-                      <Button variant="outline" className="w-full">
-                        Leer Más
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
+      <Section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <AnimatePresence>
+            {filteredPosts.length === 0 ? (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="text-center py-16"
+              >
+                <h3 className="text-2xl font-semibold text-slate-800 mb-3">
+                  {searchTerm ? 'Sin Resultados' : 'No Hay Publicaciones'}
+                </h3>
+                <p className="text-slate-600 max-w-md mx-auto">
+                  {searchTerm
+                    ? `No se encontraron artículos para "${searchTerm}". Intenta una búsqueda diferente.`
+                    : 'Vuelve pronto para leer nuevos artículos sobre educación musical y consejos de práctica.'}
+                </p>
+              </motion.div>
+            ) : (
+              <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+                {filteredPosts.map((post, index) => (
+                  <motion.div
+                    key={post.id}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <Card className="flex flex-col h-full group">
+                      <div className="h-56 overflow-hidden">
+                        <img
+                          src={post.image_url || 'https://placehold.co/400x200/d1d5db/374151?text=Blog+Post'}
+                          alt={`Imagen del artículo de blog: ${post.title}`}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      <CardHeader>
+                        <div className="flex items-center text-sm text-slate-500 mb-3">
+                          <Calendar className="w-4 h-4 mr-2" />
+                          {formatDate(post.published_date)}
+                        </div>
+                        <h2 className="text-xl font-bold text-slate-800 line-clamp-2 h-14">
+                          {post.title}
+                        </h2>
+                      </CardHeader>
+                      <CardContent className="flex-grow flex flex-col">
+                        <p className="text-slate-600 line-clamp-4 flex-grow mb-6">
+                          {getExcerpt(post.content)}
+                        </p>
+                        <Link to={`/blog/${post.slug}`}>
+                          <Button variant="outline" className="w-full">
+                            Leer Más
+                            <ArrowRight className="w-4 h-4 ml-2" />
+                          </Button>
+                        </Link>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-      </section>
+      </Section>
 
       {/* Newsletter Signup */}
-      <section className="py-16 bg-amber-600 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center text-white">
-          <h2 className="text-3xl font-bold mb-4">
-            Manténte Actualizado con Consejos Musicales
+      <Section className="py-16 sm:py-24 bg-amber-50 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-800 mb-4">
+            Únete a la Comunidad Musical
           </h2>
-          <p className="text-xl mb-8 text-amber-100">
-            Recibe los últimos artículos, consejos de práctica e ideas musicales en tu bandeja de entrada.
+          <p className="text-lg sm:text-xl text-slate-600 mb-8">
+            Recibe los últimos artículos, consejos y ofertas especiales directamente en tu correo.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+          <form className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
             <input
               type="email"
-              placeholder="Ingresa tu correo"
-              className="flex-1 px-4 py-3 rounded-md text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-300"
+              placeholder="Ingresa tu correo electrónico"
+              className="form-input flex-1"
+              aria-label="Correo electrónico para newsletter"
             />
-            <Button variant="secondary">
+            <Button type="submit">
               Suscribirse
             </Button>
-          </div>
+          </form>
         </div>
-      </section>
+      </Section>
     </div>
-  )
+  );
 }

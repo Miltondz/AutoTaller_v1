@@ -1,6 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Music, Mail, Phone, MapPin, Facebook, Instagram, Youtube } from 'lucide-react'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Music, Mail, Phone, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -71,9 +71,9 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-slate-700 mt-8 pt-8 text-center text-slate-400">
-          <p>&copy; 2025 MaestraLauraKarol. Todos los derechos reservados. Inspirando viajes musicales desde 2000.</p>
+          <p>&copy; 2025 MaestraLauraKarol & DunaTech. Todos los derechos reservados. Inspirando viajes musicales desde 2000.</p>
         </div>
       </div>
     </footer>
-  )
+  );
 }

@@ -1,97 +1,103 @@
-import React, { useState } from 'react'
-import { Image as ImageIcon, Video, Youtube, Instagram, Star, Filter, X } from 'lucide-react'
-import { Card, CardContent, CardHeader } from '../components/Card'
-import { Button } from '../components/Button'
-import { Spinner } from '../components/Spinner'
-import { formatDate } from '../lib/utils'
-import { useMediaGallery } from '../hooks/useMediaGallery'
-import { extractYouTubeId } from '../lib/utils'
+import React, { useState, useMemo } from 'react';
+import { Image as ImageIcon, Video, Youtube, Instagram, Star, Filter, X } from 'lucide-react';
+import { Card } from '../components/Card';
+import { Button } from '../components/Button';
+import { Spinner } from '../components/Spinner';
+import { useMediaGallery } from '../hooks/useMediaGallery';
+import { extractYouTubeId } from '../lib/utils';
+import { motion, AnimatePresence } from 'framer-motion';
 
-export { GalleryPage }
+export { GalleryPage };
 
-type MediaType = 'all' | 'photo' | 'video' | 'youtube' | 'instagram'
-type CategoryType = 'all' | 'lecciones' | 'performances' | 'testimonios' | 'eventos' | 'general'
+type MediaType = 'all' | 'photo' | 'video' | 'youtube' | 'instagram';
+type CategoryType = 'all' | 'lecciones' | 'performances' | 'testimonios' | 'eventos' | 'general';
 
 function GalleryPage() {
-  const { mediaItems, loading, error, fetchMediaItems, fetchMediaByCategory } = useMediaGallery()
-  const [filterType, setFilterType] = useState<MediaType>('all')
-  const [filterCategory, setFilterCategory] = useState<CategoryType>('all')
-  const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [currentMedia, setCurrentMedia] = useState<typeof mediaItems[0] | null>(null)
+  const { mediaItems, loading, error, fetchMediaItems } = useMediaGallery();
+  const [filterType, setFilterType] = useState<MediaType>('all');
+  const [filterCategory, setFilterCategory] = useState<CategoryType>('all');
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentMedia, setCurrentMedia] = useState<typeof mediaItems[0] | null>(null);
 
-  const filteredMedia = mediaItems.filter(item => {
-    const typeMatch = filterType === 'all' || item.media_type === filterType
-    const categoryMatch = filterCategory === 'all' || item.category === filterCategory
-    return typeMatch && categoryMatch
-  })
+  const filteredMedia = useMemo(() => {
+    return mediaItems.filter(item => {
+      const typeMatch = filterType === 'all' || item.media_type === filterType;
+      const categoryMatch = filterCategory === 'all' || item.category === filterCategory;
+      return typeMatch && categoryMatch;
+    });
+  }, [mediaItems, filterType, filterCategory]);
 
   const openLightbox = (item: any) => {
-    setCurrentMedia(item)
-    setLightboxOpen(true)
-  }
+    setCurrentMedia(item);
+    setLightboxOpen(true);
+  };
 
   const closeLightbox = () => {
-    setLightboxOpen(false)
-    setCurrentMedia(null)
-  }
+    setLightboxOpen(false);
+    setCurrentMedia(null);
+  };
 
-  const getMediaIcon = (type: MediaType) => {
+  const getMediaIcon = (type: string) => {
     switch (type) {
-      case 'photo': return ImageIcon
-      case 'video': return Video
-      case 'youtube': return Youtube
-      case 'instagram': return Instagram
-      default: return ImageIcon
+      case 'photo': return ImageIcon;
+      case 'video': return Video;
+      case 'youtube': return Youtube;
+      case 'instagram': return Instagram;
+      default: return ImageIcon;
     }
-  }
+  };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <Spinner size="lg" />
       </div>
-    )
+    );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 p-8">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-slate-800 mb-4">Error al cargar la galería</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mb-4">Error al Cargar la Galería</h2>
           <p className="text-slate-600 mb-6">{error}</p>
-          <Button onClick={() => fetchMediaItems()}>
-            Intentar de nuevo
-          </Button>
+          <Button onClick={() => fetchMediaItems()}>Intentar de Nuevo</Button>
         </div>
       </div>
-    )
+    );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       {/* Header Section */}
-      <section className="py-16 bg-gradient-to-br from-slate-50 to-amber-50 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <ImageIcon className="w-16 h-16 text-amber-600 mx-auto mb-6" />
-          <h1 className="text-4xl font-bold text-slate-800 mb-6">
-            Nuestra Galería Multimedia
+      <header className="py-20 sm:py-28 bg-gradient-to-br from-purple-500 to-indigo-600 text-white text-center px-4">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
+          <ImageIcon className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-6 text-purple-200" />
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 tracking-tight">
+            Galería de Momentos Musicales
           </h1>
-          <p className="text-xl text-slate-600">
-            Explora momentos de nuestras clases, presentaciones y eventos especiales.
+          <p className="text-lg sm:text-xl md:text-2xl text-purple-100 max-w-3xl mx-auto">
+            Explora fotos y videos de nuestras clases de música, eventos y logros de estudiantes en toda Venezuela.
           </p>
-        </div>
-      </section>
+        </motion.div>
+      </header>
 
       {/* Filters */}
-      <section className="py-8 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto flex flex-wrap gap-4 justify-center">
-          {/* Type Filter */}
-          <div className="flex items-center gap-2">
-            <Filter className="w-5 h-5 text-slate-600" />
+      <section className="py-8 sm:py-12 bg-slate-50 border-b border-slate-200 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-6 justify-center items-center">
+          <div className="flex items-center gap-3">
+            <Filter className="w-5 h-5 text-slate-500" />
+            <span className="font-medium text-slate-700">Filtrar por:</span>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value as MediaType)}
-              className="px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="form-input w-full sm:w-auto"
             >
               <option value="all">Todos los Tipos</option>
               <option value="photo">Fotos</option>
@@ -99,21 +105,16 @@ function GalleryPage() {
               <option value="youtube">YouTube</option>
               <option value="instagram">Instagram</option>
             </select>
-          </div>
-
-          {/* Category Filter */}
-          <div className="flex items-center gap-2">
-            <Filter className="w-5 h-5 text-slate-600" />
             <select
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value as CategoryType)}
-              className="px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="form-input w-full sm:w-auto"
             >
               <option value="all">Todas las Categorías</option>
-              <option value="lecciones">Lecciones y Clases</option>
-              <option value="performances">Presentaciones y Recitales</option>
-              <option value="testimonios">Testimonios de Estudiantes</option>
-              <option value="eventos">Eventos Especiales</option>
+              <option value="lecciones">Lecciones</option>
+              <option value="performances">Presentaciones</option>
+              <option value="testimonios">Testimonios</option>
+              <option value="eventos">Eventos</option>
               <option value="general">General</option>
             </select>
           </div>
@@ -121,156 +122,124 @@ function GalleryPage() {
       </section>
 
       {/* Media Grid */}
-      <section className="pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredMedia.length === 0 ? (
-            <div className="col-span-full text-center py-12">
-              <ImageIcon className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-slate-800 mb-2">
-                No se encontraron elementos multimedia
-              </h3>
-              <p className="text-slate-600">
-                Ajusta tus filtros o vuelve más tarde para ver nuevo contenido.
-              </p>
-            </div>
-          ) : (
-            filteredMedia.map((item) => {
-              const IconComponent = getMediaIcon(item.media_type)
-              return (
-                <div
-                  key={item.id}
-                  className="cursor-pointer hover:shadow-xl transition-shadow group"
-                  onClick={() => openLightbox(item)}
+      <main className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <AnimatePresence>
+            <motion.div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
+              {filteredMedia.length === 0 ? (
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="col-span-full text-center py-16"
                 >
-                  <Card>
-                  <div className="relative h-48 overflow-hidden">
-                    {item.media_type === 'photo' && (
-                      <img
-                        src={item.thumbnail_url || item.media_url}
-                        alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    )}
-                    {item.media_type === 'youtube' && (
-                      <div className="relative w-full h-full bg-black flex items-center justify-center">
-                        <img
-                          src={item.thumbnail_url || `https://placehold.co/400x400/d1d5db/374151?text=YouTube`}
-                          alt={item.title}
-                          className="w-full h-full object-cover opacity-75"
-                        />
-                        <Youtube className="absolute w-16 h-16 text-red-500 opacity-90" />
-                      </div>
-                    )}
-                    {(item.media_type === 'video' || item.media_type === 'instagram') && (
-                      <div className="relative w-full h-full bg-black flex items-center justify-center">
-                        {item.thumbnail_url && (
+                  <ImageIcon className="w-16 h-16 sm:w-20 sm:h-20 text-slate-300 mx-auto mb-6" />
+                  <h3 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-3">No se Encontraron Resultados</h3>
+                  <p className="text-base sm:text-lg text-slate-500">Intenta ajustar los filtros para encontrar lo que buscas.</p>
+                </motion.div>
+              ) : (
+                filteredMedia.map((item, index) => {
+                  const IconComponent = getMediaIcon(item.media_type);
+                  return (
+                    <motion.div
+                      key={item.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                      className="cursor-pointer group"
+                      onClick={() => openLightbox(item)}
+                    >
+                      <Card className="h-full overflow-hidden">
+                        <div className="relative h-48 sm:h-56 bg-slate-100">
                           <img
-                            src={item.thumbnail_url}
+                            src={item.thumbnail_url || item.media_url}
                             alt={item.title}
-                            className="w-full h-full object-cover opacity-75"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
-                        )}
-                        <IconComponent className="absolute w-16 h-16 text-white opacity-90" />
-                      </div>
-                    )}
-                    <div className="absolute top-2 right-2 bg-black bg-opacity-60 text-white p-1 rounded">
-                      <IconComponent className="w-4 h-4" />
-                    </div>
-                    {item.is_featured && (
-                      <div className="absolute top-2 left-2 bg-amber-500 text-white px-2 py-1 text-xs font-medium rounded flex items-center">
-                        <Star className="w-3 h-3 mr-1" />
-                        Destacado
-                      </div>
-                    )}
-                  </div>
-                  <CardContent className="p-4">
-                    <h3 className="font-semibold text-slate-800 mb-1 line-clamp-1">{item.title}</h3>
-                    <p className="text-sm text-slate-600 line-clamp-2">{item.description}</p>
-                    <div className="flex items-center justify-between text-xs text-slate-500 mt-2">
-                      <span className="bg-slate-100 px-2 py-1 rounded capitalize">{item.category}</span>
-                      <span>{new Date(item.created_at).toLocaleDateString()}</span>
-                    </div>
-                  </CardContent>
-                  </Card>
-                </div>
-              )
-            })
-          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                          <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-black/50 text-white p-1.5 rounded-full">
+                            <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />
+                          </div>
+                          {item.is_featured && (
+                            <div className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-amber-500 text-white px-2 py-1 text-xs font-bold rounded-full flex items-center shadow-lg">
+                              <Star className="w-3 h-3 mr-1" />
+                              DESTACADO
+                            </div>
+                          )}
+                          <div className="absolute bottom-0 left-0 p-2 sm:p-4">
+                             <h3 className="font-bold text-white text-sm sm:text-lg leading-tight line-clamp-2">{item.title}</h3>
+                          </div>
+                        </div>
+                      </Card>
+                    </motion.div>
+                  );
+                })
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
-      </section>
+      </main>
 
       {/* Lightbox */}
-      {lightboxOpen && currentMedia && (
-        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4">
-          <div className="relative max-w-4xl w-full max-h-[90vh] bg-white rounded-lg overflow-hidden">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={closeLightbox}
-              className="absolute top-2 right-2 z-10 text-slate-800 bg-white/70 rounded-full hover:bg-white hover:text-amber-500"
+      <AnimatePresence>
+        {lightboxOpen && currentMedia && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4"
+            onClick={closeLightbox}
+          >
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+              className="relative max-w-4xl w-full max-h-[90vh] bg-white rounded-xl overflow-hidden shadow-2xl flex flex-col"
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the content
             >
-              <X className="w-6 h-6" />
-            </Button>
-            <div className="p-4">
-              {currentMedia.media_type === 'photo' && (
-                <img
-                  src={currentMedia.media_url}
-                  alt={currentMedia.title}
-                  className="w-full h-auto max-h-[80vh] object-contain mx-auto"
-                />
-              )}
-              {currentMedia.media_type === 'youtube' && (
-                <div className="relative" style={{ paddingBottom: '56.25%', height: 0 }}>
-                  <iframe
-                    src={`https://www.youtube.com/embed/${extractYouTubeId(currentMedia.media_url)}`}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="absolute top-0 left-0 w-full h-full"
-                    title={currentMedia.title}
-                  ></iframe>
-                </div>
-              )}
-              {currentMedia.media_type === 'video' && (
-                <video controls className="w-full h-auto max-h-[80vh] object-contain mx-auto">
-                  <source src={currentMedia.media_url} type="video/mp4" />
-                  Tu navegador no soporta la etiqueta de video.
-                </video>
-              )}
-              {currentMedia.media_type === 'instagram' && (
-                <div className="w-full max-w-lg mx-auto">
-                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 border border-pink-200 rounded-lg p-6">
-                    <div className="flex items-center justify-center mb-4">
-                      <Instagram className="w-12 h-12 text-pink-500" />
-                    </div>
-                    <h4 className="text-center font-semibold text-slate-800 mb-2">{currentMedia.title}</h4>
-                    {currentMedia.description && (
-                      <p className="text-center text-slate-600 text-sm mb-4">{currentMedia.description}</p>
-                    )}
-                    <div className="text-center">
-                      <a
-                        href={currentMedia.media_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-colors font-medium"
-                      >
-                        <Instagram className="w-5 h-5 mr-2" />
-                        Ver en Instagram
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={closeLightbox}
+                className="absolute top-2 right-2 z-10 text-slate-100 bg-black/40 rounded-full hover:bg-white hover:text-amber-500 w-10 h-10"
+              >
+                <X className="w-6 h-6" />
+              </Button>
+              
+              <div className="flex-grow p-2 sm:p-4 flex items-center justify-center">
+                {currentMedia.media_type === 'photo' && (
+                  <img src={currentMedia.media_url} alt={currentMedia.title} className="w-full h-auto max-h-[75vh] object-contain" />
+                )}
+                {currentMedia.media_type === 'youtube' && (
+                  <div className="w-full aspect-w-16 aspect-h-9">
+                    <iframe src={`https://www.youtube.com/embed/${extractYouTubeId(currentMedia.media_url)}`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="w-full h-full" title={currentMedia.title}></iframe>
+                  </div>
+                )}
+                {currentMedia.media_type === 'video' && (
+                  <video controls className="w-full h-auto max-h-[75vh]"><source src={currentMedia.media_url} type="video/mp4" />Tu navegador no soporta videos.</video>
+                )}
+                {currentMedia.media_type === 'instagram' && (
+                   <div className="w-full max-w-md mx-auto my-10">
+                    <div className="bg-gradient-to-br from-purple-50 to-pink-50 border border-pink-200 rounded-lg p-8 text-center">
+                      <Instagram className="w-16 h-16 text-pink-500 mx-auto mb-6" />
+                      <h4 className="text-xl font-bold text-slate-800 mb-2">{currentMedia.title}</h4>
+                      <p className="text-slate-600 text-sm mb-6">{currentMedia.description}</p>
+                      <a href={currentMedia.media_url} target="_blank" rel="noopener noreferrer">
+                        <Button variant="primary">Ver en Instagram</Button>
                       </a>
                     </div>
                   </div>
-                </div>
-              )}
-              <div className="mt-4 text-center">
-                <h3 className="text-xl font-bold text-slate-800">{currentMedia.title}</h3>
-                {currentMedia.description && (
-                  <p className="text-slate-600 mt-2">{currentMedia.description}</p>
                 )}
               </div>
-            </div>
-          </div>
-        </div>
-      )}
+              <div className="bg-white/80 backdrop-blur-sm p-4 mt-auto border-t border-slate-200">
+                <h3 className="text-lg sm:text-xl font-bold text-slate-800">{currentMedia.title}</h3>
+                {currentMedia.description && <p className="text-sm sm:text-base text-slate-600 mt-1">{currentMedia.description}</p>}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
-  )
+  );
 }
