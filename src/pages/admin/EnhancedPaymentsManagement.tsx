@@ -244,7 +244,7 @@ export function EnhancedPaymentsManagement() {
   const [updatingStatus, setUpdatingStatus] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [notification, setNotification] = useState<{ message: string; type: NotificationType } | null>(null);
-  const [confirmation, setConfirmation] = useState<{
+  const [confirmation, setConfirmation] = useState<{ 
     isOpen: boolean;
     title: string;
     message: string;
@@ -657,7 +657,7 @@ export function EnhancedPaymentsManagement() {
                           disabled={updatingStatus === payment.id}
                           className="bg-green-600 hover:bg-green-700 text-white"
                         >
-                          {updatingStatus === payment.id ? <Spinner size="sm" /> : <> <CheckCircle className="w-4 h-4 mr-1" /> Completar </>
+                          {updatingStatus === payment.id ? <Spinner size="sm" /> : <> <CheckCircle className="w-4 h-4 mr-1" /> Completar </>}
                         </Button>
                       )}
                       {payment.status !== 'cancelled' && payment.status !== 'failed' && (
