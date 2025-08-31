@@ -8,13 +8,9 @@ import { servicesApi } from '../../api/services';
 import { formatDate, formatTime, formatPrice } from '../../lib/utils';
 import type { Appointment, Service } from '../../types';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 type FilterStatus = 'all' | 'pending' | 'confirmed' | 'cancelled';
-
-interface jsPDFWithAutoTable extends jsPDF {
-  autoTable: (options: any) => jsPDF;
-}
 
 export function AppointmentsManagement() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -133,7 +129,7 @@ export function AppointmentsManagement() {
   };
 
   const exportToPdf = () => {
-    const doc = new jsPDF() as jsPDFWithAutoTable;
+    const doc = new jsPDF();
     doc.text('Lista de Citas', 14, 16);
 
     const tableColumn = ["Nombre", "Email", "Servicio", "Fecha", "Hora", "Estado", "Notas"];
@@ -152,7 +148,7 @@ export function AppointmentsManagement() {
       tableRows.push(appointmentData);
     });
 
-    doc.autoTable({
+    autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
       startY: 20,
@@ -389,7 +385,7 @@ export function AppointmentsManagement() {
                 </div>
               </CardContent>
             </Card>
-          ))
+          )) 
         )}
       </div>
 

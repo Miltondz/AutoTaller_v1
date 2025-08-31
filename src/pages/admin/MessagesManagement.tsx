@@ -7,13 +7,9 @@ import { formatDate } from '../../lib/utils';
 import { useContactMessages } from '../../hooks/useContactMessages';
 import type { ContactMessage } from '../../types';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 type FilterStatus = 'all' | 'read' | 'unread';
-
-interface jsPDFWithAutoTable extends jsPDF {
-  autoTable: (options: any) => jsPDF;
-}
 
 export { MessagesManagement };
 
@@ -103,7 +99,7 @@ function MessagesManagement() {
   };
 
   const exportToPdf = () => {
-    const doc = new jsPDF() as jsPDFWithAutoTable;
+    const doc = new jsPDF();
     doc.text('Lista de Mensajes', 14, 16);
 
     const tableColumn = ["Nombre", "Email", "Teléfono", "Tipo", "Fecha", "Leído", "Mensaje", "Respuesta"];
@@ -123,7 +119,7 @@ function MessagesManagement() {
       tableRows.push(messageData);
     });
 
-    doc.autoTable({
+    autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
       startY: 20,
@@ -343,7 +339,7 @@ function MessagesManagement() {
                 </div>
               </CardContent>
             </Card>
-          ))
+          )) 
         )}
       </div>
 

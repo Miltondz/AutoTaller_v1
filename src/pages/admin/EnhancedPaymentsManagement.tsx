@@ -8,13 +8,9 @@ import { paymentsApi } from '../../api/payments';
 import { appointmentsApi } from '../../api/appointments';
 import type { Payment, Appointment, CreatePaymentData } from '../../types';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 type FilterStatus = 'all' | 'pending' | 'completed' | 'failed' | 'cancelled';
-
-interface jsPDFWithAutoTable extends jsPDF {
-  autoTable: (options: any) => jsPDF;
-}
 
 // Modal para agregar un nuevo pago
 function AddPaymentModal({
@@ -410,7 +406,7 @@ export function EnhancedPaymentsManagement() {
   };
 
   const exportToPdf = () => {
-    const doc = new jsPDF() as jsPDFWithAutoTable;
+    const doc = new jsPDF();
     doc.text('Lista de Pagos', 14, 16);
 
     const tableColumn = ["Cliente", "Monto", "Fecha de Pago", "Método", "Estado", "Cita"];
@@ -429,7 +425,7 @@ export function EnhancedPaymentsManagement() {
       tableRows.push(paymentData);
     });
 
-    doc.autoTable({
+    autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
       startY: 20,
@@ -650,14 +646,22 @@ export function EnhancedPaymentsManagement() {
                     
                     {/* Action Buttons */}
                     <div className="flex flex-col gap-2 ml-4">
-                      {payment.status === 'pending' && (
+                      {payment.status === 'pending' && updatingStatus !== payment.id && (
                         <Button
                           size="sm"
                           onClick={() => requestStatusUpdate(payment.id, 'completed')}
-                          disabled={updatingStatus === payment.id}
                           className="bg-green-600 hover:bg-green-700 text-white"
                         >
-                          {updatingStatus === payment.id ? <Spinner size="sm" /> : <> <CheckCircle className="w-4 h-4 mr-1" /> Completar </>}
+                          <CheckCircle className="w-4 h-4 mr-1" /> Completar
+                        </Button>
+                      )}
+                      {payment.status === 'pending' && updatingStatus === payment.id && (
+                        <Button
+                          size="sm"
+                          disabled
+                          className="bg-green-600 hover:bg-green-700 text-white"
+                        >
+                          <Spinner size="sm" />
                         </Button>
                       )}
                       {payment.status !== 'cancelled' && payment.status !== 'failed' && (
