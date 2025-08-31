@@ -167,7 +167,7 @@ function AddPaymentModal({
 
 type NotificationType = 'success' | 'error';
 
-// Notification Component
+// Componente de Notificación
 function Notification({ message, type, onClose }: { message: string; type: NotificationType; onClose: () => void }) {
   const baseClasses = 'fixed top-20 right-5 p-4 rounded-lg shadow-lg flex items-center z-[100]';
   const typeClasses = type === 'success' 
@@ -188,7 +188,7 @@ function Notification({ message, type, onClose }: { message: string; type: Notif
   );
 }
 
-// Confirmation Modal Component
+// Componente de Modal de Confirmación
 function ConfirmationModal({ isOpen, title, message, onConfirm, onCancel, confirmText, cancelText, isLoading }: {
   isOpen: boolean;
   title: string;
@@ -344,7 +344,7 @@ export function EnhancedPaymentsManagement() {
   };
 
   const getAppointmentDetails = (appointmentId: string | null) => {
-    if (!appointmentId) return { clientName: 'N/A', appointmentDate: 'N/A', appointmentTime: 'N/A' };
+    if (!appointmentId) return { clientName: 'N/D', appointmentDate: 'N/D', appointmentTime: 'N/D' };
     const appointment = appointments.find(apt => apt.id === appointmentId);
     return {
       clientName: appointment?.client_name || 'Cliente Desconocido',

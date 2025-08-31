@@ -114,7 +114,7 @@ export function TestimonialsManagement() {
                     value={formData.author_name}
                     onChange={(e) => setFormData({ ...formData, author_name: e.target.value })}
                     className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
-                    placeholder="Ej: Sarah Johnson"
+                    placeholder="Ej: Juan Pérez"
                     required
                   />
                 </div>

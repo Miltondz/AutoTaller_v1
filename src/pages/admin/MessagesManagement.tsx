@@ -69,9 +69,9 @@ function MessagesManagement() {
 
   const getInquiryTypeColor = (type: string) => {
     switch (type) {
-      case 'lessons': return 'bg-blue-100 text-blue-800';
-      case 'events': return 'bg-purple-100 text-purple-800';
-      case 'technical': return 'bg-red-100 text-red-800';
+      case 'lecciones': return 'bg-blue-100 text-blue-800';
+      case 'eventos': return 'bg-purple-100 text-purple-800';
+      case 'técnico': return 'bg-red-100 text-red-800';
       default: return 'bg-slate-100 text-slate-700';
     }
   };
@@ -80,12 +80,14 @@ function MessagesManagement() {
     const data = filteredMessages.map(msg => (
       `Nombre: ${msg.name}\n` +
       `Email: ${msg.email}\n` +
-      `Teléfono: ${msg.phone || 'N/A'}\n` +
+      `Teléfono: ${msg.phone || 'N/D'}
+` +
       `Tipo de consulta: ${msg.inquiry_type}\n` +
       `Fecha: ${formatDate(msg.created_at)}\n` +
       `Leído: ${msg.is_read ? 'Sí' : 'No'}\n` +
       `Mensaje: ${msg.message}\n` +
-      `Respuesta: ${msg.admin_response || 'N/A'}\n` +
+      `Respuesta: ${msg.admin_response || 'N/D'}
+` +
       '----------------------------------\n'
     )).join('');
 
@@ -109,12 +111,12 @@ function MessagesManagement() {
       const messageData = [
         msg.name,
         msg.email,
-        msg.phone || 'N/A',
+        msg.phone || 'N/D',
         msg.inquiry_type,
         formatDate(msg.created_at),
         msg.is_read ? 'Sí' : 'No',
         msg.message,
-        msg.admin_response || 'N/A',
+        msg.admin_response || 'N/D',
       ];
       tableRows.push(messageData);
     });

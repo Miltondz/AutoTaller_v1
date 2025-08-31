@@ -250,7 +250,7 @@ export function ServicesManagement() {
                     )}
                     {service.image_url && (
                       <div className="text-sm text-slate-500">
-                        <span>Image: {service.image_url}</span>
+                        <span>Imagen: {service.image_url}</span>
                       </div>
                     )}
                   </div>

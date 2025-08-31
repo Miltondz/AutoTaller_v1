@@ -107,7 +107,7 @@ export function BlogManagement() {
       refreshBlogPosts()
       handleCancel()
     } catch (error) {
-      setFormError(error instanceof Error ? error.message : 'An error occurred')
+      setFormError(error instanceof Error ? error.message : 'Ocurrió un error')
     } finally {
       setSubmitting(false)
     }
@@ -215,7 +215,7 @@ export function BlogManagement() {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-2"> {/* Keep this label */}
-                      Title *
+                      Título *
                     </label>
                     <input
                       type="text"
@@ -369,7 +369,7 @@ Separa los párrafos con dos saltos de línea."
                         <span>Publicado el {formatDate(post.published_date)}</span>
                       </div>
                       <div>
-                        {Math.ceil(post.content.length / 1000)} min read
+                        {Math.ceil(post.content.length / 1000)} min de lectura
                       </div>
                     </div>
                     
@@ -389,7 +389,7 @@ Separa los párrafos con dos saltos de línea."
                       variant="outline"
                       size="sm"
                       onClick={() => window.open(`/blog/${post.slug}`, '_blank')}
-                      title="View Post"
+                      title="Ver Publicación"
                     >
                       <Eye className="w-4 h-4" />
                     </Button>
@@ -397,7 +397,7 @@ Separa los párrafos con dos saltos de línea."
                       variant="outline"
                       size="sm"
                       onClick={() => handleEdit(post)}
-                      title="Edit Post"
+                      title="Editar Publicación"
                     >
                       <Edit2 className="w-4 h-4" />
                     </Button>
@@ -407,7 +407,7 @@ Separa los párrafos con dos saltos de línea."
                       onClick={() => handleDelete(post.id)}
                       disabled={deleting === post.id}
                       className="text-red-600 border-red-600 hover:bg-red-50"
-                      title="Delete Post"
+                      title="Eliminar Publicación"
                     >
                       {deleting === post.id ? (
                         <Spinner size="sm" />

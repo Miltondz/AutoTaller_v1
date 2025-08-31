@@ -206,7 +206,7 @@ export function EnhancedMediaManagement() {
       resetForm()
       await fetchMediaItems()
     } catch (error) {
-      console.error('Error saving media item:', error)
+      console.error('Error al guardar el elemento multimedia:', error)
     } finally {
       setSubmitting(false)
     }
@@ -248,7 +248,7 @@ export function EnhancedMediaManagement() {
         await removeMediaItem(id)
         await fetchMediaItems()
       } catch (error) {
-        console.error('Error deleting media item:', error)
+        console.error('Error al eliminar el elemento multimedia:', error)
       }
     }
   }
