@@ -12,6 +12,10 @@ import 'jspdf-autotable';
 
 type FilterStatus = 'all' | 'pending' | 'completed' | 'failed' | 'cancelled';
 
+interface jsPDFWithAutoTable extends jsPDF {
+  autoTable: (options: any) => jsPDF;
+}
+
 // Modal para agregar un nuevo pago
 function AddPaymentModal({
   isOpen,
@@ -406,7 +410,7 @@ export function EnhancedPaymentsManagement() {
   };
 
   const exportToPdf = () => {
-    const doc = new jsPDF();
+    const doc = new jsPDF() as jsPDFWithAutoTable;
     doc.text('Lista de Pagos', 14, 16);
 
     const tableColumn = ["Cliente", "Monto", "Fecha de Pago", "Método", "Estado", "Cita"];
@@ -425,17 +429,28 @@ export function EnhancedPaymentsManagement() {
       tableRows.push(paymentData);
     });
 
-    (doc as any).autoTable({ head: [tableColumn], body: tableRows, startY: 20 });
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+      startY: 20,
+      styles: {
+        cellPadding: 2,
+        fontSize: 8,
+        valign: 'middle',
+        overflow: 'linebreak',
+        halign: 'left',
+      },
+      headStyles: {
+        fillColor: [22, 160, 133], // Theme color
+        textColor: 255,
+        fontSize: 10,
+        fontStyle: 'bold',
+      },
+      alternateRowStyles: {
+        fillColor: [240, 240, 240],
+      },
+    });
     doc.save('pagos.pdf');
-  };
-
-  const handleExport = () => {
-    const format = prompt("Seleccione el formato de exportación: 'pdf' o 'txt'", 'pdf');
-    if (format === 'pdf') {
-      exportToPdf();
-    } else if (format === 'txt') {
-      exportToTxt();
-    }
   };
 
   if (loading) {
@@ -494,9 +509,13 @@ export function EnhancedPaymentsManagement() {
         </div>
         
         <div className="flex items-center gap-4">
-          <Button onClick={handleExport} variant="outline">
+          <Button onClick={exportToPdf} variant="outline">
             <Download className="w-4 h-4 mr-2" />
-            Exportar
+            Exportar a PDF
+          </Button>
+          <Button onClick={exportToTxt} variant="outline">
+            <Download className="w-4 h-4 mr-2" />
+            Exportar a TXT
           </Button>
            <Button 
             onClick={() => loadData(true)} 
@@ -638,7 +657,7 @@ export function EnhancedPaymentsManagement() {
                           disabled={updatingStatus === payment.id}
                           className="bg-green-600 hover:bg-green-700 text-white"
                         >
-                          {updatingStatus === payment.id ? <Spinner size="sm" /> : <> <CheckCircle className="w-4 h-4 mr-1" /> Completar </>}
+                          {updatingStatus === payment.id ? <Spinner size="sm" /> : <> <CheckCircle className="w-4 h-4 mr-1" /> Completar </>
                         </Button>
                       )}
                       {payment.status !== 'cancelled' && payment.status !== 'failed' && (

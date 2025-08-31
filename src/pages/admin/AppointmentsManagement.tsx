@@ -12,6 +12,10 @@ import 'jspdf-autotable';
 
 type FilterStatus = 'all' | 'pending' | 'confirmed' | 'cancelled';
 
+interface jsPDFWithAutoTable extends jsPDF {
+  autoTable: (options: any) => jsPDF;
+}
+
 export function AppointmentsManagement() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [services, setServices] = useState<Service[]>([]);
@@ -109,20 +113,13 @@ export function AppointmentsManagement() {
 
   const exportToTxt = () => {
     const data = filteredAppointments.map(app => (
-      `Nombre: ${app.client_name}
-` +
-      `Email: ${app.client_email}
-` +
-      `Servicio: ${getServiceName(app.service_id)}
-` +
-      `Fecha: ${formatDate(app.appointment_date)}
-` +
-      `Hora: ${formatTime(app.appointment_time)}
-` +
-      `Estado: ${app.status}
-` +
-      `Notas: ${app.notes || 'N/A'}
-` +
+      `Nombre: ${app.client_name}\n` +
+      `Email: ${app.client_email}\n` +
+      `Servicio: ${getServiceName(app.service_id)}\n` +
+      `Fecha: ${formatDate(app.appointment_date)}\n` +
+      `Hora: ${formatTime(app.appointment_time)}\n` +
+      `Estado: ${app.status}\n` +
+      `Notas: ${app.notes || 'N/A'}\n` +
       '----------------------------------\n'
     )).join('');
 
@@ -136,7 +133,7 @@ export function AppointmentsManagement() {
   };
 
   const exportToPdf = () => {
-    const doc = new jsPDF();
+    const doc = new jsPDF() as jsPDFWithAutoTable;
     doc.text('Lista de Citas', 14, 16);
 
     const tableColumn = ["Nombre", "Email", "Servicio", "Fecha", "Hora", "Estado", "Notas"];
@@ -155,17 +152,28 @@ export function AppointmentsManagement() {
       tableRows.push(appointmentData);
     });
 
-    (doc as any).autoTable({ head: [tableColumn], body: tableRows, startY: 20 });
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+      startY: 20,
+      styles: {
+        cellPadding: 2,
+        fontSize: 8,
+        valign: 'middle',
+        overflow: 'linebreak',
+        halign: 'left',
+      },
+      headStyles: {
+        fillColor: [22, 160, 133], // Theme color
+        textColor: 255,
+        fontSize: 10,
+        fontStyle: 'bold',
+      },
+      alternateRowStyles: {
+        fillColor: [240, 240, 240],
+      },
+    });
     doc.save('citas.pdf');
-  };
-
-  const handleExport = () => {
-    const format = prompt("Seleccione el formato de exportación: 'pdf' o 'txt'", 'pdf');
-    if (format === 'pdf') {
-      exportToPdf();
-    } else if (format === 'txt') {
-      exportToTxt();
-    }
   };
 
   if (loading) {
@@ -197,9 +205,13 @@ export function AppointmentsManagement() {
         </div>
 
         <div className="flex items-center gap-4">
-          <Button onClick={handleExport} variant="outline">
+          <Button onClick={exportToPdf} variant="outline">
             <Download className="w-4 h-4 mr-2" />
-            Exportar
+            Exportar a PDF
+          </Button>
+          <Button onClick={exportToTxt} variant="outline">
+            <Download className="w-4 h-4 mr-2" />
+            Exportar a TXT
           </Button>
           {/* Status Filter */}
           <div className="flex items-center gap-2">
@@ -377,7 +389,7 @@ export function AppointmentsManagement() {
                 </div>
               </CardContent>
             </Card>
-          )) 
+          ))
         )}
       </div>
 

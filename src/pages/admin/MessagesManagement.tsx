@@ -11,6 +11,10 @@ import 'jspdf-autotable';
 
 type FilterStatus = 'all' | 'read' | 'unread';
 
+interface jsPDFWithAutoTable extends jsPDF {
+  autoTable: (options: any) => jsPDF;
+}
+
 export { MessagesManagement };
 
 function MessagesManagement() {
@@ -99,7 +103,7 @@ function MessagesManagement() {
   };
 
   const exportToPdf = () => {
-    const doc = new jsPDF();
+    const doc = new jsPDF() as jsPDFWithAutoTable;
     doc.text('Lista de Mensajes', 14, 16);
 
     const tableColumn = ["Nombre", "Email", "Teléfono", "Tipo", "Fecha", "Leído", "Mensaje", "Respuesta"];
@@ -119,17 +123,28 @@ function MessagesManagement() {
       tableRows.push(messageData);
     });
 
-    (doc as any).autoTable({ head: [tableColumn], body: tableRows, startY: 20 });
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+      startY: 20,
+      styles: {
+        cellPadding: 2,
+        fontSize: 8,
+        valign: 'middle',
+        overflow: 'linebreak',
+        halign: 'left',
+      },
+      headStyles: {
+        fillColor: [22, 160, 133], // Theme color
+        textColor: 255,
+        fontSize: 10,
+        fontStyle: 'bold',
+      },
+      alternateRowStyles: {
+        fillColor: [240, 240, 240],
+      },
+    });
     doc.save('mensajes.pdf');
-  };
-
-  const handleExport = () => {
-    const format = prompt("Seleccione el formato de exportación: 'pdf' o 'txt'", 'pdf');
-    if (format === 'pdf') {
-      exportToPdf();
-    } else if (format === 'txt') {
-      exportToTxt();
-    }
   };
 
   if (loading) {
@@ -161,9 +176,13 @@ function MessagesManagement() {
         </div>
 
         <div className="flex items-center gap-4">
-          <Button onClick={handleExport} variant="outline">
+          <Button onClick={exportToPdf} variant="outline">
             <Download className="w-4 h-4 mr-2" />
-            Exportar
+            Exportar a PDF
+          </Button>
+          <Button onClick={exportToTxt} variant="outline">
+            <Download className="w-4 h-4 mr-2" />
+            Exportar a TXT
           </Button>
           {/* Status Filter */}
           <div className="flex items-center gap-2">
