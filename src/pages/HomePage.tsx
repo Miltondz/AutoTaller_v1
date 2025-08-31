@@ -6,6 +6,7 @@ import { Card, CardContent } from '../components/Card';
 import { useServices } from '../hooks/useServices';
 import { useTestimonials } from '../hooks/useTestimonials';
 import { useFeaturedMedia } from '../hooks/useMediaGallery';
+import { useSiteContent } from '../hooks/useSiteContent';
 import { formatPrice } from '../lib/utils';
 import { BlogCarousel } from '../components/BlogCarousel';
 import { Spinner } from '../components/Spinner';
@@ -27,10 +28,15 @@ export function HomePage() {
   const { services, loading: servicesLoading } = useServices();
   const { testimonials, loading: testimonialsLoading } = useTestimonials();
   const { featuredItems, loading: mediaLoading } = useFeaturedMedia();
+  const { content, loading: contentLoading } = useSiteContent();
 
   const featuredServices = services.slice(0, 3);
   const featuredTestimonials = testimonials.slice(0, 3);
   const featuredPhotos = featuredItems.filter(item => item.is_featured && item.media_type === 'photo').slice(0, 2);
+
+  if (contentLoading) {
+    return <div className="min-h-screen flex items-center justify-center"><Spinner size="lg" /></div>;
+  }
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -52,7 +58,7 @@ export function HomePage() {
             transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
             className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 tracking-tight"
           >
-            Descubre Tu Verdadera Pasión Musical
+            {content.home_hero_title || 'Descubre Tu Verdadera Pasión Musical'}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -60,7 +66,7 @@ export function HomePage() {
             transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
             className="text-lg sm:text-xl md:text-2xl mb-10 text-slate-200 max-w-3xl mx-auto"
           >
-            Clases de música online y presenciales en Venezuela. Aprende piano, guitarra, canto y más con una metodología adaptada a ti.
+            {content.home_hero_subtitle || 'Clases de música online y presenciales en Venezuela. Aprende piano, guitarra, canto y más con una metodología adaptada a ti.'}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -93,13 +99,13 @@ export function HomePage() {
                transition={{ duration: 0.8, ease: 'easeOut' }}
             >
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-800 mb-6">
-                Una Trayectoria Dedicada a la Música
+                {content.home_about_title || 'Una Trayectoria Dedicada a la Música'}
               </h2>
               <p className="text-lg text-slate-600 mb-6">
-                Con más de 25 años de experiencia, mi misión es guiarte en tu viaje musical. Ofrezco clases en Falcón, Punto Fijo, y para toda Venezuela vía remota.
+                {content.home_about_p1 || 'Con más de 25 años de experiencia, mi misión es guiarte en tu viaje musical. Ofrezco clases en Falcón, Punto Fijo, y para toda Venezuela vía remota.'}
               </p>
               <p className="text-lg text-slate-600 mb-8">
-                Mi filosofía combina excelencia académica con un enfoque creativo y personalizado, creando un ambiente de aprendizaje donde cada estudiante puede brillar.
+                {content.home_about_p2 || 'Mi filosofía combina excelencia académica con un enfoque creativo y personalizado, creando un ambiente de aprendizaje donde cada estudiante puede brillar.'}
               </p>
               <Link to="/acerca-de">
                 <Button variant="secondary">
@@ -133,32 +139,32 @@ export function HomePage() {
       <Section className="py-16 sm:py-24 bg-gradient-to-b from-amber-50 to-white px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-800 mb-6">
-            ¿Por Qué Elegir Mis Clases?
+            {content.home_why_title || '¿Por Qué Elegir Mis Clases?'}
           </h2>
           <p className="text-lg sm:text-xl text-slate-600 mb-12 sm:mb-16 max-w-3xl mx-auto">
-            Mi compromiso es con tu éxito. Ofrezco una experiencia de aprendizaje única, ya sea en Maracaibo, Caracas, Mérida o desde casa.
+            {content.home_why_subtitle || 'Mi compromiso es con tu éxito. Ofrezco una experiencia de aprendizaje única, ya sea en Maracaibo, Caracas, Mérida o desde casa.'}
           </p>
           <div className="grid md:grid-cols-3 gap-10">
             <div className="flex flex-col items-center text-center p-6">
               <div className="p-4 bg-amber-100 rounded-full mb-4">
                 <GraduationCap className="w-12 h-12 text-amber-600" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-800 mb-2">Instrucción de Calidad</h3>
-              <p className="text-slate-600">Guía experta y personalizada de una profesional con una sólida trayectoria en docencia y dirección musical.</p>
+              <h3 className="text-xl font-semibold text-slate-800 mb-2">{content.home_why_f1_title || 'Instrucción de Calidad'}</h3>
+              <p className="text-slate-600">{content.home_why_f1_text || 'Guía experta y personalizada de una profesional con una sólida trayectoria en docencia y dirección musical.'}</p>
             </div>
             <div className="flex flex-col items-center text-center p-6">
               <div className="p-4 bg-amber-100 rounded-full mb-4">
                 <ClipboardEdit className="w-12 h-12 text-amber-600" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-800 mb-2">Planes Personalizados</h3>
-              <p className="text-slate-600">Planes de estudio adaptados a tu ritmo, estilo de aprendizaje e intereses musicales. Tu progreso es mi prioridad.</p>
+              <h3 className="text-xl font-semibold text-slate-800 mb-2">{content.home_why_f2_title || 'Planes Personalizados'}</h3>
+              <p className="text-slate-600">{content.home_why_f2_text || 'Planes de estudio adaptados a tu ritmo, estilo de aprendizaje e intereses musicales. Tu progreso es mi prioridad.'}</p>
             </div>
             <div className="flex flex-col items-center text-center p-6">
               <div className="p-4 bg-amber-100 rounded-full mb-4">
                 <HeartHandshake className="w-12 h-12 text-amber-600" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-800 mb-2">Comunidad y Apoyo</h3>
-              <p className="text-slate-600">Únete a una red de estudiantes, participa en talleres y eventos, y enriquece tu experiencia de aprendizaje.</p>
+              <h3 className="text-xl font-semibold text-slate-800 mb-2">{content.home_why_f3_title || 'Comunidad y Apoyo'}</h3>
+              <p className="text-slate-600">{content.home_why_f3_text || 'Únete a una red de estudiantes, participa en talleres y eventos, y enriquece tu experiencia de aprendizaje.'}</p>
             </div>
           </div>
         </div>
@@ -168,8 +174,8 @@ export function HomePage() {
       <Section className="py-10 sm:py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10 sm:mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-800 mb-4">Servicios Musicales</h2>
-            <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto">Clases de música para todas las edades y niveles. Explora nuestros servicios y encuentra el ideal para ti.</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-800 mb-4">{content.home_services_title || 'Servicios Musicales'}</h2>
+            <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto">{content.home_services_subtitle || 'Clases de música para todas las edades y niveles. Explora nuestros servicios y encuentra el ideal para ti.'}</p>
           </div>
 
           {servicesLoading ? (
@@ -204,8 +210,8 @@ export function HomePage() {
       <Section className="py-16 sm:py-24 bg-slate-100 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-800 mb-4">Lo Que Dicen Mis Estudiantes</h2>
-            <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto">Testimonios de estudiantes que han iniciado su viaje musical conmigo.</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-800 mb-4">{content.home_testimonials_title || 'Lo Que Dicen Mis Estudiantes'}</h2>
+            <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto">{content.home_testimonials_subtitle || 'Testimonios de estudiantes que han iniciado su viaje musical conmigo.'}</p>
           </div>
 
           {testimonialsLoading ? (
@@ -271,10 +277,10 @@ export function HomePage() {
             className="text-center lg:text-left"
           >
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Únete a Nuestra Comunidad Musical
+              {content.home_cta_title || 'Únete a Nuestra Comunidad Musical'}
             </h2>
             <p className="text-lg sm:text-xl mb-10 text-amber-100 max-w-2xl lg:max-w-none mx-auto lg:mx-0">
-              Da el primer paso hacia tu futuro musical. Reserva tu clase hoy y descubre el poder de la música.
+              {content.home_cta_subtitle || 'Da el primer paso hacia tu futuro musical. Reserva tu clase hoy y descubre el poder de la música.'}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Link to="/reservar"><Button variant="secondary" size="lg">Reserva tu Clase<Calendar className="w-5 h-5 ml-2" /></Button></Link>

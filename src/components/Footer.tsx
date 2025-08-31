@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Music, Mail, Phone, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
+import { useSiteContent } from '../hooks/useSiteContent';
 
 export function Footer() {
+  const { content } = useSiteContent();
+
   return (
     <footer className="bg-slate-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -11,11 +14,10 @@ export function Footer() {
           <div className="md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <Music className="w-8 h-8 text-amber-400" />
-              <span className="text-xl font-bold">MaestraLauraKarol</span>
+              <span className="text-xl font-bold">{content.footer_logo_text || 'MaestraLauraKarol'}</span>
             </div>
             <p className="text-slate-300 mb-6 max-w-md">
-              Instrucción musical profesional para estudiantes de todas las edades y niveles de habilidad. 
-              Descubre la alegría de la música con lecciones personalizadas de piano, cuatro y teoría musical.
+              {content.footer_description || 'Instrucción musical profesional para estudiantes de todas las edades y niveles de habilidad. Descubre la alegría de la música con lecciones personalizadas de piano, cuatro y teoría musical.'}
             </p>
             <Link to="/reservar">
               <button className="bg-amber-600 text-white px-6 py-3 rounded-md font-medium hover:bg-amber-700 transition-colors">
@@ -42,27 +44,27 @@ export function Footer() {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-amber-400" />
-                <span className="text-slate-300">MaestraLauraKarol@gmail.com</span>
+                <span className="text-slate-300">{content.contact_info_email || 'MaestraLauraKarol@gmail.com'}</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-amber-400" />
-                <span className="text-slate-300">(555) 000-0000</span>
+                <span className="text-slate-300">{content.contact_info_phone || '(555) 000-0000'}</span>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="w-5 h-5 text-amber-400" />
-                <span className="text-slate-300">Punto Fijo, Estado Falcon, Venezuela</span>
+                <span className="text-slate-300">{content.contact_info_location || 'Punto Fijo, Estado Falcon, Venezuela'}</span>
               </div>
             </div>
 
             {/* Social Media */}
             <div className="flex space-x-4 mt-6">
-              <a href="#" className="text-slate-300 hover:text-amber-400 transition-colors">
+              <a href={content.contact_info_facebook_url || '#'} className="text-slate-300 hover:text-amber-400 transition-colors">
                 <Facebook className="w-6 h-6" />
               </a>
-              <a href="https://www.instagram.com/laurakarol21/" className="text-slate-300 hover:text-amber-400 transition-colors">
+              <a href={content.contact_info_instagram_url || '#'} className="text-slate-300 hover:text-amber-400 transition-colors">
                 <Instagram className="w-6 h-6" />
               </a>
-              <a href="#" className="text-slate-300 hover:text-amber-400 transition-colors">
+              <a href={content.contact_info_youtube_url || '#'} className="text-slate-300 hover:text-amber-400 transition-colors">
                 <Youtube className="w-6 h-6" />
               </a>
             </div>
@@ -71,7 +73,7 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-slate-700 mt-8 pt-8 text-center text-slate-400">
-          <p>&copy; 2025 MaestraLauraKarol & DunaTech. Todos los derechos reservados. Inspirando viajes musicales desde 2000.</p>
+          <p>{content.footer_copyright || '© 2025 MaestraLauraKarol & DunaTech. Todos los derechos reservados. Inspirando viajes musicales desde 2000.'}</p>
         </div>
       </div>
     </footer>

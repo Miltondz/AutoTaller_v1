@@ -150,3 +150,8 @@ export interface CreateContactMessageData {
 
 // Type aliases for compatibility
 export type MediaItem = MediaGallery
+
+export interface SiteContent {
+  key: string;
+  value: string;
+}

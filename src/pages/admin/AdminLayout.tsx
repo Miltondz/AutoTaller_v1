@@ -9,6 +9,7 @@ import { TestimonialsManagement } from './TestimonialsManagement'
 import { EnhancedPaymentsManagement } from './EnhancedPaymentsManagement'
 import { EnhancedMediaManagement } from './EnhancedMediaManagement'
 import { MessagesManagement } from './MessagesManagement'
+import { ContentManagement } from './ContentManagement'
 import { Spinner } from '../../components/Spinner'
 
 export function AdminLayout() {

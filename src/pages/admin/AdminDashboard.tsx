@@ -10,7 +10,8 @@ import {
   ImageIcon,
   Music,
   MessageSquare,
-  AlertCircle
+  AlertCircle,
+  FileText
 } from 'lucide-react'
 import { Card, CardContent, CardHeader } from '../../components/Card'
 import { Button } from '../../components/Button'
@@ -129,6 +130,7 @@ function AdminDashboard() {
     { name: 'Pagos', path: '/admin/payments', icon: DollarSign, count: paymentsStats.paidCount },
     { name: 'Galería', path: '/admin/media', icon: ImageIcon, count: mediaCount },
     { name: 'Mensajes', path: '/admin/messages', icon: MessageSquare, count: unreadMessages.length, badge: unreadMessages.length > 0 ? unreadMessages.length : undefined },
+    { name: 'Gestión de Contenido', path: '/admin/content', icon: FileText, count: 0 },
   ]
 
   return (

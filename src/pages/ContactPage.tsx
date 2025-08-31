@@ -5,6 +5,7 @@ import { Card, CardContent } from '../components/Card';
 import { Mail, Phone, MapPin, Clock, Facebook, Instagram, Youtube, Send, CheckCircle, AlertTriangle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Spinner } from '../components/Spinner';
+import { useSiteContent } from '../hooks/useSiteContent';
 
 type InquiryType = 'general' | 'lessons' | 'events' | 'technical';
 
@@ -30,6 +31,7 @@ const Section = ({ children, className }: { children: React.ReactNode, className
 
 export function ContactPage() {
   const { createMessage } = useContactMessages();
+  const { content, loading: contentLoading } = useSiteContent();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
@@ -77,6 +79,10 @@ export function ContactPage() {
 
   const isFormValid = formData.name.trim() && formData.email.trim() && formData.message.trim();
 
+  if (contentLoading) {
+    return <div className="min-h-screen flex items-center justify-center"><Spinner size="lg" /></div>;
+  }
+
   return (
     <div className="bg-slate-50">
       {/* Header */}
@@ -87,7 +93,7 @@ export function ContactPage() {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 tracking-tight"
         >
-          Ponte en Contacto
+          {content.contact_hero_title || 'Ponte en Contacto'}
         </motion.h1>
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
@@ -95,7 +101,7 @@ export function ContactPage() {
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           className="text-lg sm:text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto"
         >
-          ¿Preguntas sobre clases de música en Maracaibo, Caracas o Mérida? ¿Listo para empezar? Contáctame.
+          {content.contact_hero_subtitle || '¿Preguntas sobre clases de música en Maracaibo, Caracas o Mérida? ¿Listo para empezar? Contáctame.'}
         </motion.p>
       </header>
 
@@ -107,10 +113,10 @@ export function ContactPage() {
               <CardContent className="p-6 sm:p-8">
                 <h2 className="text-2xl font-bold text-slate-800 mb-6">Información de Contacto</h2>
                 <div className="space-y-6">
-                  <InfoItem icon={<Mail />} label="Email" value="MaestraLauraKarol@gmail.com" href="mailto:MaestraLauraKarol@gmail.com" />
-                  <InfoItem icon={<Phone />} label="Teléfono" value="+58 123 456 7890" href="tel:+581234567890" />
-                  <InfoItem icon={<MapPin />} label="Ubicación Principal" value="Punto Fijo, Falcón, Venezuela" />
-                  <InfoItem icon={<Clock />} label="Horario de Atención" value="Lun - Sáb: 9am - 6pm" />
+                  <InfoItem icon={<Mail />} label="Email" value={content.contact_info_email || 'MaestraLauraKarol@gmail.com'} href={`mailto:${content.contact_info_email}`} />
+                  <InfoItem icon={<Phone />} label="Teléfono" value={content.contact_info_phone || '+58 123 456 7890'} href={`tel:${content.contact_info_phone}`} />
+                  <InfoItem icon={<MapPin />} label="Ubicación Principal" value={content.contact_info_location || 'Punto Fijo, Falcón, Venezuela'} />
+                  <InfoItem icon={<Clock />} label="Horario de Atención" value={content.contact_info_hours || 'Lun - Sáb: 9am - 6pm'} />
                 </div>
               </CardContent>
             </Card>
@@ -119,9 +125,9 @@ export function ContactPage() {
               <CardContent className="p-6 sm:p-8">
                 <h3 className="text-2xl font-bold text-slate-800 mb-6">Sígueme en Redes</h3>
                 <div className="flex space-x-4">
-                  <SocialIcon href="#" icon={<Facebook />} />
-                  <SocialIcon href="https://www.instagram.com/laurakarol21/" icon={<Instagram />} />
-                  <SocialIcon href="#" icon={<Youtube />} />
+                  <SocialIcon href={content.contact_info_facebook_url || '#'} icon={<Facebook />} />
+                  <SocialIcon href={content.contact_info_instagram_url || '#'} icon={<Instagram />} />
+                  <SocialIcon href={content.contact_info_youtube_url || '#'} icon={<Youtube />} />
                 </div>
               </CardContent>
             </Card>
@@ -131,7 +137,7 @@ export function ContactPage() {
           <div className="lg:col-span-2">
             <Card>
               <CardContent className="p-6 sm:p-8 md:p-10">
-                <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-6">Envíame un Mensaje</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-6">{content.contact_form_title || 'Envíame un Mensaje'}</h2>
                 
                 {isSubmitted && (
                   <motion.div 

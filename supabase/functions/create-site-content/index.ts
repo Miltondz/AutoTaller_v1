@@ -1,0 +1,130 @@
+import { serve } from 'https://deno.land/std@0.131.0/http/server.ts'
+
+const SQL_COMMAND = `
+CREATE TABLE site_content (
+    key TEXT PRIMARY KEY,
+    value TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE site_content ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public can view site content" ON site_content FOR SELECT USING (true);
+CREATE POLICY "Authenticated users can manage site content" ON site_content FOR ALL USING (auth.role() = 'authenticated');
+
+INSERT INTO site_content (key, value) VALUES
+('home_hero_title', 'Descubre Tu Verdadera Pasión Musical'),
+('home_hero_subtitle', 'Clases de música online y presenciales en Venezuela. Aprende piano, guitarra, canto y más con una metodología adaptada a ti.'),
+('home_about_title', 'Una Trayectoria Dedicada a la Música'),
+('home_about_p1', 'Con más de 25 años de experiencia, mi misión es guiarte en tu viaje musical. Ofrezco clases en Falcón, Punto Fijo, y para toda Venezuela vía remota.'),
+('home_about_p2', 'Mi filosofía combina excelencia académica con un enfoque creativo y personalizado, creando un ambiente de aprendizaje donde cada estudiante puede brillar.'),
+('home_why_title', '¿Por Qué Elegir Mis Clases?'),
+('home_why_subtitle', 'Mi compromiso es con tu éxito. Ofrezco una experiencia de aprendizaje única, ya sea en Maracaibo, Caracas, Mérida o desde casa.'),
+('home_why_f1_title', 'Instrucción de Calidad'),
+('home_why_f1_text', 'Guía experta y personalizada de una profesional con una sólida trayectoria en docencia y dirección musical.'),
+('home_why_f2_title', 'Planes Personalizados'),
+('home_why_f2_text', 'Planes de estudio adaptados a tu ritmo, estilo de aprendizaje e intereses musicales. Tu progreso es mi prioridad.'),
+('home_why_f3_title', 'Comunidad y Apoyo'),
+('home_why_f3_text', 'Únete a una red de estudiantes, participa en talleres y eventos, y enriquece tu experiencia de aprendizaje.'),
+('home_services_title', 'Servicios Musicales'),
+('home_services_subtitle', 'Clases de música para todas las edades y niveles. Explora nuestros servicios y encuentra el ideal para ti.'),
+('home_testimonials_title', 'Lo Que Dicen Mis Estudiantes'),
+('home_testimonials_subtitle', 'Testimonios de estudiantes que han iniciado su viaje musical conmigo.'),
+('home_cta_title', 'Únete a Nuestra Comunidad Musical'),
+('home_cta_subtitle', 'Da el primer paso hacia tu futuro musical. Reserva tu clase hoy y descubre el poder de la música.'),
+('about_hero_title', 'Mi Pasión, Tu Inspiración'),
+('about_hero_subtitle', 'Conoce la trayectoria y la filosofía que me convierten en tu mejor aliada para el aprendizaje musical en Venezuela.'),
+('about_bio_title', 'Mi Viaje Musical y Filosofía'),
+('about_bio_p1', 'Desde joven, la música ha sido mi vocación. Mi camino comenzó en coros y con el cuatro venezolano, llevándome a una formación profesional en piano, canto y dirección. Como Licenciada en Educación Musical, mi compromiso es compartir el poder transformador de la música, ofreciendo clases en Falcón, Punto Fijo y remotamente a toda Venezuela.'),
+('about_bio_p2', 'Mi filosofía se centra en un aprendizaje inspirador y personalizado. Adapto mis métodos para potenciar las fortalezas de cada estudiante, buscando nutrir no solo la técnica, sino la creatividad y el amor por la música. Mi meta es guiarte a descubrir tu potencial y cultivar una pasión que te acompañe siempre.'),
+('about_timeline_title', 'Mi Trayectoria Profesional'),
+('about_timeline_subtitle', 'Un resumen de mi experiencia y formación, dedicada a la excelencia en la educación musical en ciudades como Maracaibo, Caracas y Mérida.'),
+('about_timeline_i1_title', 'Educación Formal'),
+('about_timeline_i1_text', 'Licenciatura en Educación, Mención Música (UNEFM). Estudios avanzados de Cuatro, Guitarra y Piano en prestigiosas escuelas de música de Venezuela.'),
+('about_timeline_i2_title', 'Experiencia Docente'),
+('about_timeline_i2_text', 'He tenido el honor de ser docente en el Conservatorio Musical del Estado Falcón (COMESFAL) y en la Universidad Nacional Experimental Francisco de Miranda (UNEFM).'),
+('about_timeline_i3_title', 'Dirección y Liderazgo'),
+('about_timeline_i3_text', 'Fundadora de la agrupación infantil "Cantores del 23" y Directora Musical de la Coral UNEFM, fomentando el talento joven.'),
+('about_timeline_i4_title', 'Agrupaciones Corales'),
+('about_timeline_i4_text', 'Miembro activo y coralista en agrupaciones de renombre como la Coral del Centro de Refinación Paraguaná y la Coral Cotraedup.'),
+('about_timeline_i5_title', 'Desarrollo Profesional'),
+('about_timeline_i5_text', 'Locutora Profesional Certificada y participante activa en talleres de pedagogía musical para mantenerme a la vanguardia de la enseñanza.'),
+('about_timeline_i6_title', 'Impacto Comunitario'),
+('about_timeline_i6_text', 'Colaboradora del Proyecto de Acción Social por la Música Simón Bolívar y fundadora de proyectos para niños de bajos recursos.'),
+('about_cta_title', '¿Listo para Empezar tu Viaje Musical?'),
+('about_cta_subtitle', 'Ya sea que estés en Punto Fijo, Falcón o cualquier parte de Venezuela, estoy aquí para ayudarte. ¡Reserva tu clase personalizada hoy!'),
+('contact_hero_title', 'Ponte en Contacto'),
+('contact_hero_subtitle', '¿Preguntas sobre clases de música en Maracaibo, Caracas o Mérida? ¿Listo para empezar? Contáctame.'),
+('contact_form_title', 'Envíame un Mensaje'),
+('contact_info_email', 'MaestraLauraKarol@gmail.com'),
+('contact_info_phone', '+58 123 456 7890'),
+('contact_info_location', 'Punto Fijo, Falcón, Venezuela'),
+('contact_info_hours', 'Lun - Sáb: 9am - 6pm'),
+('contact_info_facebook_url', '#'),
+('contact_info_instagram_url', 'https://www.instagram.com/laurakarol21/'),
+('contact_info_youtube_url', '#'),
+('footer_logo_text', 'MaestraLauraKarol'),
+('footer_description', 'Instrucción musical profesional para estudiantes de todas las edades y niveles de habilidad. Descubre la alegría de la música con lecciones personalizadas de piano, cuatro y teoría musical.'),
+('footer_copyright', '© 2025 MaestraLauraKarol & DunaTech. Todos los derechos reservados. Inspirando viajes musicales desde 2000.');
+`;
+
+serve(async (req) => {
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  }
+
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders })
+  }
+
+  try {
+    const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')
+
+    if (!serviceRoleKey || !supabaseUrl) {
+      throw new Error('Missing Supabase credentials')
+    }
+
+    const response = await fetch(`${supabaseUrl}/rest/v1/rpc/exec_sql`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${serviceRoleKey}`,
+        'apikey': serviceRoleKey
+      },
+      body: JSON.stringify({ query: SQL_COMMAND })
+    })
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      throw new Error(`Database setup failed: ${response.status} - ${errorText}`)
+    }
+
+    const result = await response.json()
+
+    return new Response(
+      JSON.stringify({ 
+        success: true, 
+        message: 'Site content table created and populated successfully',
+        result: result
+      }),
+      { 
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+      }
+    )
+
+  } catch (error) {
+    return new Response(
+      JSON.stringify({ 
+        success: false, 
+        message: error.message || 'Failed to create site content table'
+      }),
+      { 
+        status: 500, 
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+      }
+    )
+  }
+})
