@@ -39,6 +39,7 @@ export function AdminLayout() {
           <Route path="blog" element={<BlogManagement />} />
           <Route path="testimonials" element={<TestimonialsManagement />} />
           <Route path="payments" element={<EnhancedPaymentsManagement />} />
+          <Route path="content" element={<ContentManagement />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Routes>
       </div>
