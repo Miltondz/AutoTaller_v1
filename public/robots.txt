@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /components/
+Disallow: /hooks/
+Disallow: /lib/
+Disallow: /services/
+Disallow: /types/
+Disallow: /utils/
 
 Sitemap: /sitemap.xml

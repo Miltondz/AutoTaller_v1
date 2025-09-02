@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 
-const USE_MOCK_DATA = import.meta.env.DEV && !import.meta.env.VITE_SUPABASE_URL;
+const USE_MOCK_DATA = !import.meta.env.VITE_SUPABASE_URL;
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
