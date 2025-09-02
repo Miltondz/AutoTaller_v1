@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { User } from '@supabase/supabase-js'
+import { User as SupabaseUser } from '@supabase/supabase-js'
 import { supabase } from '../services/supabase'
+import { User } from '../types'
 
 export interface AuthContextType {
   user: User | null
@@ -20,8 +21,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Load user on mount
     async function loadUser() {
       try {
-        const { data: { user } } = await supabase.auth.getUser()
-        setUser(user)
+        const { data: { user: supabaseUser } } = await supabase.auth.getUser()
+        if (supabaseUser) {
+          setUser({
+            id: supabaseUser.id,
+            email: supabaseUser.email || '',
+            name: supabaseUser.user_metadata.full_name || supabaseUser.email,
+            role: supabaseUser.user_metadata.role || 'customer',
+          })
+        } else {
+          setUser(null)
+        }
       } catch (error) {
         console.error('Error loading user:', error)
       } finally {
@@ -34,7 +44,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Set up auth listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (_event, session) => {
-        setUser(session?.user || null)
+        if (session?.user) {
+          setUser({
+            id: session.user.id,
+            email: session.user.email || '',
+            name: session.user.user_metadata.full_name || session.user.email,
+            role: session.user.user_metadata.role || 'customer',
+          })
+        } else {
+          setUser(null)
+        }
       }
     )
 

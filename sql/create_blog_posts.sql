@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS blog_posts (
   excerpt TEXT,
   image_url TEXT,
   published_date TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  author TEXT DEFAULT 'Music Teacher',
+  author TEXT DEFAULT 'Taller Mecánico',
   slug TEXT UNIQUE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()

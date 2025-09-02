@@ -5,7 +5,7 @@ export const contentApi = {
   async getAll(): Promise<SiteContent[]> {
     const { data, error } = await supabase
       .from('site_content')
-      .select('*');
+      .select('*') as { data: SiteContent[]; error: any };
 
     if (error) throw error;
     return data || [];
@@ -15,7 +15,7 @@ export const contentApi = {
     const { data, error } = await supabase
       .from('site_content')
       .upsert(content)
-      .select();
+      .select() as { data: SiteContent[]; error: any };
 
     if (error) throw error;
     return data;

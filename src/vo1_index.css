@@ -1,0 +1,385 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Automotive Design System CSS Variables */
+:root {
+  /* Primary Colors - Industrial Grays */
+  --color-primary-50: #f8fafc;
+  --color-primary-100: #f1f5f9;
+  --color-primary-200: #e2e8f0;
+  --color-primary-300: #cbd5e1;
+  --color-primary-400: #94a3b8;
+  --color-primary-500: #64748b;
+  --color-primary-600: #475569;
+  --color-primary-700: #334155;
+  --color-primary-800: #1e293b;
+  --color-primary-900: #0f172a;
+
+  /* Accent Colors - Safety Orange */
+  --color-accent-50: #fff7ed;
+  --color-accent-100: #ffedd5;
+  --color-accent-200: #fed7aa;
+  --color-accent-300: #fdba74;
+  --color-accent-400: #fb923c;
+  --color-accent-500: #f97316;
+  --color-accent-600: #ea580c;
+  --color-accent-700: #c2410c;
+  --color-accent-800: #9a3412;
+  --color-accent-900: #7c2d12;
+
+  /* Secondary Colors - Metallic Blue */
+  --color-secondary-50: #eff6ff;
+  --color-secondary-100: #dbeafe;
+  --color-secondary-200: #bfdbfe;
+  --color-secondary-300: #93c5fd;
+  --color-secondary-400: #60a5fa;
+  --color-secondary-500: #3b82f6;
+  --color-secondary-600: #2563eb;
+  --color-secondary-700: #1d4ed8;
+  --color-secondary-800: #1e40af;
+  --color-secondary-900: #1e3a8a;
+
+  /* Industrial Shadows */
+  --shadow-industrial: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --shadow-tool: inset 2px 2px 4px rgba(255,255,255,0.1), inset -2px -2px 4px rgba(0,0,0,0.3);
+  --shadow-pressed: inset 2px 2px 4px rgba(0,0,0,0.3), inset -2px -2px 4px rgba(255,255,255,0.1);
+
+  /* Typography */
+  --font-industrial: 'Inter', 'Roboto', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-industrial);
+    background-color: var(--color-primary-50);
+    color: var(--color-primary-800);
+  }
+}
+
+@layer components {
+  /* Industrial Form Inputs */
+  .form-input {
+    @apply w-full px-4 py-3 border border-primary-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 shadow-sm bg-white;
+    box-shadow: var(--shadow-industrial);
+  }
+
+  .form-input:focus {
+    box-shadow: var(--shadow-industrial), 0 0 0 3px rgba(249, 115, 22, 0.1);
+  }
+
+  /* Industrial Buttons */
+  .btn-primary {
+    @apply px-6 py-3 bg-accent-600 text-white font-semibold rounded-lg transition-all duration-200 hover:bg-accent-700 focus:ring-2 focus:ring-accent-500 focus:ring-offset-2;
+    box-shadow: var(--shadow-tool);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-tool), 0 4px 12px rgba(234, 88, 12, 0.3);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-pressed);
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-secondary-600 text-white font-semibold rounded-lg transition-all duration-200 hover:bg-secondary-700 focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2;
+    box-shadow: var(--shadow-tool);
+  }
+
+  .btn-secondary:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-tool), 0 4px 12px rgba(37, 99, 235, 0.3);
+  }
+
+  .btn-outline {
+    @apply px-6 py-3 border-2 border-primary-600 text-primary-700 font-semibold rounded-lg transition-all duration-200 hover:bg-primary-600 hover:text-white focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    background: linear-gradient(145deg, #f8fafc, #e2e8f0);
+    box-shadow: var(--shadow-tool);
+  }
+
+  .btn-outline:hover {
+    transform: translateY(-1px);
+    background: var(--color-primary-600);
+  }
+
+  /* Industrial Cards */
+  .card-industrial {
+    @apply bg-white rounded-xl border border-primary-200 transition-all duration-200;
+    box-shadow: var(--shadow-industrial);
+  }
+
+  .card-industrial:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-industrial), 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-automotive {
+    @apply bg-white rounded-xl border border-primary-200 p-6 transition-all duration-200;
+    box-shadow: var(--shadow-industrial);
+  }
+
+  .card-automotive:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-industrial), 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-metallic {
+    @apply rounded-xl p-6 text-white transition-all duration-200;
+    background: linear-gradient(145deg, #64748b, #475569);
+    box-shadow: var(--shadow-tool);
+  }
+
+  .card-metallic:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-tool), 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .service-card {
+    @apply bg-white rounded-xl border border-primary-200 p-6 transition-all duration-200 hover:border-accent-300;
+    box-shadow: var(--shadow-industrial);
+  }
+
+  .service-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-industrial), 0 8px 25px rgba(249, 115, 22, 0.1);
+  }
+
+  /* Tool-inspired Components */
+  .tool-panel {
+    @apply bg-primary-700 text-white rounded-lg p-6;
+    background: linear-gradient(145deg, #475569, #334155);
+    box-shadow: var(--shadow-tool);
+  }
+
+  .status-indicator {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .status-scheduled {
+    @apply bg-secondary-100 text-secondary-800;
+  }
+
+  .status-in-progress {
+    @apply bg-warning-100 text-warning-800;
+  }
+
+  .status-completed {
+    @apply bg-success-100 text-success-800;
+  }
+
+  .status-cancelled {
+    @apply bg-danger-100 text-danger-800;
+  }
+
+  /* Enhanced Mechanical Animations */
+  .mechanical-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mechanical-hover:hover {
+    animation: tool-hover 0.3s ease-in-out;
+  }
+
+  .gear-spin {
+    animation: gear-spin 8s linear infinite;
+  }
+
+  .gear-spin-reverse {
+    animation: gear-spin-reverse 10s linear infinite;
+  }
+
+  .wrench-wiggle {
+    animation: wrench-wiggle 2s ease-in-out infinite;
+  }
+
+  .metallic-shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .metallic-shine::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .metallic-shine:hover::before {
+    left: 100%;
+  }
+
+  .industrial-pulse {
+    animation: industrial-pulse 2s ease-in-out infinite;
+  }
+
+  .tool-bounce {
+    animation: tool-bounce 1s ease-in-out infinite;
+  }
+
+  @keyframes tool-hover {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-2px) rotate(1deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+  }
+
+  @keyframes gear-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes gear-spin-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+  }
+
+  @keyframes wrench-wiggle {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+  }
+
+  @keyframes industrial-pulse {
+    0%, 100% { 
+      box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4);
+      transform: scale(1);
+    }
+    50% { 
+      box-shadow: 0 0 0 10px rgba(249, 115, 22, 0);
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes tool-bounce {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+  }
+
+  /* Industrial Typography */
+  .heading-industrial {
+    @apply font-bold text-primary-900 tracking-tight;
+    font-family: var(--font-industrial);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-industrial {
+    @apply text-primary-700 leading-relaxed;
+    font-family: var(--font-industrial);
+  }
+
+  .text-industrial-bold {
+    @apply text-primary-800 font-semibold leading-relaxed;
+    font-family: var(--font-industrial);
+  }
+
+  .text-industrial-light {
+    @apply text-primary-600 leading-relaxed;
+    font-family: var(--font-industrial);
+  }
+
+  .heading-automotive {
+    @apply font-extrabold text-primary-900 tracking-tight;
+    font-family: var(--font-industrial);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .subheading-automotive {
+    @apply font-semibold text-primary-800 tracking-wide;
+    font-family: var(--font-industrial);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Custom prose styles for automotive blog content */
+.prose {
+  font-family: var(--font-industrial);
+  line-height: 1.75;
+  color: var(--color-primary-700);
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: var(--color-primary-900);
+  font-weight: 700;
+  line-height: 1.25;
+  font-family: var(--font-industrial);
+}
+
+.prose h1 {
+  @apply text-4xl mb-6 mt-8;
+}
+
+.prose h2 {
+  @apply text-3xl mb-4 mt-8 border-b-2 border-accent-200 pb-2;
+}
+
+.prose h3 {
+  @apply text-2xl mb-3 mt-6;
+}
+
+.prose strong {
+  font-weight: 600;
+  color: var(--color-primary-900);
+}
+
+.prose p {
+  margin-bottom: 1.25em;
+}
+
+.prose ul {
+  @apply list-disc list-inside mb-4;
+}
+
+.prose ol {
+  @apply list-decimal list-inside mb-4;
+}
+
+.prose li {
+  @apply mb-2;
+}
+
+.prose code {
+  @apply bg-primary-100 text-accent-700 px-2 py-1 rounded text-sm;
+  font-family: var(--font-mono);
+}
+
+.prose blockquote {
+  @apply border-l-4 border-accent-500 pl-4 italic text-primary-600 my-6;
+}
+
+/* Automotive-specific utility classes */
+@layer utilities {
+  .text-shadow-industrial {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .bg-metallic {
+    background: linear-gradient(145deg, #64748b, #475569);
+  }
+
+  .bg-tool {
+    background: linear-gradient(145deg, #475569, #334155);
+  }
+
+  .shadow-tool {
+    box-shadow: var(--shadow-tool);
+  }
+
+  .shadow-pressed {
+    box-shadow: var(--shadow-pressed);
+  }
+
+  .shadow-industrial {
+    box-shadow: var(--shadow-industrial);
+  }
+}

@@ -7,7 +7,7 @@ export const appointmentsApi = {
     const { data, error } = await supabase
       .from('appointments')
       .select('*')
-      .order('appointment_date', { ascending: true })
+      .order('appointment_date', { ascending: true }) as { data: Appointment[]; error: any }
 
     if (error) throw error
     return data || []
@@ -20,7 +20,7 @@ export const appointmentsApi = {
       .select('*')
       .gte('appointment_date', startDate)
       .lte('appointment_date', endDate)
-      .order('appointment_date', { ascending: true })
+      .order('appointment_date', { ascending: true }) as { data: Appointment[]; error: any }
 
     if (error) throw error
     return data || []
@@ -32,7 +32,7 @@ export const appointmentsApi = {
       .from('appointments')
       .select('appointment_time')
       .eq('appointment_date', date)
-      .eq('status', 'confirmed')
+      .eq('status', 'confirmed') as { data: { appointment_time: string }[]; error: any }
 
     if (error) throw error
 
@@ -56,7 +56,7 @@ export const appointmentsApi = {
       .from('appointments')
       .insert([{ ...appointmentData, status: 'pending' }])
       .select()
-      .single()
+      .single() as { data: Appointment; error: any }
 
     if (error) throw error
     return data
@@ -69,7 +69,7 @@ export const appointmentsApi = {
       .update({ status, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
-      .single()
+      .single() as { data: Appointment; error: any }
 
     if (error) throw error
     return data
@@ -80,7 +80,7 @@ export const appointmentsApi = {
     const { error } = await supabase
       .from('appointments')
       .delete()
-      .eq('id', id)
+      .eq('id', id) as { error: any }
 
     if (error) throw error
   }

@@ -12,7 +12,7 @@ export const blogApi = {
     const { data, error } = await supabase
       .from('blog_posts')
       .select('*')
-      .order('published_date', { ascending: false })
+      .order('published_date', { ascending: false }) as { data: BlogPost[]; error: any }
 
     if (error) throw error
     return data || []
@@ -24,7 +24,7 @@ export const blogApi = {
       .from('blog_posts')
       .select('*')
       .eq('slug', slug)
-      .maybeSingle()
+      .maybeSingle() as { data: BlogPost | null; error: any }
 
     if (error) throw error
     return data

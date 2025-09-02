@@ -1,36 +1,274 @@
+/* index.css — Rediseño mecánico: paleta + texturas + componentes distintivos */
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Libre+Franklin:wght@300;400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  .form-input {
-    @apply w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-shadow shadow-sm bg-white;
-  }
+/* ======================
+   Color tokens (nueva paleta)
+   ====================== */
+:root{
+  /* Base / neutral */
+  --bg-dark-primary: #1c1c1e;
+  --bg-dark-secondary: #232326;
+  --text-light-gray: #bbbbbb;
+  --accent-red: #d92639;
+
+  /* Shadows / glow */
+  --shadow-soft: 0 4px 8px rgba(0,0,0,0.2);
+  --shadow-button: 0 6px 12px rgba(217,38,57,0.4);
+  --shadow-button-hover: 0 8px 16px rgba(217,38,57,0.6);
 }
 
-/* Custom prose styles for blog content */
-.prose {
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  line-height: 1.75;
-  color: #334155; /* slate-700 */
+/* Background: sutil gradiente + patrón perforado (metal) */
+body {
+  font-family: 'Libre Franklin', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background-color: var(--bg-dark-primary);
+  color: #ffffff;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4,
-.prose h5,
-.prose h6 {
-  color: #1e293b; /* slate-800 */
+/* Perforated metal utility (reusable) - REMOVED as per new design */
+/* .bg-perforated { ... } */
+
+/* ======================
+   Typography (industrial)
+   ====================== */
+.h1-industrial {
+  font-family: 'Impact', sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 0.9;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+/* layered headline (outline / fill) */
+.h1-layered {
+  position: relative;
+  display: inline-block;
+}
+.h1-layered::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  z-index: -1;
+  color: rgba(255,255,255,0.08);
+  font-family: 'Impact', sans-serif;
+  font-weight: 900;
+  filter: blur(1px);
+}
+
+/* small subheading */
+.sub-industrial {
+  font-family: 'Fugaz One', sans-serif;
+  font-weight: 400;
+  color: var(--text-light-gray);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ======================
+   Buttons: placas metálicas atornilladas - UPDATED to new style
+   ====================== */
+.btn-plate {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.5rem;
   font-weight: 700;
-  line-height: 1.25;
+  border-radius: 8px;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: var(--shadow-soft);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+  -webkit-tap-highlight-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
-.prose strong {
-  font-weight: 600;
-  color: #1e293b; /* slate-800 */
+/* screw pseudo-elements (top-left & bottom-right) - REMOVED */
+.btn-plate::before,
+.btn-plate::after {
+  content: none;
 }
 
-.prose p {
-  margin-bottom: 1.25em;
+/* Primary CTA — rojo acentuado */
+.btn-cta {
+  background-color: var(--accent-red);
+  color: #ffffff;
+  border: none;
+  box-shadow: var(--shadow-button);
 }
+.btn-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow-button-hover); }
+
+/* Secondary CTA — gris oscuro */
+.btn-secondary-plate {
+  background-color: var(--bg-dark-secondary);
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.btn-secondary-plate:hover { transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+
+/* Outline / Ghost (metal) */
+.btn-outline-metal {
+  background: transparent;
+  border: 1px solid var(--text-light-gray);
+  color: var(--text-light-gray);
+}
+
+/* Icon inside button */
+.btn-icon {
+  display:inline-flex;
+  align-items:center;
+  gap:0.6rem;
+  padding:0.6rem 0.9rem;
+}
+.btn-icon svg { width:1.1rem; height:1.1rem; display:block; }
+
+/* LED pulse small badge - REMOVED */
+/* .badge-led { ... } */
+
+/* ======================
+   Card metálico / componente servicio - UPDATED to new style
+   ====================== */
+.card-metal {
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 1.5rem;
+  background-color: var(--bg-dark-secondary);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  color: #ffffff;
+}
+
+/* Brushed metal overlay using linear gradient + subtle mask - UPDATED */
+.card-metal .metal-sheen {
+  pointer-events: none;
+  position: absolute;
+  left: -30%; right: -30%;
+  top: -40%;
+  height: 200%;
+  transform: skewX(-20deg);
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 35%, rgba(255,255,255,0.04) 45%, transparent 70%);
+  mix-blend-mode: overlay;
+  transition: transform 0.9s ease;
+}
+.card-metal:hover .metal-sheen { transform: translateX(16%) skewX(-20deg); }
+
+/* small metadata row */
+.card-row {
+  display:flex; gap:1rem; align-items:center; justify-content:flex-start;
+}
+.meta-pill {
+  background: rgba(255,255,255,0.08);
+  padding:0.45rem 0.7rem;
+  border-radius:999px; font-weight:600; color:var(--text-light-gray);
+  border:1px solid rgba(255,255,255,0.05);
+}
+
+/* ======================
+   Textures: perforated panel & plate - REMOVED
+   ====================== */
+/* .panel-plate { ... } */
+/* .panel-plate::after { ... } */
+/* .plate-screw { ... } */
+/* .plate-screw.tl { ... } */
+/* .plate-screw.br { ... } */
+
+/* ======================
+   Animations temáticas - UPDATED
+   ====================== */
+@keyframes gear-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.gear-spin { animation: gear-spin 9s linear infinite; transform-origin: center; }
+
+@keyframes wrench-wiggle {
+  0%,100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+.wrench-wiggle { animation: wrench-wiggle 2.2s ease-in-out infinite; transform-origin: center; }
+
+/* subtle tool bounce for CTAs - REMOVED */
+/* .tool-bounce { ... } */
+/* @keyframes tool-bounce { ... } */
+
+/* ======================
+   Utilities (icon / layout) - UPDATED
+   ====================== */
+.icon-circle {
+  width:48px; height:48px; border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+  background-color: rgba(255,255,255,0.1);
+  box-shadow: var(--shadow-soft);
+}
+
+/* hero helper - UPDATED */
+.hero {
+  padding: 4.5rem 1.5rem;
+  display:flex; gap:2.25rem; align-items:center; justify-content:center;
+  background-color: var(--bg-dark-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+/* hero panel left */
+.hero-left {
+  max-width: 720px;
+}
+
+/* hero right mock panel */
+.hero-right {
+  width:420px;
+  display:flex; align-items:center; justify-content:center;
+  transform: translateY(6px);
+}
+
+/* subtle decorative lines / separator - UPDATED */
+.sep-line {
+  height:2px; width:80px; background-color: var(--accent-red);
+  margin: 0.6rem 0;
+}
+
+/* ======================
+   Example small components - UPDATED
+   ====================== */
+.stat-pill {
+  background-color: var(--bg-dark-secondary);
+  border-radius:8px; padding:1rem; text-align:center; min-width:110px;
+  box-shadow: var(--shadow-soft);
+  color: #ffffff;
+}
+.stat-pill .n { font-weight:800; font-size:1.25rem; color:var(--accent-red); }
+.stat-pill .t { font-weight:400; font-size:0.85rem; color:var(--text-light-gray); }
+
+/* ======================
+   Responsive tweaks
+   ====================== */
+@media (max-width: 880px) {
+  .hero { flex-direction: column; padding: 3rem 1rem; }
+  .hero-right { width:100%; margin-top: .75rem; transform:none; }
+}
+
+/* ======================
+   Small helpers for integration
+   - .use-icon-svg : place your inline SVG inside
+   - .btn--small .btn--large sizes etc.
+   ====================== */
+.btn--small { padding: .45rem .7rem; border-radius:10px; font-weight:700; }
+.btn--large { padding:1rem 1.5rem; border-radius:14px; font-size:1.05rem; }
+
+/* Form input styles */
+.form-input {
+  @apply flex h-10 w-full rounded-md border border-white/10 bg-dark-secondary px-3 py-2 text-sm text-white ring-offset-dark-primary file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-light-gray focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+/* End of stylesheet */

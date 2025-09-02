@@ -503,7 +503,7 @@ export function EnhancedMediaManagement() {
                           <img src={urlPreview} alt="Preview" className="w-32 h-20 object-cover rounded" />
                         )}
                         {formData.media_type === 'instagram' && (
-                          <div className="flex items-center text-pink-600 text-sm">
+                          <div className="flex items-center text-accent-600 text-sm">
                             <Instagram className="w-4 h-4 mr-2" />
                             Contenido de Instagram detectado
                           </div>
@@ -680,9 +680,9 @@ export function EnhancedMediaManagement() {
                           </div>
                         )}
                         {formData.media_type === 'instagram' && (
-                          <div className="border rounded-lg p-6 bg-gradient-to-br from-purple-50 to-pink-50 mb-4">
+                          <div className="border rounded-lg p-6 bg-gradient-to-br from-accent-50 to-secondary-50 mb-4">
                             <div className="flex items-center justify-center mb-4">
-                              <Instagram className="w-12 h-12 text-pink-500" />
+                              <Instagram className="w-12 h-12 text-accent-500" />
                             </div> {/* Keep this div */}
                             <h4 className="text-center font-medium text-slate-700 mb-2">{formData.title || 'Contenido de Instagram'}</h4>
                             <p className="text-center text-slate-600 text-sm mb-4">Vista previa del contenido de Instagram</p>
@@ -690,7 +690,7 @@ export function EnhancedMediaManagement() {
                               href={formData.media_url} 
                               target="_blank" 
                               rel="noopener noreferrer"
-                              className="flex items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-colors"
+                              className="flex items-center justify-center bg-gradient-to-r from-accent-500 to-secondary-500 text-white px-4 py-2 rounded-lg hover:from-accent-600 hover:to-secondary-600 transition-colors"
                             > {/* Keep this anchor tag */}
                               <Instagram className="w-4 h-4 mr-2" />
                               Ver en Instagram

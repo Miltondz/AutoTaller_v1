@@ -1,0 +1,97 @@
+[
+  {
+    "tracking_code": "TRACK-001",
+    "vehicle": {
+      "make": "Toyota",
+      "model": "Corolla",
+      "year": 2020,
+      "license_plate": "ABC-123"
+    },
+    "service_type": "Mantenimiento General",
+    "description": "Cambio de aceite, filtros de aire y cabina, revisión de frenos y niveles.",
+    "current_status": "En Progreso",
+    "estimated_completion": "2025-09-05",
+    "status_history": [
+      {
+        "timestamp": "2025-09-01T10:00:00Z",
+        "status": "Recibido",
+        "notes": "Vehículo ingresado para mantenimiento."
+      },
+      {
+        "timestamp": "2025-09-01T14:30:00Z",
+        "status": "Diagnóstico Inicial",
+        "notes": "Revisión preliminar completada. Todo en orden."
+      },
+      {
+        "timestamp": "2025-09-02T09:00:00Z",
+        "status": "En Progreso",
+        "notes": "Iniciando cambio de aceite y filtros."
+      }
+    ]
+  },
+  {
+    "tracking_code": "TRACK-002",
+    "vehicle": {
+      "make": "Honda",
+      "model": "Civic",
+      "year": 2018,
+      "license_plate": "DEF-456"
+    },
+    "service_type": "Reparación de Frenos",
+    "description": "Reemplazo de pastillas y discos de freno delanteros.",
+    "current_status": "Esperando Repuestos",
+    "estimated_completion": "2025-09-07",
+    "status_history": [
+      {
+        "timestamp": "2025-09-01T11:00:00Z",
+        "status": "Recibido",
+        "notes": "Vehículo ingresado por problemas de frenos."
+      },
+      {
+        "timestamp": "2025-09-01T16:00:00Z",
+        "status": "Diagnóstico Completo",
+        "notes": "Se requiere reemplazo de pastillas y discos delanteros. Repuestos solicitados."
+      },
+      {
+        "timestamp": "2025-09-02T10:00:00Z",
+        "status": "Esperando Repuestos",
+        "notes": "Repuestos en camino, llegada estimada en 1-2 días hábiles."
+      }
+    ]
+  },
+  {
+    "tracking_code": "TRACK-003",
+    "vehicle": {
+      "make": "Ford",
+      "model": "F-150",
+      "year": 2022,
+      "license_plate": "GHI-789"
+    },
+    "service_type": "Revisión de Motor",
+    "description": "Diagnóstico de luz de 'Check Engine' y reparación de fallas detectadas.",
+    "current_status": "Completado",
+    "estimated_completion": "2025-09-02",
+    "status_history": [
+      {
+        "timestamp": "2025-08-30T09:00:00Z",
+        "status": "Recibido",
+        "notes": "Vehículo ingresado por luz de 'Check Engine'."
+      },
+      {
+        "timestamp": "2025-08-30T13:00:00Z",
+        "status": "Diagnóstico Completo",
+        "notes": "Falla en sensor de oxígeno detectada. Reemplazo necesario."
+      },
+      {
+        "timestamp": "2025-08-31T10:00:00Z",
+        "status": "En Progreso",
+        "notes": "Reemplazo de sensor de oxígeno y pruebas de carretera."
+      },
+      {
+        "timestamp": "2025-09-01T16:00:00Z",
+        "status": "Completado",
+        "notes": "Servicio finalizado. Vehículo listo para entrega."
+      }
+    ]
+  }
+]

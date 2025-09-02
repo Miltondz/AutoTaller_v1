@@ -1,0 +1,338 @@
+[
+  {
+    "idx": 0,
+    "key": "home_hero_title",
+    "value": "Servicio Automotriz de Confianza",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 1,
+    "key": "home_hero_subtitle",
+    "value": "Reparación y mantenimiento profesional para tu vehículo. Tecnología avanzada y experiencia de más de 20 años.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 2,
+    "key": "home_about_title",
+    "value": "Experiencia y Calidad en Cada Servicio",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 3,
+    "key": "home_about_p1",
+    "value": "Con más de dos décadas de experiencia en el sector automotriz, nuestro taller se especializa en brindar servicios de calidad superior para todo tipo de vehículos.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 4,
+    "key": "home_about_p2",
+    "value": "Utilizamos tecnología de punta y herramientas especializadas para garantizar que tu vehículo reciba el mejor cuidado posible.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 5,
+    "key": "home_services_title",
+    "value": "Nuestros Servicios",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 6,
+    "key": "home_services_subtitle",
+    "value": "Servicios completos de mantenimiento y reparación automotriz para mantener tu vehículo en óptimas condiciones.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 7,
+    "key": "home_why_title",
+    "value": "¿Por Qué Elegirnos?",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 8,
+    "key": "home_why_subtitle",
+    "value": "Nuestro compromiso es brindar un servicio excepcional con transparencia, calidad y confianza.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 9,
+    "key": "home_why_f1_title",
+    "value": "Técnicos Certificados",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 10,
+    "key": "home_why_f1_text",
+    "value": "Nuestro equipo está formado por técnicos certificados con amplia experiencia en todas las marcas de vehículos.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 11,
+    "key": "home_why_f2_title",
+    "value": "Equipos Modernos",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 12,
+    "key": "home_why_f2_text",
+    "value": "Contamos con la tecnología más avanzada para diagnósticos precisos y reparaciones eficientes.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 13,
+    "key": "home_why_f3_title",
+    "value": "Garantía de Calidad",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 14,
+    "key": "home_why_f3_text",
+    "value": "Todos nuestros servicios incluyen garantía y seguimiento post-servicio para tu tranquilidad.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 15,
+    "key": "home_testimonials_title",
+    "value": "Lo Que Dicen Nuestros Clientes",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 16,
+    "key": "home_testimonials_subtitle",
+    "value": "Testimonios reales de clientes satisfechos con nuestro servicio.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 17,
+    "key": "home_cta_title",
+    "value": "¿Necesitas Servicio para tu Vehículo?",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 18,
+    "key": "home_cta_subtitle",
+    "value": "Agenda tu cita hoy mismo y experimenta la diferencia de un servicio profesional.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 19,
+    "key": "about_hero_title",
+    "value": "Nuestro Taller Automotriz",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 20,
+    "key": "about_hero_subtitle",
+    "value": "Conoce la historia, experiencia y compromiso que nos convierte en el taller de confianza para tu vehículo.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 21,
+    "key": "about_bio_title",
+    "value": "Nuestra Historia y Filosofía",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 22,
+    "key": "about_bio_p1",
+    "value": "Desde 2003, nuestro taller ha sido sinónimo de confianza y excelencia en el sector automotriz. Comenzamos como un pequeño taller familiar y hemos crecido hasta convertirnos en uno de los centros de servicio más respetados de la región.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 23,
+    "key": "about_bio_p2",
+    "value": "Nuestra filosofía se basa en la honestidad, la transparencia y el compromiso con la calidad. Cada vehículo que entra a nuestro taller recibe la misma atención y cuidado que le daríamos al nuestro propio.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 24,
+    "key": "contact_hero_title",
+    "value": "Contáctanos",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 25,
+    "key": "contact_hero_subtitle",
+    "value": "¿Necesitas servicio para tu vehículo? Estamos aquí para ayudarte. Contáctanos para agendar tu cita.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 26,
+    "key": "contact_info_phone",
+    "value": "+58 269 123-4567",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 27,
+    "key": "contact_info_email",
+    "value": "info@tallermecanico.com",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 28,
+    "key": "contact_info_location",
+    "value": "Punto Fijo, Estado Falcón, Venezuela",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 29,
+    "key": "contact_info_hours",
+    "value": "Lun - Vie: 7:00am - 6:00pm, Sáb: 8:00am - 4:00pm",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 30,
+    "key": "footer_description",
+    "value": "Taller mecánico profesional especializado en mantenimiento y reparación automotriz. Servicio de calidad con garantía total.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 31,
+    "key": "footer_copyright",
+    "value": "© 2025 Taller Mecánico Profesional. Todos los derechos reservados.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 32,
+    "key": "about_timeline_title",
+    "value": "Nuestra Trayectoria Profesional",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 33,
+    "key": "about_timeline_subtitle",
+    "value": "Más de 20 años de experiencia especializada en el sector automotriz, brindando servicios de calidad en Punto Fijo, Estado Falcón.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 34,
+    "key": "about_timeline_i1_title",
+    "value": "Formación Técnica Especializada",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 35,
+    "key": "about_timeline_i1_text",
+    "value": "Certificaciones ASE en diagnóstico automotriz, sistemas eléctricos y mecánica general. Formación continua en tecnologías automotrices modernas.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 36,
+    "key": "about_timeline_i2_title",
+    "value": "Experiencia en el Sector",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 37,
+    "key": "about_timeline_i2_text",
+    "value": "Más de dos décadas trabajando con vehículos de todas las marcas, desde mantenimiento básico hasta reparaciones complejas de motor y transmisión.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 38,
+    "key": "about_timeline_i3_title",
+    "value": "Liderazgo y Gestión",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 39,
+    "key": "about_timeline_i3_text",
+    "value": "Fundador y director del taller, liderando un equipo de técnicos especializados y estableciendo estándares de calidad en el servicio automotriz.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 40,
+    "key": "about_timeline_i4_title",
+    "value": "Tecnología y Equipamiento",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 41,
+    "key": "about_timeline_i4_text",
+    "value": "Inversión constante en equipos de diagnóstico de última generación y herramientas especializadas para brindar servicios de calidad superior.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 42,
+    "key": "about_timeline_i5_title",
+    "value": "Desarrollo Continuo",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 43,
+    "key": "about_timeline_i5_text",
+    "value": "Participación activa en cursos de actualización técnica y seminarios sobre nuevas tecnologías automotrices para mantenerse a la vanguardia.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 44,
+    "key": "about_timeline_i6_title",
+    "value": "Compromiso Comunitario",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 45,
+    "key": "about_timeline_i6_text",
+    "value": "Apoyo a la comunidad local a través de servicios de mantenimiento preventivo gratuito para vehículos de emergencia y organizaciones benéficas.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 46,
+    "key": "about_cta_title",
+    "value": "¿Necesitas Servicio Profesional para tu Vehículo?",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  },
+  {
+    "idx": 47,
+    "key": "about_cta_subtitle",
+    "value": "Confía en nuestra experiencia y compromiso con la calidad. Agenda tu cita hoy mismo y experimenta la diferencia de un servicio profesional.",
+    "created_at": "2025-01-09T00:00:00.000Z",
+    "updated_at": "2025-01-09T00:00:00.000Z"
+  }
+]

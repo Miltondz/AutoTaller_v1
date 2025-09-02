@@ -8,13 +8,13 @@ import {
   DollarSign,
   Mail,
   ImageIcon,
-  Music,
+  Wrench,
   MessageSquare,
   AlertCircle,
   FileText
 } from 'lucide-react'
-import { Card, CardContent, CardHeader } from '../../components/Card'
-import { Button } from '../../components/Button'
+
+import { AutomotiveCard, AutomotiveButton } from '../../components/AutomotiveForm';
 import { Spinner } from '../../components/Spinner'
 import { useServices } from '../../hooks/useServices'
 import { useTestimonials } from '../../hooks/useTestimonials'
@@ -105,7 +105,7 @@ function AdminDashboard() {
 
   if (coreLoading) {
     return (
-      <div className="flex justify-center py-8">
+      <div className="flex justify-center py-8 bg-dark-primary">
         <Spinner size="lg" />
       </div>
     )
@@ -115,15 +115,15 @@ function AdminDashboard() {
     return (
       <div className="text-center py-8">
         <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-        <h3 className="text-lg font-semibold text-slate-800 mb-2">Error al cargar el panel de control</h3>
-        <p className="text-slate-600 mb-4">{coreError}</p>
-        <Button onClick={() => window.location.reload()}>Intentar de nuevo</Button>
+        <h3 className="text-lg font-impact text-white mb-2 uppercase">Error al cargar el panel de control</h3>
+        <p className="text-light-gray font-franklin mb-4">{coreError}</p>
+        <AutomotiveButton onClick={() => window.location.reload()}>Intentar de nuevo</AutomotiveButton>
       </div>
     )
   }
 
   const adminNavItems = [
-    { name: 'Servicios', path: '/admin/services', icon: Music, count: services.length },
+    { name: 'Servicios', path: '/admin/services', icon: Wrench, count: services.length },
     { name: 'Citas', path: '/admin/appointments', icon: Calendar, count: appointmentsStats.total, badge: appointmentsStats.pending > 0 ? appointmentsStats.pending : undefined },
     { name: 'Blog', path: '/admin/blog', icon: BookOpen, count: blogPosts.length },
     { name: 'Testimonios', path: '/admin/testimonials', icon: Users, count: testimonials.length },
@@ -134,78 +134,78 @@ function AdminDashboard() {
   ]
 
   return (
-    <div className="space-y-8">
-      <h1 className="text-3xl font-bold text-slate-800">Panel de Administración</h1>
-      <p className="text-slate-600">Bienvenido al panel de control. Aquí puedes gestionar todo el contenido de tu sitio web.</p>
+    <div className="space-y-8 bg-dark-primary p-8 rounded-lg">
+      <h1 className="text-3xl font-impact text-white uppercase">Panel de Administración</h1>
+      <p className="text-light-gray font-franklin">Bienvenido al panel de control. Aquí puedes gestionar todo el contenido de tu sitio web.</p>
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card>
-          <CardContent className="p-6">
+        <AutomotiveCard className="bg-dark-secondary">
+          <div className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-500">Citas Pendientes</p>
+                <p className="text-sm text-light-gray font-franklin">Citas Pendientes</p>
                 <h2 className="text-3xl font-bold text-yellow-600">{appointmentsStats.pending}</h2>
               </div>
               <Calendar className="w-10 h-10 text-yellow-500" />
             </div>
-            <Link to="/admin/appointments" className="text-sm text-amber-600 hover:underline mt-4 block">
+            <Link to="/admin/appointments" className="text-sm text-accent-red hover:underline mt-4 block font-franklin">
               Ver todas las citas
             </Link>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-6">
+          </div>
+        </AutomotiveCard>
+        <AutomotiveCard className="bg-dark-secondary">
+          <div className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-500">Mensajes No Leídos</p>
+                <p className="text-sm text-light-gray font-franklin">Mensajes No Leídos</p>
                 <h2 className="text-3xl font-bold text-blue-600">{unreadMessages.length}</h2>
               </div>
               <Mail className="w-10 h-10 text-blue-500" />
             </div>
-            <Link to="/admin/messages" className="text-sm text-amber-600 hover:underline mt-4 block">
+            <Link to="/admin/messages" className="text-sm text-accent-red hover:underline mt-4 block font-franklin">
               Ver todos los mensajes
             </Link>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-6">
+          </div>
+        </AutomotiveCard>
+        <AutomotiveCard className="bg-dark-secondary">
+          <div className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-500">Ingresos Totales (Estimado)</p>
+                <p className="text-sm text-light-gray font-franklin">Ingresos Totales (Estimado)</p>
                 <h2 className="text-3xl font-bold text-green-600">${paymentsStats.totalRevenue.toFixed(2)}</h2>
               </div>
               <DollarSign className="w-10 h-10 text-green-500" />
             </div>
-            <Link to="/admin/payments" className="text-sm text-amber-600 hover:underline mt-4 block">
+            <Link to="/admin/payments" className="text-sm text-accent-red hover:underline mt-4 block font-franklin">
               Ver historial de pagos
             </Link>
-          </CardContent>
-        </Card>
+          </div>
+        </AutomotiveCard>
       </div>
 
       {/* Navigation Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {adminNavItems.map((item) => (
           <Link key={item.name} to={item.path}>
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 flex items-center justify-between">
+            <AutomotiveCard hover className="bg-dark-secondary group">
+              <div className="p-6 flex items-center justify-between">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-xl font-semibold text-slate-800">{item.name}</h3>
+                    <h3 className="text-xl font-impact text-white uppercase">{item.name}</h3>
                     {item.badge !== undefined && item.badge > 0 && (
-                      <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                      <span className="bg-accent-red text-white text-xs font-bold px-2 py-1 rounded-full">
                         {item.badge}
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-slate-600 mt-1">
+                  <p className="text-sm text-light-gray mt-1 font-franklin">
                     {item.name === 'Citas' ? `${item.count} total` : `${item.count} elementos`}
                   </p>
                 </div>
-                <item.icon className="w-8 h-8 text-amber-600" />
-              </CardContent>
-            </Card>
+                <item.icon className="w-8 h-8 text-accent-red" />
+              </div>
+            </AutomotiveCard>
           </Link>
         ))}
       </div>

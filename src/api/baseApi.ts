@@ -6,7 +6,7 @@ export function createSupabaseApi<T>(tableName: string) {
       const { data, error } = await supabase
         .from(tableName)
         .select('*')
-        .order('created_at', { ascending: false })
+        .order('created_at', { ascending: false }) as { data: T[]; error: any }
 
       if (error) throw error
       return data || []
@@ -17,7 +17,7 @@ export function createSupabaseApi<T>(tableName: string) {
         .from(tableName)
         .select('*')
         .eq('id', id)
-        .maybeSingle()
+        .maybeSingle() as { data: T | null; error: any }
 
       if (error) throw error
       return data
@@ -28,7 +28,7 @@ export function createSupabaseApi<T>(tableName: string) {
         .from(tableName)
         .insert([itemData])
         .select()
-        .single()
+        .single() as { data: T; error: any }
 
       if (error) throw error
       return data
@@ -40,7 +40,7 @@ export function createSupabaseApi<T>(tableName: string) {
         .update({ ...updates, updated_at: new Date().toISOString() })
         .eq('id', id)
         .select()
-        .single()
+        .single() as { data: T; error: any }
 
       if (error) throw error
       return data
@@ -50,7 +50,7 @@ export function createSupabaseApi<T>(tableName: string) {
       const { error } = await supabase
         .from(tableName)
         .delete()
-        .eq('id', id)
+        .eq('id', id) as { error: any }
 
       if (error) throw error
     }

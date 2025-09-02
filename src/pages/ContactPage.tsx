@@ -84,34 +84,38 @@ export function ContactPage() {
   }
 
   return (
-    <div className="bg-slate-50">
+    <div className="bg-dark-primary">
       {/* Header */}
-      <header className="py-20 sm:py-28 bg-gradient-to-br from-slate-800 to-slate-900 text-white text-center px-4">
-        <motion.h1 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 tracking-tight"
-        >
-          {content.contact_hero_title || 'Ponte en Contacto'}
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-          className="text-lg sm:text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto"
-        >
-          {content.contact_hero_subtitle || '¿Preguntas sobre clases de música en Maracaibo, Caracas o Mérida? ¿Listo para empezar? Contáctame.'}
-        </motion.p>
+      <header className="relative py-20 sm:py-28 bg-dark-primary text-white text-center px-4">
+        <img src="/images/contacto.jpg" alt="Fondo de contacto" className="absolute inset-0 w-full h-full object-cover object-center opacity-20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-dark-primary/50 to-transparent"></div>
+        <div className="relative max-w-4xl mx-auto text-center text-white">
+          <motion.h1 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="text-4xl sm:text-5xl md:text-6xl font-impact mb-4 tracking-tight uppercase"
+          >
+            {content.contact_hero_title || 'Ponte en Contacto'}
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+            className="text-lg sm:text-xl md:text-2xl text-light-gray max-w-3xl mx-auto font-fugaz"
+          >
+            {content.contact_hero_subtitle || '¿Preguntas sobre clases de música en Maracaibo, Caracas o Mérida? ¿Listo para empezar? Contáctame.'}
+          </motion.p>
+        </div>
       </header>
 
-      <Section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <Section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-dark-primary">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-12">
           {/* Contact Information */}
           <div className="lg:col-span-1 space-y-8">
-            <Card>
+            <Card className="bg-dark-secondary border border-white/10">
               <CardContent className="p-6 sm:p-8">
-                <h2 className="text-2xl font-bold text-slate-800 mb-6">Información de Contacto</h2>
+                <h2 className="text-2xl font-impact text-white mb-6 uppercase">Información de Contacto</h2>
                 <div className="space-y-6">
                   <InfoItem icon={<Mail />} label="Email" value={content.contact_info_email || 'MaestraLauraKarol@gmail.com'} href={`mailto:${content.contact_info_email}`} />
                   <InfoItem icon={<Phone />} label="Teléfono" value={content.contact_info_phone || '+58 123 456 7890'} href={`tel:${content.contact_info_phone}`} />
@@ -121,9 +125,9 @@ export function ContactPage() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-dark-secondary border border-white/10">
               <CardContent className="p-6 sm:p-8">
-                <h3 className="text-2xl font-bold text-slate-800 mb-6">Sígueme en Redes</h3>
+                <h3 className="text-2xl font-impact text-white mb-6 uppercase">Sígueme en Redes</h3>
                 <div className="flex space-x-4">
                   <SocialIcon href={content.contact_info_facebook_url || '#'} icon={<Facebook />} />
                   <SocialIcon href={content.contact_info_instagram_url || '#'} icon={<Instagram />} />
@@ -135,20 +139,20 @@ export function ContactPage() {
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <Card>
+            <Card className="bg-dark-secondary border border-white/10">
               <CardContent className="p-6 sm:p-8 md:p-10">
-                <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-6">{content.contact_form_title || 'Envíame un Mensaje'}</h2>
+                <h2 className="text-2xl sm:text-3xl font-impact text-white mb-6 uppercase">{content.contact_form_title || 'Envíame un Mensaje'}</h2>
                 
                 {isSubmitted && (
                   <motion.div 
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mb-6 p-4 bg-green-100 border border-green-300 rounded-lg flex items-center space-x-3 text-green-800"
+                    className="mb-6 p-4 bg-dark-secondary border border-accent-red rounded-lg flex items-center space-x-3 text-white"
                   >
-                    <CheckCircle className="w-6 h-6" />
+                    <CheckCircle className="w-6 h-6 text-accent-red" />
                     <div>
-                      <p className="font-semibold">¡Mensaje enviado con éxito!</p>
-                      <p className="text-sm">Gracias por tu interés, te contactaré pronto.</p>
+                      <p className="font-franklin">¡Mensaje enviado con éxito!</p>
+                      <p className="text-sm font-franklin">Gracias por tu interés, te contactaré pronto.</p>
                     </div>
                   </motion.div>
                 )}
@@ -157,10 +161,10 @@ export function ContactPage() {
                   <motion.div 
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mb-6 p-4 bg-red-100 border border-red-300 rounded-lg flex items-center space-x-3 text-red-800"
+                    className="mb-6 p-4 bg-dark-secondary border border-danger-600 rounded-lg flex items-center space-x-3 text-white"
                   >
-                    <AlertTriangle className="w-6 h-6" />
-                    <p>{submitError}</p>
+                    <AlertTriangle className="w-6 h-6 text-danger-600" />
+                    <p className="font-franklin">{submitError}</p>
                   </motion.div>
                 )}
 
@@ -172,18 +176,18 @@ export function ContactPage() {
                   <div className="grid sm:grid-cols-2 gap-6">
                     <FormField id="phone" label="Teléfono (Opcional)" type="tel" value={formData.phone} onChange={handleInputChange} placeholder="+58 123 456 7890" />
                     <div>
-                      <label htmlFor="inquiry_type" className="block text-sm font-medium text-slate-700 mb-2">Tipo de Consulta</label>
+                      <label htmlFor="inquiry_type" className="block text-sm font-franklin text-white mb-2">Tipo de Consulta</label>
                       <select id="inquiry_type" name="inquiry_type" value={formData.inquiry_type} onChange={handleInputChange} className="form-input">
                         {inquiryTypes.map(type => <option key={type.value} value={type.value}>{type.label}</option>)}
                       </select>
                     </div>
                   </div>
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">Mensaje *</label>
+                    <label htmlFor="message" className="block text-sm font-franklin text-white mb-2">Mensaje *</label>
                     <textarea id="message" name="message" value={formData.message} onChange={handleInputChange} required rows={5} className="form-input resize-none" placeholder="Cuéntame cómo puedo ayudarte..."></textarea>
                   </div>
                   <div className="flex justify-end pt-2">
-                    <Button type="submit" disabled={!isFormValid || loading} size="lg">
+                    <Button type="submit" disabled={!isFormValid || loading} size="lg" className="bg-accent-red text-white hover:bg-red-700">
                       {loading ? <Spinner size="sm" /> : <Send className="w-5 h-5 mr-2" />}
                       {loading ? 'Enviando...' : 'Enviar Mensaje'}
                     </Button>
@@ -201,29 +205,29 @@ export function ContactPage() {
 // Helper components for cleaner structure
 const InfoItem = ({ icon, label, value, href }: { icon: React.ReactNode, label: string, value: string, href?: string }) => (
   <div className="flex items-start space-x-4">
-    <div className="flex-shrink-0 w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center text-amber-600">{icon}</div>
+    <div className="flex-shrink-0 w-10 h-10 bg-dark-secondary rounded-full flex items-center justify-center text-accent-red border border-white/10">{icon}</div>
     <div>
-      <p className="font-semibold text-slate-800">{label}</p>
+      <p className="font-franklin text-white">{label}</p>
       {href ? (
-        <a href={href} className="text-slate-600 hover:text-amber-600 transition-colors">
+        <a href={href} className="text-light-gray hover:text-accent-red transition-colors font-franklin">
           {value}
         </a>
       ) : (
-        <p className="text-slate-600">{value}</p>
+        <p className="text-light-gray font-franklin">{value}</p>
       )}
     </div>
   </div>
 );
 
 const SocialIcon = ({ href, icon }: { href: string, icon: React.ReactNode }) => (
-  <a href={href} target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-100 rounded-full hover:bg-amber-100 transition-colors group">
-    {React.cloneElement(icon as React.ReactElement, { className: "w-6 h-6 text-slate-600 group-hover:text-amber-600" })}
+  <a href={href} target="_blank" rel="noopener noreferrer" className="p-3 bg-dark-secondary rounded-full hover:bg-white/10 transition-colors group border border-white/10">
+    {React.cloneElement(icon as React.ReactElement, { className: "w-6 h-6 text-light-gray group-hover:text-accent-red" })}
   </a>
 );
 
 const FormField = ({ id, label, type = 'text', value, onChange, placeholder, required = false }: any) => (
   <div>
-    <label htmlFor={id} className="block text-sm font-medium text-slate-700 mb-2">{label}</label>
+    <label htmlFor={id} className="block text-sm font-franklin text-white mb-2">{label}</label>
     <input type={type} id={id} name={id} value={value} onChange={onChange} required={required} className="form-input" placeholder={placeholder} />
   </div>
 );

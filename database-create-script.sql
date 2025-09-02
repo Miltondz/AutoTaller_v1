@@ -1,4 +1,4 @@
--- Music Teacher Website Database Creation Script
+-- Taller Mecánico Website Database Creation Script
 -- Run this in Supabase SQL Editor
 
 -- Drop existing tables if they exist
@@ -39,7 +39,7 @@ CREATE TABLE blog_posts (
     excerpt TEXT,
     image_url TEXT,
     published_date TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    author TEXT DEFAULT 'Music Teacher',
+    author TEXT DEFAULT 'Taller Mecánico',
     slug TEXT UNIQUE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -109,31 +109,31 @@ CREATE POLICY "Authenticated users can manage payments" ON payments FOR ALL USIN
 
 -- Sample services
 INSERT INTO services (name, description, price, duration_minutes, image_url) VALUES
-('Clases de Piano', 'Aprende piano desde cero o perfecciona tu técnica con nuestro método personalizado.', 45.00, 60, '/images/piano_service.jpg'),
-('Clases de Guitarra', 'Domina la guitarra acústica o eléctrica con técnicas modernas y clásicas.', 40.00, 60, '/images/guitar_service.jpg'),
-('Clases de Violín', 'Desarrolla tu habilidad en el violín con un enfoque técnico y expresivo.', 50.00, 60, '/images/violin_service.jpg'),
-('Teoría Musical', 'Comprende los fundamentos de la música: armonía, ritmo y composición.', 35.00, 45, '/images/theory_service.jpg');
+('Cambio de Aceite', 'Cambio de aceite y filtro, revisión de niveles y puntos de seguridad.', 50000, 45, '/images/services/oil-change.jpg'),
+('Alineación y Balanceo', 'Alineación computarizada y balanceo de las cuatro ruedas.', 40000, 60, '/images/services/alignment.jpg'),
+('Frenos', 'Revisión y cambio de pastillas y discos de freno.', 80000, 90, '/images/services/brakes.jpg'),
+('Diagnóstico Electrónico', 'Escaneo computarizado para detectar fallas en el sistema electrónico.', 60000, 50, '/images/services/diagnostics.jpg');
 
 -- Sample testimonials
 INSERT INTO testimonials (author_name, content, rating) VALUES
-('María González', 'Excelente profesora, muy paciente y dedicada. Mis hijos han aprendido muchísimo.', 5),
-('Carlos Rodríguez', 'Las clases de guitarra superaron mis expectativas. Recomiendo totalmente.', 5),
-('Ana Martínez', 'Profesionalismo y calidad en cada clase. Mi hija está encantada con el piano.', 5),
-('José López', 'Métodos de enseñanza muy efectivos. He progresado más de lo que imaginaba.', 4);
+('Juan Pérez', 'Excelente servicio, mi auto quedó como nuevo. Muy profesionales y atentos.', 5),
+('María Rodriguez', 'Rápido y confiable. Me explicaron todo el proceso y los precios son justos.', 5),
+('Carlos Gómez', 'Llevé mi camioneta por un ruido extraño y lo solucionaron en el mismo día. ¡Recomendados!', 5),
+('Ana Martínez', 'Muy buen servicio, el personal es amable y calificado.', 4);
 
 -- Sample blog posts
 INSERT INTO blog_posts (title, content, excerpt, slug) VALUES
-('Beneficios de Aprender Música en la Infancia', 
- 'La música es una herramienta poderosa para el desarrollo cognitivo de los niños. Estudios han demostrado que aprender un instrumento musical mejora la memoria, la concentración y las habilidades matemáticas...', 
- 'Descubre cómo la música potencia el desarrollo cognitivo infantil.',
- 'beneficios-musica-infancia'),
-('Cómo Elegir tu Primer Instrumento Musical', 
- 'Elegir el primer instrumento es una decisión importante que puede marcar tu relación con la música para toda la vida. Considera factores como tu edad, gustos musicales y objetivos...', 
- 'Guía completa para seleccionar el instrumento perfecto para ti.',
- 'elegir-primer-instrumento'),
-('La Importancia de la Práctica Diaria', 
- 'La constancia es clave en el aprendizaje musical. Dedicar tiempo diario, aunque sean 15-20 minutos, es más efectivo que sesiones largas esporádicas...', 
- 'Tips para mantener una rutina de práctica efectiva.',
- 'importancia-practica-diaria');
+('5 Consejos para el Mantenimiento de tu Auto', 
+ 'Mantener tu auto en buen estado es clave para tu seguridad y para evitar reparaciones costosas. Aquí te dejamos 5 consejos prácticos que puedes seguir...', 
+ 'Descubre cómo mantener tu auto en las mejores condiciones.',
+ '5-consejos-mantenimiento-auto'),
+('¿Cuándo Debes Cambiar los Neumáticos?', 
+ 'Los neumáticos son el único punto de contacto de tu auto con la carretera, por lo que es vital saber cuándo es el momento de cambiarlos. Te explicamos cómo revisar la profundidad del dibujo y otros signos de desgaste.', 
+ 'Aprende a identificar el momento correcto para cambiar tus neumáticos.',
+ 'cuando-cambiar-neumaticos'),
+('La Importancia de los Frenos en tu Vehículo', 
+ 'El sistema de frenos es uno de los componentes de seguridad más importantes de tu auto. Aprende a identificar las señales de que tus frenos necesitan mantenimiento y por qué no debes posponerlo.', 
+ 'No descuides tus frenos, son vitales para tu seguridad.',
+ 'importancia-frenos-vehiculo');
 
 COMMIT;

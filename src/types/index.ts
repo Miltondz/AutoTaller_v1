@@ -1,3 +1,10 @@
+export interface User {
+  id: string;
+  email: string;
+  name?: string;
+  role?: 'admin' | 'mechanic' | 'customer';
+}
+
 export interface Service {
   id: string
   name: string

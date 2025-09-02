@@ -1,0 +1,72 @@
+🎨 Colores usados
+
+
+Negro grisáceo oscuro → #1c1c1e (background predominante)
+
+Gris claro → #bbbbbb (textos secundarios, placeholders)
+
+Rojo acentuado → #d92639 (botones, palabras clave, links importantes)
+
+Gris medio → #232326 (fondos de tarjetas, elementos secundarios)
+
+🔹 Estilo: Contraste fuerte, predominio del negro y gris con un rojo de acento para resaltar elementos de acción o palabras clave.
+
+✍️ Fuentes
+
+Impact (titulares principales, grandes y en negrita)
+
+Fugaz One (subtítulos, estilo más dinámico y deportivo)
+
+Franklin Gothic Medium (textos de párrafos, formularios y secciones descriptivas)
+
+🔹 Estilo: combinación de tipografía fuerte (Impact) + moderna (Fugaz One) + legible (Franklin Gothic) para balancear jerarquía visual.
+
+🖼️ Estilo visual
+
+Diseño minimalista y oscuro → predominio de negro con toques de gris y acento en rojo.
+
+Tipografía bold y en mayúsculas en secciones importantes.
+
+Imágenes con filtro oscuro para resaltar texto en superposición.
+
+Iconografía simple (blanco sobre negro o gris).
+
+Efectos de sombras suaves en botones y contenedores.
+
+Uso de bloques y tarjetas rectangulares con bordes rectos y contraste entre fondos.
+
+🔘 Botones y formularios
+
+Botones principales (CTA)
+
+Fondo: rojo #d92639
+
+Texto: blanco
+
+Estilo: rectangular, esquinas levemente redondeadas
+
+Hover probable: cambio de tono o sombra externa.
+
+Botones secundarios / links
+
+Texto en blanco o gris, subrayado o resaltado en rojo al pasar el mouse.
+
+Inputs y formularios
+
+Fondo gris oscuro (#232326)
+
+Texto blanco o gris claro
+
+Placeholder gris tenue (#bbbbbb)
+
+Estilo rectangular, bordes redondeados sutiles.
+
+✨ Efectos
+
+Contraste texto-fondo: uso constante de texto claro sobre fondo oscuro.
+
+Hover states en botones y links → probablemente sombra o cambio de color.
+
+Sombras difusas en tarjetas y formularios para dar relieve.
+
+Animaciones mínimas (probable fade-in / hover scale en botones).

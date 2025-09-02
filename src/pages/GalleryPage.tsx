@@ -1,19 +1,18 @@
 import React, { useState, useMemo } from 'react';
 import { Image as ImageIcon, Video, Youtube, Instagram, Star, Filter, X } from 'lucide-react';
-import { Card } from '../components/Card';
-import { Button } from '../components/Button';
 import { Spinner } from '../components/Spinner';
 import { useMediaGallery } from '../hooks/useMediaGallery';
 import { extractYouTubeId } from '../lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
-
-export { GalleryPage };
+import { AutomotiveButton, AutomotiveCard } from '../components/AutomotiveForm';
+import { useSiteContent } from '../hooks/useSiteContent';
 
 type MediaType = 'all' | 'photo' | 'video' | 'youtube' | 'instagram';
-type CategoryType = 'all' | 'lecciones' | 'performances' | 'testimonios' | 'eventos' | 'general';
+type CategoryType = 'all' | 'servicios' | 'reparaciones' | 'testimonios' | 'instalaciones' | 'general';
 
-function GalleryPage() {
+export function GalleryPage() {
   const { mediaItems, loading, error, fetchMediaItems } = useMediaGallery();
+  const { content, loading: contentLoading } = useSiteContent();
   const [filterType, setFilterType] = useState<MediaType>('all');
   const [filterCategory, setFilterCategory] = useState<CategoryType>('all');
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -47,9 +46,9 @@ function GalleryPage() {
     }
   };
 
-  if (loading) {
+  if (loading || contentLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="min-h-screen flex items-center justify-center bg-dark-primary">
         <Spinner size="lg" />
       </div>
     );
@@ -57,41 +56,48 @@ function GalleryPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 p-8">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-slate-800 mb-4">Error al Cargar la Galería</h2>
-          <p className="text-slate-600 mb-6">{error}</p>
-          <Button onClick={() => fetchMediaItems()}>Intentar de Nuevo</Button>
+      <div className="min-h-screen flex items-center justify-center bg-dark-primary p-8">
+        <div className="text-center text-white">
+          <h2 className="text-2xl font-bold mb-4">Error al Cargar la Galería</h2>
+          <p className="text-light-gray mb-6">{error}</p>
+          <AutomotiveButton onClick={() => fetchMediaItems()}>Intentar de Nuevo</AutomotiveButton>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-dark-primary">
       {/* Header Section */}
-      <header className="py-20 sm:py-28 bg-gradient-to-br from-purple-500 to-indigo-600 text-white text-center px-4">
+      <header className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-dark-primary text-white">
+        <img src="/images/gallery_hero.jpeg" alt="Vehículo de lujo en un taller impecable" className="absolute inset-0 w-full h-full object-cover opacity-20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-dark-primary via-dark-primary/70 to-transparent"></div>
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="relative max-w-4xl mx-auto text-center"
         >
-          <ImageIcon className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-6 text-purple-200" />
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 tracking-tight">
-            Galería de Momentos Musicales
+          <div className="flex justify-center mb-6">
+            <div className="p-4 bg-accent-red rounded-full shadow-md">
+              <ImageIcon className="w-16 h-16 text-white" />
+            </div>
+          </div>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-impact mb-4 tracking-tight uppercase">
+            {content.gallery_hero_title || 'Galería de Nuestro Trabajo'}
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-purple-100 max-w-3xl mx-auto">
-            Explora fotos y videos de nuestras clases de música, eventos y logros de estudiantes en toda Venezuela.
+          <p className="text-lg sm:text-xl md:text-2xl text-light-gray max-w-3xl mx-auto font-fugaz">
+            {content.gallery_hero_subtitle || 'Explora fotos y videos de nuestros servicios, instalaciones y vehículos reparados.'}
           </p>
         </motion.div>
       </header>
 
       {/* Filters */}
-      <section className="py-8 sm:py-12 bg-slate-50 border-b border-slate-200 px-4 sm:px-6 lg:px-8">
+      <section className="py-8 sm:py-12 bg-dark-secondary border-b border-white/10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-6 justify-center items-center">
-          <div className="flex items-center gap-3">
-            <Filter className="w-5 h-5 text-slate-500" />
-            <span className="font-medium text-slate-700">Filtrar por:</span>
+          <div className="flex items-center gap-3 text-white">
+            <Filter className="w-5 h-5 text-accent-red" />
+            <span className="font-semibold font-franklin">Filtrar por:</span>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <select
@@ -111,10 +117,10 @@ function GalleryPage() {
               className="form-input w-full sm:w-auto"
             >
               <option value="all">Todas las Categorías</option>
-              <option value="lecciones">Lecciones</option>
-              <option value="performances">Presentaciones</option>
+              <option value="servicios">Servicios</option>
+              <option value="reparaciones">Reparaciones</option>
               <option value="testimonios">Testimonios</option>
-              <option value="eventos">Eventos</option>
+              <option value="instalaciones">Instalaciones</option>
               <option value="general">General</option>
             </select>
           </div>
@@ -130,11 +136,11 @@ function GalleryPage() {
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="col-span-full text-center py-16"
+                  className="col-span-full text-center py-16 text-white"
                 >
-                  <ImageIcon className="w-16 h-16 sm:w-20 sm:h-20 text-slate-300 mx-auto mb-6" />
-                  <h3 className="text-xl sm:text-2xl font-semibold text-slate-800 mb-3">No se Encontraron Resultados</h3>
-                  <p className="text-base sm:text-lg text-slate-500">Intenta ajustar los filtros para encontrar lo que buscas.</p>
+                  <ImageIcon className="w-16 h-16 sm:w-20 sm:h-20 text-light-gray/20 mx-auto mb-6" />
+                  <h3 className="text-xl sm:text-2xl font-semibold mb-3">No se Encontraron Resultados</h3>
+                  <p className="text-base sm:text-lg text-light-gray">Intenta ajustar los filtros para encontrar lo que buscas.</p>
                 </motion.div>
               ) : (
                 filteredMedia.map((item, index) => {
@@ -150,28 +156,28 @@ function GalleryPage() {
                       className="cursor-pointer group"
                       onClick={() => openLightbox(item)}
                     >
-                      <Card className="h-full overflow-hidden">
-                        <div className="relative h-48 sm:h-56 bg-slate-100">
+                      <AutomotiveCard className="h-full overflow-hidden bg-dark-secondary">
+                        <div className="relative h-48 sm:h-56">
                           <img
                             src={item.thumbnail_url || item.media_url}
                             alt={item.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                          <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-black/50 text-white p-1.5 rounded-full">
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                          <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-dark-secondary/50 text-white p-1.5 rounded-full backdrop-blur-sm">
                             <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />
                           </div>
                           {item.is_featured && (
-                            <div className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-amber-500 text-white px-2 py-1 text-xs font-bold rounded-full flex items-center shadow-lg">
+                            <div className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-accent-red text-white px-2 py-1 text-xs font-bold rounded-full flex items-center shadow-lg">
                               <Star className="w-3 h-3 mr-1" />
                               DESTACADO
                             </div>
                           )}
                           <div className="absolute bottom-0 left-0 p-2 sm:p-4">
-                             <h3 className="font-bold text-white text-sm sm:text-lg leading-tight line-clamp-2">{item.title}</h3>
+                             <h3 className="font-impact text-white text-sm sm:text-lg leading-tight line-clamp-2 uppercase">{item.title}</h3>
                           </div>
                         </div>
-                      </Card>
+                      </AutomotiveCard>
                     </motion.div>
                   );
                 })
@@ -195,19 +201,19 @@ function GalleryPage() {
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
-              className="relative max-w-4xl w-full max-h-[90vh] bg-white rounded-xl overflow-hidden shadow-2xl flex flex-col"
-              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the content
+              className="relative max-w-4xl w-full max-h-[90vh] bg-dark-secondary rounded-xl overflow-hidden shadow-2xl flex flex-col"
+              onClick={(e) => e.stopPropagation()}
             >
-              <Button
-                variant="ghost"
+              <AutomotiveButton
+                variant="tool"
                 size="sm"
                 onClick={closeLightbox}
-                className="absolute top-2 right-2 z-10 text-slate-100 bg-black/40 rounded-full hover:bg-white hover:text-amber-500 w-10 h-10"
+                className="absolute top-2 right-2 z-10 text-white bg-black/40 rounded-full hover:bg-white/20 hover:text-accent-red w-10 h-10"
               >
                 <X className="w-6 h-6" />
-              </Button>
+              </AutomotiveButton>
               
-              <div className="flex-grow p-2 sm:p-4 flex items-center justify-center">
+              <div className="flex-grow p-2 sm:p-4 flex items-center justify-center bg-black">
                 {currentMedia.media_type === 'photo' && (
                   <img src={currentMedia.media_url} alt={currentMedia.title} className="w-full h-auto max-h-[75vh] object-contain" />
                 )}
@@ -221,25 +227,25 @@ function GalleryPage() {
                 )}
                 {currentMedia.media_type === 'instagram' && (
                    <div className="w-full max-w-md mx-auto my-10">
-                    <div className="bg-gradient-to-br from-purple-50 to-pink-50 border border-pink-200 rounded-lg p-8 text-center">
-                      <Instagram className="w-16 h-16 text-pink-500 mx-auto mb-6" />
-                      <h4 className="text-xl font-bold text-slate-800 mb-2">{currentMedia.title}</h4>
-                      <p className="text-slate-600 text-sm mb-6">{currentMedia.description}</p>
+                    <div className="bg-dark-primary border border-white/10 rounded-lg p-8 text-center">
+                      <Instagram className="w-16 h-16 text-accent-red mx-auto mb-6" />
+                      <h4 className="text-xl font-impact text-white mb-2 uppercase">{currentMedia.title}</h4>
+                      <p className="text-light-gray text-sm mb-6 font-franklin">{currentMedia.description}</p>
                       <a href={currentMedia.media_url} target="_blank" rel="noopener noreferrer">
-                        <Button variant="primary">Ver en Instagram</Button>
+                        <AutomotiveButton variant="primary" className="bg-accent-red text-white hover:bg-red-700">Ver en Instagram</AutomotiveButton>
                       </a>
                     </div>
                   </div>
                 )}
               </div>
-              <div className="bg-white/80 backdrop-blur-sm p-4 mt-auto border-t border-slate-200">
-                <h3 className="text-lg sm:text-xl font-bold text-slate-800">{currentMedia.title}</h3>
-                {currentMedia.description && <p className="text-sm sm:text-base text-slate-600 mt-1">{currentMedia.description}</p>}
+              <div className="bg-dark-secondary/80 backdrop-blur-sm p-4 mt-auto border-t border-white/10">
+                <h3 className="text-lg sm:text-xl font-impact text-white uppercase">{currentMedia.title}</h3>
+                {currentMedia.description && <p className="text-sm sm:text-base text-light-gray mt-1 font-franklin">{currentMedia.description}</p>}
               </div>
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+     </AnimatePresence>
     </div>
   );
 }

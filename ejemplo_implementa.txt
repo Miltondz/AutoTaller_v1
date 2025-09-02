@@ -1,0 +1,45 @@
+<section class="hero">
+  <div class="hero-left">
+    <div class="sep-line"></div>
+    <h1 class="h1-industrial h1-layered" data-text="TALLER MECÁNICO">TALLER MECÁNICO</h1>
+    <p class="sub-industrial" style="margin-top:0.8rem;">
+      Reparación y mantenimiento profesional con tecnología avanzada y atención especializada.
+    </p>
+
+    <div style="margin-top:1.4rem; display:flex; gap:0.9rem; align-items:center;">
+      <button class="btn-plate btn-cta btn--large btn-icon">
+        <!-- ejemplo SVG icono llave -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M21 3l-6 6"></path><path d="M14.5 5.5L21 12"></path><circle cx="6" cy="18" r="3"></circle><path d="M8 16l6-6"></path>
+        </svg>
+        Reservar Servicio
+      </button>
+
+      <button class="btn-plate btn-secondary-plate btn--large btn-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M3 12h18"></path><path d="M6 6v12"></path>
+        </svg>
+        Ver Servicios
+      </button>
+    </div>
+
+    <div style="margin-top:1.2rem; display:flex; gap:1rem;">
+      <div class="stat-pill"><div class="n">500+</div><div class="t">Vehículos</div></div>
+      <div class="stat-pill"><div class="n">20+</div><div class="t">Años</div></div>
+      <div class="stat-pill"><div class="n">98%</div><div class="t">Satisfacción</div></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="card-metal" style="width:360px; height:220px;">
+      <div class="metal-sheen"></div>
+      <!-- ejemplo de engranaje que gira -->
+      <div style="display:flex; align-items:center; justify-content:center; height:100%;">
+        <svg class="gear-spin" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#e6eef2" stroke-width="1.6">
+          <path d="M12 15.5A3.5 3.5 0 1 0 12 8.5a3.5 3.5 0 0 0 0 7z"></path>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06A2 2 0 1 1 2.5 16.89l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H2a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82L3.27 5.5A2 2 0 1 1 6.1 2.67l.06.06a1.65 1.65 0 0 0 1.82.33H8a1.65 1.65 0 0 0 1-1.51V2a2 2 0 1 1 4 0v.09c0 .6.39 1.17 1 1.51h.02a1.65 1.65 0 0 0 1.82-.33l.06-.06A2 2 0 1 1 21.5 7.11l-.06.06a1.65 1.65 0 0 0-.33 1.82V10a1.65 1.65 0 0 0 1.51 1H22a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>

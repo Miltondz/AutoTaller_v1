@@ -1,4 +1,4 @@
--- New Tables for Enhanced Music Teacher Website
+-- New Tables for Enhanced Taller Mecánico Website
 -- Run these SQL commands in your Supabase SQL Editor
 
 -- 1. Media Gallery Table
@@ -58,15 +58,15 @@ CREATE INDEX IF NOT EXISTS idx_contact_messages_is_read ON contact_messages(is_r
 
 -- Sample data for media_gallery (optional)
 INSERT INTO media_gallery (title, description, media_type, media_url, category, is_featured) VALUES
-('Recital de Piano Primavera 2024', 'Estudiantes presentando sus piezas favoritas', 'photo', '/images/piano-recital-students-performance.jpg', 'recitales', true),
-('Clase de Guitarra Avanzada', 'Técnicas avanzadas de fingerpicking', 'photo', '/images/advanced-guitar-lesson-technique.jpg', 'clases', true),
-('Masterclass de Violín', 'Técnica de arco y expresividad', 'youtube', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'clases', true),
-('Concierto de Estudiantes', 'Presentación anual de fin de año', 'photo', '/images/student-concert-performance-hall.jpg', 'eventos', false);
+('Reparación de Motor', 'Mecánico trabajando en un motor.', 'photo', '/images/gallery/motor-repair.jpg', 'reparaciones', true),
+('Cambio de Neumáticos', 'Cambio de neumáticos en nuestro taller.', 'photo', '/images/gallery/tire-change.jpg', 'servicios', true),
+('Diagnóstico Computarizado', 'Usando equipo de diagnóstico de última generación.', 'youtube', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'diagnostico', true),
+('Taller en Acción', 'Nuestro equipo trabajando en varios vehículos.', 'photo', '/images/gallery/taller-in-action.jpg', 'taller', false);
 
 -- Sample data for contact_messages (optional)
 INSERT INTO contact_messages (name, email, message, inquiry_type) VALUES
-('María García', 'maria@email.com', 'Hola, estoy interesada en clases de piano para mi hija de 8 años. ¿Podrían proporcionarme más información sobre horarios y precios?', 'lessons'),
-('Carlos López', 'carlos@email.com', '¿Ofrecen clases de guitarra para principiantes adultos? Me gustaría comenzar a aprender.', 'lessons'),
-('Ana Martínez', 'ana@email.com', 'Me encantó el recital de la semana pasada. ¿Cuándo será el próximo evento?', 'events');
+('María García', 'maria@email.com', 'Hola, estoy interesada en un cambio de aceite para mi carro. ¿Podrían proporcionarme más información sobre horarios y precios?', 'servicios'),
+('Carlos López', 'carlos@email.com', '¿Ofrecen servicio de grúa? Necesito remolcar mi vehículo al taller.', 'general'),
+('Ana Martínez', 'ana@email.com', 'Me encantó el servicio de la semana pasada. ¿Cuándo será la próxima promoción?', 'promociones');
 
 COMMIT;

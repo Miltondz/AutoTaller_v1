@@ -14,7 +14,7 @@ export const contactMessagesApi = {
         is_read: messageData.is_read ?? false,
       })
       .select()
-      .single()
+      .single() as { data: ContactMessage; error: any }
 
     if (error) throw error
     return data
@@ -25,7 +25,7 @@ export const contactMessagesApi = {
       .from('contact_messages')
       .select('*')
       .eq('is_read', false)
-      .order('created_at', { ascending: false })
+      .order('created_at', { ascending: false }) as { data: ContactMessage[]; error: any }
 
     if (error) throw error
     return data || []
@@ -38,7 +38,7 @@ export const contactMessagesApi = {
       .update({ is_read: true, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
-      .single()
+      .single() as { data: ContactMessage; error: any }
 
     if (error) throw error
     return data
@@ -55,7 +55,7 @@ export const contactMessagesApi = {
       })
       .eq('id', id)
       .select()
-      .single()
+      .single() as { data: ContactMessage; error: any }
 
     if (error) throw error
     return data

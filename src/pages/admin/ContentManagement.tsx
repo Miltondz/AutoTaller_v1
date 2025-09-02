@@ -128,14 +128,14 @@ export function ContentManagement() {
           <Card>
             <CardHeader><h3 className="text-lg font-semibold">Contenido de la Página de Inicio</h3></CardHeader>
             <CardContent className="space-y-4">
-              <h4 className="text-md font-semibold">Hero Section</h4>
+              <h4 className="text-md font-semibold">Sección Principal</h4>
               {renderField('home_hero_title', 'Título')}
               {renderField('home_hero_subtitle', 'Subtítulo', 'textarea')}
-              <h4 className="text-md font-semibold pt-4 border-t">About Preview</h4>
+              <h4 className="text-md font-semibold pt-4 border-t">Vista Previa de Nosotros</h4>
               {renderField('home_about_title', 'Título')}
               {renderField('home_about_p1', 'Párrafo 1', 'textarea')}
               {renderField('home_about_p2', 'Párrafo 2', 'textarea')}
-              <h4 className="text-md font-semibold pt-4 border-t">Why Choose Us</h4>
+              <h4 className="text-md font-semibold pt-4 border-t">Por Qué Elegirnos</h4>
               {renderField('home_why_title', 'Título')}
               {renderField('home_why_subtitle', 'Subtítulo', 'textarea')}
               {renderField('home_why_f1_title', 'Título Característica 1')}
@@ -144,13 +144,13 @@ export function ContentManagement() {
               {renderField('home_why_f2_text', 'Texto Característica 2', 'textarea')}
               {renderField('home_why_f3_title', 'Título Característica 3')}
               {renderField('home_why_f3_text', 'Texto Característica 3', 'textarea')}
-              <h4 className="text-md font-semibold pt-4 border-t">Services</h4>
+              <h4 className="text-md font-semibold pt-4 border-t">Servicios</h4>
               {renderField('home_services_title', 'Título')}
               {renderField('home_services_subtitle', 'Subtítulo', 'textarea')}
-              <h4 className="text-md font-semibold pt-4 border-t">Testimonials</h4>
+              <h4 className="text-md font-semibold pt-4 border-t">Testimonios</h4>
               {renderField('home_testimonials_title', 'Título')}
               {renderField('home_testimonials_subtitle', 'Subtítulo', 'textarea')}
-              <h4 className="text-md font-semibold pt-4 border-t">Call to Action</h4>
+              <h4 className="text-md font-semibold pt-4 border-t">Llamada a la Acción</h4>
               {renderField('home_cta_title', 'Título')}
               {renderField('home_cta_subtitle', 'Subtítulo', 'textarea')}
             </CardContent>
@@ -161,14 +161,14 @@ export function ContentManagement() {
           <Card>
             <CardHeader><h3 className="text-lg font-semibold">Contenido de la Página 'Acerca de'</h3></CardHeader>
             <CardContent className="space-y-4">
-              <h4 className="text-md font-semibold">Hero Section</h4>
+              <h4 className="text-md font-semibold">Sección Principal</h4>
               {renderField('about_hero_title', 'Título')}
               {renderField('about_hero_subtitle', 'Subtítulo', 'textarea')}
-              <h4 className="text-md font-semibold pt-4 border-t">Biography</h4>
+              <h4 className="text-md font-semibold pt-4 border-t">Biografía</h4>
               {renderField('about_bio_title', 'Título')}
               {renderField('about_bio_p1', 'Párrafo 1', 'textarea')}
               {renderField('about_bio_p2', 'Párrafo 2', 'textarea')}
-              <h4 className="text-md font-semibold pt-4 border-t">Timeline</h4>
+              <h4 className="text-md font-semibold pt-4 border-t">Cronología</h4>
               {renderField('about_timeline_title', 'Título')}
               {renderField('about_timeline_subtitle', 'Subtítulo', 'textarea')}
               {renderField('about_timeline_i1_title', 'Título Elemento 1')}
@@ -183,7 +183,7 @@ export function ContentManagement() {
               {renderField('about_timeline_i5_text', 'Texto Elemento 5', 'textarea')}
               {renderField('about_timeline_i6_title', 'Título Elemento 6')}
               {renderField('about_timeline_i6_text', 'Texto Elemento 6', 'textarea')}
-              <h4 className="text-md font-semibold pt-4 border-t">Call to Action</h4>
+              <h4 className="text-md font-semibold pt-4 border-t">Llamada a la Acción</h4>
               {renderField('about_cta_title', 'Título')}
               {renderField('about_cta_subtitle', 'Subtítulo', 'textarea')}
             </CardContent>

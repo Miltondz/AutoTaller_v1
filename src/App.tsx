@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
+import { UnifiedAuthProvider } from './contexts/UnifiedAuthContext';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import ScrollToTop from './components/ScrollToTop';
 
-// Public Pages
+// Import pages
 import { HomePage } from './pages/HomePage';
 import { ServicesPage } from './pages/ServicesPage';
 import { AboutPage } from './pages/AboutPage';
@@ -16,13 +16,12 @@ import { BlogPost } from './pages/BlogPost';
 import { GalleryPage } from './pages/GalleryPage';
 import { ContactPage } from './pages/ContactPage';
 import { LoginPage } from './pages/LoginPage';
-
-// Admin Pages
+import { ServiceTrackingPage } from './pages/ServiceTrackingPage';
 import { AdminLayout } from './pages/admin/AdminLayout';
 
 function App() {
   return (
-    <AuthProvider>
+    <UnifiedAuthProvider>
       <BrowserRouter>
         <ScrollToTop />
         <div className="min-h-screen flex flex-col">
@@ -39,6 +38,7 @@ function App() {
               <Route path="/galeria" element={<GalleryPage />} />
               <Route path="/contacto" element={<ContactPage />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/rastrear" element={<ServiceTrackingPage />} />
 
               {/* Protected Admin Routes */}
               <Route path="/admin/*" element={
@@ -54,7 +54,7 @@ function App() {
           <Footer />
         </div>
       </BrowserRouter>
-    </AuthProvider>
+    </UnifiedAuthProvider>
   );
 }
 

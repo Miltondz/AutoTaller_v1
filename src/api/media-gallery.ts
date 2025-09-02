@@ -12,7 +12,7 @@ export const mediaGalleryApi = {
       .from('media_gallery')
       .select('*')
       .eq('is_featured', true)
-      .order('created_at', { ascending: false })
+      .order('created_at', { ascending: false }) as { data: MediaGallery[]; error: any }
 
     if (error) throw error
     return data || []
@@ -24,7 +24,7 @@ export const mediaGalleryApi = {
       .from('media_gallery')
       .select('*')
       .eq('category', category)
-      .order('created_at', { ascending: false })
+      .order('created_at', { ascending: false }) as { data: MediaGallery[]; error: any }
 
     if (error) throw error
     return data || []
@@ -36,7 +36,7 @@ export const mediaGalleryApi = {
       .from('media_gallery')
       .select('*')
       .eq('media_type', mediaType)
-      .order('created_at', { ascending: false })
+      .order('created_at', { ascending: false }) as { data: MediaGallery[]; error: any }
 
     if (error) throw error
     return data || []
@@ -49,7 +49,7 @@ export const mediaGalleryApi = {
       .update({ is_featured: isFeatured, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
-      .single()
+      .single() as { data: MediaGallery; error: any }
 
     if (error) throw error
     return data

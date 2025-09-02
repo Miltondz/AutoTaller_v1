@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Calendar, BookOpen, ArrowLeft, User, Tag } from 'lucide-react';
-import { Button } from '../components/Button';
+import { AutomotiveButton } from '../components/AutomotiveForm';
 import { Spinner } from '../components/Spinner';
 import { formatDate } from '../lib/utils';
 import { blogApi } from '../api/blog';
@@ -76,7 +76,7 @@ export function BlogPost() {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-slate-800 mb-4">Error al Cargar</h2>
           <p className="text-slate-600 mb-6">{error}</p>
-          <Link to="/blog"><Button>Volver al Blog</Button></Link>
+          <Link to="/blog"><AutomotiveButton>Volver al Blog</AutomotiveButton></Link>
         </div>
       </div>
     );
@@ -88,7 +88,7 @@ export function BlogPost() {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-slate-800 mb-4">Publicación No Encontrada</h2>
           <p className="text-slate-600 mb-6">La publicación que buscas no existe o fue eliminada.</p>
-          <Link to="/blog"><Button>Volver al Blog</Button></Link>
+          <Link to="/blog"><AutomotiveButton>Volver al Blog</AutomotiveButton></Link>
         </div>
       </div>
     );
@@ -99,7 +99,7 @@ export function BlogPost() {
       {/* Header Section */}
       <header className="relative py-28 lg:py-40 px-4 bg-slate-800 text-white">
         <img 
-          src={post.image_url || 'https://placehold.co/1200x600/d1d5db/374151?text=Blog+Post'} 
+          src={post.image_url || '/images/placeholders/blog_placeholder.jpg'} 
           alt={`Imagen principal para el artículo sobre ${post.title}`}
           className="absolute inset-0 w-full h-full object-cover opacity-20" 
         />
@@ -139,10 +139,10 @@ export function BlogPost() {
             className="mt-16 pt-8 border-t border-slate-200 text-center"
           >
             <Link to="/blog">
-              <Button variant="secondary">
+              <AutomotiveButton variant="secondary">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Volver al Blog
-              </Button>
+              </AutomotiveButton>
             </Link>
           </motion.div>
         </div>

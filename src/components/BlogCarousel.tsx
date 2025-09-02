@@ -38,7 +38,7 @@ export function BlogCarousel() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-800 mb-3">Desde Nuestro Blog</h2>
-          <p className="text-lg text-slate-600">Consejos, inspiración y noticias del mundo de la música.</p>
+          <p className="text-lg text-slate-600">Consejos, noticias y novedades del mundo automotriz.</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -46,7 +46,7 @@ export function BlogCarousel() {
             <Card key={post.id} className="hover:shadow-xl transition-shadow duration-300 flex flex-col">
               <div className="h-56 overflow-hidden">
                 <img
-                  src={post.image_url || '/images/placeholders/elegant_music_education_blog_placeholder.jpg'}
+                  src={post.image_url || '/images/placeholders/blog_placeholder.jpg'}
                   alt={post.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />

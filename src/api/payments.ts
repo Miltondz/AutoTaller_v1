@@ -7,7 +7,7 @@ export const paymentsApi = {
     const { data, error } = await supabase
       .from('payments')
       .select('*')
-      .order('payment_date', { ascending: false })
+      .order('payment_date', { ascending: false }) as { data: Payment[]; error: any }
 
     if (error) throw error
     return data || []
@@ -19,7 +19,7 @@ export const paymentsApi = {
       .from('payments')
       .select('*')
       .eq('id', id)
-      .maybeSingle()
+      .maybeSingle() as { data: Payment | null; error: any }
 
     if (error) throw error
     return data
@@ -31,7 +31,7 @@ export const paymentsApi = {
       .from('payments')
       .select('*')
       .eq('appointment_id', appointmentId)
-      .order('payment_date', { ascending: false })
+      .order('payment_date', { ascending: false }) as { data: Payment[]; error: any }
 
     if (error) throw error
     return data || []
@@ -43,7 +43,7 @@ export const paymentsApi = {
       .from('payments')
       .select('*')
       .eq('status', status)
-      .order('payment_date', { ascending: false })
+      .order('payment_date', { ascending: false }) as { data: Payment[]; error: any }
 
     if (error) throw error
     return data || []
@@ -55,7 +55,7 @@ export const paymentsApi = {
       .from('payments')
       .insert([paymentData])
       .select()
-      .single()
+      .single() as { data: Payment; error: any }
 
     if (error) throw error
     return data
@@ -68,7 +68,7 @@ export const paymentsApi = {
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
-      .single()
+      .single() as { data: Payment; error: any }
 
     if (error) throw error
     return data
@@ -81,7 +81,7 @@ export const paymentsApi = {
       .update({ status, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
-      .single()
+      .single() as { data: Payment; error: any }
 
     if (error) throw error
     return data
@@ -92,7 +92,7 @@ export const paymentsApi = {
     const { error } = await supabase
       .from('payments')
       .delete()
-      .eq('id', id)
+      .eq('id', id) as { error: any }
 
     if (error) throw error
   },
@@ -106,7 +106,7 @@ export const paymentsApi = {
   }> {
     const { data, error } = await supabase
       .from('payments')
-      .select('amount, status')
+      .select('amount, status') as { data: { amount: number; status: string }[]; error: any }
 
     if (error) throw error
 

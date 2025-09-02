@@ -277,8 +277,7 @@ export function BlogManagement() {
                     onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                     className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
                     rows={12}
-                    placeholder="Write your blog post content here...
-Escribe el contenido de tu publicación aquí...
+                    placeholder="Escribe el contenido de tu publicación aquí...
 Usa **texto** para encabezados y subtítulos.
 Separa los párrafos con dos saltos de línea."
                     required
