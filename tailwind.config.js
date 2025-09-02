@@ -50,7 +50,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Franklin Gothic Medium', 'Inter', 'Roboto', 'system-ui', 'sans-serif'],
+        sans: ['Libre Franklin', 'Franklin Gothic Medium', 'Inter', 'Roboto', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
         impact: ['Impact', 'sans-serif'],
         fugaz: ['Fugaz One', 'sans-serif'],

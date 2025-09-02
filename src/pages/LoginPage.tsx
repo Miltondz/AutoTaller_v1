@@ -45,7 +45,7 @@ export function LoginPage() {
       >
         <Card className="shadow-2xl">
           <CardHeader className="text-center p-8">
-            <h2 className="text-3xl font-bold text-primary-800 heading-automotive">Acceso de Administrador</h2>
+            <h2 className="text-3xl font-bold text-accent-red heading-automotive">Acceso de Administrador</h2>
             <p className="mt-2 text-sm text-primary-600">Ingresa a tu panel de control del taller</p>
           </CardHeader>
           <CardContent className="p-8">

@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
+import { mockAutomotiveServices } from '../data/mockAutomotiveServices'
 
 const USE_MOCK_DATA = !import.meta.env.VITE_SUPABASE_URL;
 
@@ -35,7 +36,14 @@ const createMockClient = () => {
   }
 
   return {
-    from: (table: string) => createMockPromise([]),
+    from: (table: string) => {
+      switch (table) {
+        case 'services':
+          return createMockPromise(mockAutomotiveServices)
+        default:
+          return createMockPromise([])
+      }
+    },
     auth: {
       signUp: () => Promise.resolve({ data: { user: null }, error: null }),
       signIn: () => Promise.resolve({ data: { user: null }, error: null }),
