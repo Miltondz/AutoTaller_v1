@@ -105,3 +105,16 @@ git clone https://github.com/your-repo/autotaller-pro.git
 cd autotaller-pro
 npm install
 ```
+
+---
+
+## 🔑 Credenciales de Prueba (Solo Desarrollo)
+
+Para facilitar las pruebas y el desarrollo, se han configurado las siguientes credenciales mock:
+
+### Credenciales del Login (src/pages/LoginPage.tsx)
+- **Administrador:** `admin@autotallerpro.com` / `admin123`
+- **Mecánico:** `mecanico@autotallerpro.com` / `mecanico123`
+
+### Credenciales del Contexto Mock (src/contexts/MockAuthContextValue.ts)
+- **Usuario Mock:** `test@example.com` / `password`

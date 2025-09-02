@@ -2,7 +2,7 @@ import React, { createContext, useContext } from 'react';
 import { AuthProvider, AuthContext, AuthContextType } from './AuthContext';
 import { MockAuthProvider, MockAuthContext, IMockAuthContextType } from './MockAuthContext';
 
-const USE_MOCK_AUTH = import.meta.env.DEV && !import.meta.env.VITE_SUPABASE_URL;
+const USE_MOCK_AUTH = true; // Forzado a true para autenticación mock temporalmente
 
 type UnifiedAuthContextType = AuthContextType | IMockAuthContextType;
 
