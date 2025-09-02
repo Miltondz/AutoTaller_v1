@@ -7,7 +7,7 @@ import { Spinner } from '../components/Spinner';
 import { useAuth } from '../hooks/useAuth';
 import { motion } from 'framer-motion';
 
-const USE_MOCK_AUTH = import.meta.env.DEV && !import.meta.env.VITE_SUPABASE_URL;
+const USE_MOCK_AUTH = import.meta.env.DEV; // Always show mock credentials in development
 
 export function LoginPage() {
   const [email, setEmail] = useState('');

@@ -18,7 +18,7 @@ export function Button({
   const baseStyles = 'inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none mechanical-hover';
 
   const variants = {
-    primary: 'bg-accent-600 text-white hover:bg-accent-700 focus:ring-accent-500 shadow-tool hover:shadow-tool active:shadow-pressed hover:-translate-y-0.5 active:translate-y-0',
+    primary: 'bg-accent-red text-white hover:bg-red-700 focus:ring-accent-red shadow-tool hover:shadow-tool active:shadow-pressed hover:-translate-y-0.5 active:translate-y-0',
     secondary: 'bg-secondary-600 text-white hover:bg-secondary-700 focus:ring-secondary-500 shadow-tool hover:shadow-tool active:shadow-pressed hover:-translate-y-0.5 active:translate-y-0',
     outline: 'border-2 border-primary-600 text-primary-700 hover:bg-primary-600 hover:text-white focus:ring-primary-500 bg-gradient-to-br from-primary-50 to-primary-100 shadow-tool hover:-translate-y-0.5 active:translate-y-0',
     ghost: 'text-primary-700 hover:bg-primary-100 focus:ring-primary-500 hover:shadow-sm',
